@@ -1,0 +1,6 @@
+sigma2_3way,level_label,n_sims,convergence_rate
+0,None,1000,1
+0.004,Small (20%),1000,1
+0.008,Moderate (40%),1000,1
+0.012,Large (60%),1000,1
+0.02,Dominant (100%),1000,1

@@ -1,0 +1,76 @@
+% Annotation-only pipeline diagram for slides.
+% Vertical flow, polisci-friendly labels, matched in format to
+% fig_pipeline_tse.tex so the two figures display consistently when shown
+% sequentially (annotation first, then benchmark).
+\documentclass{article}
+\usepackage[paperwidth=10in,paperheight=4.1in,margin=0.18in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, fit, backgrounds, calc}
+\pagestyle{empty}
+
+\begin{document}
+\begin{center}
+\begin{tikzpicture}[
+    node distance=0.45cm and 1.6cm,
+    box/.style    = {rectangle, draw, thick, rounded corners=2pt,
+                     minimum width=4.0cm, minimum height=0.85cm,
+                     align=center, font=\small, fill=blue!4},
+    final/.style  = {box, fill=blue!18, font=\bfseries\small,
+                     minimum width=4.4cm},
+    layer/.style  = {draw=gray!55, dashed, semithick, rounded corners=5pt,
+                     inner xsep=10pt, inner ysep=8pt, fill=gray!5},
+    llabel/.style = {font=\scriptsize\itshape, text=gray!72!black,
+                     fill=white, inner xsep=2pt, inner ysep=0pt},
+    vleft/.style  = {font=\footnotesize, align=right, anchor=east,
+                     text width=4.6cm},
+    vright/.style = {font=\footnotesize, align=left,  anchor=west,
+                     text width=4.6cm},
+    arrow/.style  = {-{Stealth[length=2.8mm]}, thick},
+    header/.style = {font=\small\bfseries, align=center,
+                     text=gray!40!black, text width=4.6cm}
+]
+
+% ========= central pipeline (no SUT layer) =========
+\node[box]                           (items)  {\textbf{Content}\\[-1pt]\scriptsize\itshape posts, articles,\\open-ended responses};
+\node[box, below=0.95cm of items]    (jpr)    {\textbf{Coding rubric}\\[-1pt]\scriptsize\itshape instructions for the LLM coder};
+\node[box, below=of jpr]             (jres)   {\textbf{LLM annotation}\\[-1pt]\scriptsize\itshape coder's label for the item};
+\node[final, below=0.95cm of jres]   (agg)    {Aggregate estimate $\hat{\theta}_{hm}$};
+
+\draw[arrow] (items) -- (jpr);
+\draw[arrow] (jpr)   -- (jres);
+\draw[arrow] (jres)  -- (agg);
+
+% ========= annotation layer frame =========
+\begin{scope}[on background layer]
+  \node[layer, fit=(jpr)(jres)] (jlayer) {};
+\end{scope}
+\node[llabel, anchor=north] at ([yshift=-1pt]jlayer.north)
+   {annotation layer};
+
+% ========= LEFT: random variance =========
+\node[vleft] at ([xshift=-1.0cm]items.west)
+    {real differences between items\\{\scriptsize\textcolor{gray!55!black}{$\sigma^{2}_{\alpha}$}}};
+\node[vleft] at ([xshift=-1.0cm]jpr.west)
+    {rewording the rubric\\changes labels\\{\scriptsize\textcolor{gray!55!black}{$\sigma^{2}_{\rho}$}}};
+\node[vleft] at ([xshift=-1.0cm]jres.west)
+    {noise from one call to the next\;{\scriptsize\textcolor{gray!55!black}{$\sigma^{2}_{\varepsilon}$}}\\[2pt]
+     LLM coders disagree on items\\\emph{(inter-coder disagreement)}\;{\scriptsize\textcolor{gray!55!black}{$\sigma^{2}_{\alpha\lambda}$}}};
+
+% ========= RIGHT: design choices =========
+\node[vright] at ([xshift=1.0cm]items.east)
+    {category sampling,\\sample size $N$};
+\node[vright] at ([xshift=1.0cm]jpr.east)
+    {rubric wording,\\scale anchors};
+\node[vright] at ([xshift=1.0cm]jres.east)
+    {which LLM, temperature,\\scoring rule (binary / Likert / BT)};
+
+% ========= column headers =========
+\node[header] at ([xshift=-4.2cm,yshift=0.65cm]items.north)
+    {sources of noise\\{\normalfont\footnotesize shrink with more data}};
+\node[header] at ([xshift=4.2cm,yshift=0.65cm]items.north)
+    {design choices\\{\normalfont\footnotesize need a sensitivity check}};
+\end{tikzpicture}
+\end{center}
+\end{document}

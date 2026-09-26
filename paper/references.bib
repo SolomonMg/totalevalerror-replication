@@ -1,0 +1,1168 @@
+% BibTeX references for Total Eval Error paper
+% Organized by topic area. Key = first-author-last-name + year + short-keyword.
+
+% ============================================================================
+% TEXT-AS-DATA / POLITICAL METHODOLOGY
+% ============================================================================
+
+@article{grimmer2013text,
+  title={Text as Data: The Promise and Pitfalls of Automatic Content Analysis Methods for Political Texts},
+  author={Grimmer, Justin and Stewart, Brandon M.},
+  journal={Political Analysis},
+  volume={21},
+  number={3},
+  pages={267--297},
+  year={2013},
+  publisher={Cambridge University Press}
+}
+
+@book{grimmer2022text,
+  title={Text as Data: A New Framework for Machine Learning and the Social Sciences},
+  author={Grimmer, Justin and Roberts, Margaret E. and Stewart, Brandon M.},
+  year={2022},
+  publisher={Princeton University Press},
+  address={Princeton, NJ}
+}
+
+% ============================================================================
+% BENCHMARK SENSITIVITY / HACKING
+% ============================================================================
+
+@inproceedings{alzahrani2024benchmarks,
+  title={When Benchmarks are Targets: Revealing the Sensitivity of Large Language Model Leaderboards},
+  author={Alzahrani, Norah and Alyahya, Hisham and Alnumay, Yazeed and AlRashed, Sultan and Alsubaie, Shaykhah and Almushayqih, Yousef and Mirza, Faisal and Alotaibi, Nouf and Al-Twairesh, Nora and Alowisheq, Areeb and Bari, M. Saiful and Khan, Haidar},
+  booktitle={Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  pages={13787--13805},
+  year={2024},
+  publisher={Association for Computational Linguistics}
+}
+
+@inproceedings{zheng2025cheating,
+  title={Cheating Automatic {LLM} Benchmarks: Null Models Achieve High Win Rates},
+  author={Zheng, Xiaosen and Pang, Tianyu and Du, Chao and Liu, Qian and Jiang, Jing and Lin, Min},
+  booktitle={Proceedings of the Thirteenth International Conference on Learning Representations (ICLR)},
+  year={2025}
+}
+
+@inproceedings{huang2026dropping,
+  title={Dropping Just a Handful of Preferences Can Change Top Large Language Model Rankings},
+  author={Huang, Jenny Y. and Shen, Yunyi and Wei, Dennis and Broderick, Tamara},
+  booktitle={Proceedings of the Fourteenth International Conference on Learning Representations (ICLR)},
+  year={2026}
+}
+
+@misc{gupta2025bloom,
+  author = {Gupta, Isha and Fronsdal, Kai and Sheshadri, Abhay and Michala, Jonathan and Tay, Jacqueline and Wang, Rowan and Bowman, Samuel R. and Price, Sara},
+  title = {Bloom: An Open Source Tool for Automated Behavioral Evaluations},
+  year = {2025},
+  howpublished = {Anthropic Alignment Science Blog},
+  url = {https://alignment.anthropic.com/2025/bloom-auto-evals/},
+  note = {Pipeline ablations on 4 Claude models: Kendall's W = 0.63--0.66 for few-shot and conversation length, but W = 0.38 for evaluator reasoning effort, showing rankings are not uniformly stable across pipeline choices.}
+}
+
+% ============================================================================
+% DATA CONTAMINATION
+% ============================================================================
+
+@inproceedings{balloccu2024leak,
+  title={Leak, Cheat, Repeat: Data Contamination and Evaluation Malpractices in Closed-Source {LLMs}},
+  author={Balloccu, Simone and Schmidtov\'{a}, Patr\'{i}cia and Lango, Mateusz and Du\v{s}ek, Ond\v{r}ej},
+  booktitle={Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  pages={67--93},
+  year={2024},
+  publisher={Association for Computational Linguistics}
+}
+
+@inproceedings{jacovi2023stop,
+  title={Stop Uploading Test Data in Plain Text: Practical Strategies for Mitigating Data Contamination by Evaluation Benchmarks},
+  author={Jacovi, Alon and Caciularu, Avi and Goldman, Omer and Goldberg, Yoav},
+  booktitle={Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing},
+  pages={5075--5084},
+  year={2023},
+  publisher={Association for Computational Linguistics}
+}
+
+% ============================================================================
+% FOUNDATIONAL / METHODOLOGICAL PREDECESSORS
+% ============================================================================
+
+@article{recht2019imagenet,
+  title={Do {ImageNet} Classifiers Generalize to {ImageNet}?},
+  author={Recht, Benjamin and Roelofs, Rebecca and Schmidt, Ludwig and Shankar, Vaishaal},
+  journal={Proceedings of the 36th International Conference on Machine Learning (ICML)},
+  pages={5389--5400},
+  year={2019}
+}
+
+@article{gelman2013garden,
+  title={The Garden of Forking Paths: Why Multiple Comparisons Can Be a Problem, Even When There Is No ``Fishing Expedition'' or ``$p$-Hacking'' and the Comparisons Are Not Even Made},
+  author={Gelman, Andrew and Loken, Eric},
+  journal={Department of Statistics, Columbia University},
+  year={2013}
+}
+
+@techreport{nist2026ai800,
+  title={Expanding the {AI} Evaluation Toolbox with Statistical Models},
+  author={Keller, Andrew J. and Kwegyir-Aggrey, Kweku and Steed, Ryan and Rao, Anita K. and Sharp, Julia L. and Bergman, Amanda S.},
+  year={2026},
+  month={February},
+  number={AI 800-3},
+  institution={National Institute of Standards and Technology (NIST)},
+  note={Proposes GLMMs for LLM benchmark evaluation; decomposes variance into between-question and within-question components}
+}
+
+@book{cronbach1972dependability,
+  title={The Dependability of Behavioral Measurements: Theory of Generalizability for Scores and Profiles},
+  author={Cronbach, Lee J. and Gleser, Goldine C. and Nanda, Harinder and Rajaratnam, Nageswari},
+  year={1972},
+  publisher={Wiley},
+  address={New York},
+  note={Foundational text introducing G-theory and the G-study/D-study distinction}
+}
+
+@book{brennan2001gtheory,
+  title={Generalizability Theory},
+  author={Brennan, Robert L.},
+  year={2001},
+  publisher={Springer},
+  note={Standard reference for D-study formulas in mixed designs with fixed and random facets}
+}
+
+@article{bayerl2007gtheory,
+  title={Identifying Sources of Disagreement: Generalizability Theory in Manual Annotation Studies},
+  author={Bayerl, Petra Saskia and Paul, Karsten Ingmar},
+  journal={Computational Linguistics},
+  volume={33},
+  number={1},
+  pages={3--8},
+  year={2007},
+  publisher={MIT Press}
+}
+
+@article{sen2019tedon,
+  title={A Total Error Framework for Digital Traces of Human Behavior on Online Platforms},
+  author={Sen, Indira and Fl{\"o}ck, Fabian and Weller, Katrin and Wei{\ss}, Bernd and Wagner, Claudia},
+  journal={Public Opinion Quarterly},
+  volume={85},
+  number={S1},
+  pages={S399--S422},
+  year={2021},
+  publisher={Oxford University Press},
+  note={First presented 2019; TED-On framework adapting Total Survey Error to digital traces}
+}
+
+@inproceedings{egami2024dsl,
+  title={Using Imperfect Surrogates for Downstream Inference: Design-Based Supervised Learning for Social Science Applications of Large Language Models},
+  author={Egami, Naoki and Hinck, Musashi and Stewart, Brandon M. and Wei, Hanying},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2023},
+  note={arXiv:2306.04746. Doubly-robust estimator for LLM-as-judge surrogate bias}
+}
+
+@book{angristpischke2009,
+  title={Mostly Harmless Econometrics: An Empiricist's Companion},
+  author={Angrist, Joshua D. and Pischke, J{\"o}rn-Steffen},
+  year={2009},
+  publisher={Princeton University Press},
+  note={Standard reference for linear probability model (LPM) in applied economics}
+}
+
+@article{nakagawa2010repeatability,
+  title={Repeatability for {Gaussian} and non-{Gaussian} data: a practical guide for biologists},
+  author={Nakagawa, Shinichi and Schielzeth, Holger},
+  journal={Biological Reviews},
+  volume={85},
+  number={4},
+  pages={935--956},
+  year={2010},
+  publisher={Wiley},
+  note={Derives ICC and variance partitioning for GLMMs; logistic GLMM level-1 variance = $\pi^2/3$}
+}
+
+@article{simmons2011falsepositive,
+  title={False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant},
+  author={Simmons, Joseph P. and Nelson, Leif D. and Simonsohn, Uri},
+  journal={Psychological Science},
+  volume={22},
+  number={11},
+  pages={1359--1366},
+  year={2011}
+}
+
+@article{steegen2016multiverse,
+  title={Increasing Transparency Through a Multiverse Analysis},
+  author={Steegen, Sara and Tuerlinckx, Francis and Gelman, Andrew and Vanpaemel, Wolf},
+  journal={Perspectives on Psychological Science},
+  volume={11},
+  number={5},
+  pages={702--712},
+  year={2016}
+}
+
+@book{groves2010survey,
+  title={Survey Methodology},
+  author={Groves, Robert M. and Fowler, Floyd J. and Couper, Mick P. and Lepkowski, James M. and Singer, Eleanor and Tourangeau, Roger},
+  year={2010},
+  edition={2nd},
+  publisher={Wiley},
+  note={Standard reference for total survey error framework}
+}
+
+% ============================================================================
+% STATISTICAL METHODS / SURVEYS
+% ============================================================================
+
+@article{dobriban2025statistical,
+  title={Statistical Methods in Generative {AI}},
+  author={Dobriban, Edgar},
+  year={2025},
+  journal={Annual Review of Statistics and Its Application},
+  note={arXiv:2509.07054. Invited review; identifies comprehensive statistical frameworks for generative AI evaluation as an open problem}
+}
+
+% ============================================================================
+% VARIANCE DECOMPOSITION IN LLM EVALUATION (Closest competitors)
+% ============================================================================
+
+@inproceedings{polo2024efficient,
+  title={tiny{B}enchmarks: Evaluating {LLMs} with Fewer Examples},
+  author={Polo, Felipe Maia and Weber, Lucas and Choshen, Leshem and Sun, Yuekai and Xu, Gongjun and Yurochkin, Mikhail},
+  booktitle={Proceedings of the 41st International Conference on Machine Learning (ICML)},
+  year={2024},
+  note={arXiv:2402.14992. IRT-based approach to efficient LLM benchmarking; complementary to G-theory decomposition.}
+}
+
+@article{haase2026withinmodel,
+  title={Within-Model vs Between-Prompt Variability in Large Language Models for Creative Tasks},
+  author={Haase, Jennifer and Gonnermann-M{\"u}ller, Jana and Hanel, Paul H. P. and Leins, Nicolas and Kosch, Thomas and Mendling, Jan and Pokutta, Sebastian},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2601.21339. 3-component decomposition: model choice (41\%), prompt (36\%), within-model (10--34\%). 12 LLMs, 12K observations}
+}
+
+@article{camuffo2026variance,
+  title={Variance-Aware {LLM} Annotation for Strategy Research: Sources, Diagnostics, and a Protocol for Reliable Measurement},
+  author={Camuffo, Arnaldo and Gambardella, Alfonso and Kazemi, Saeid and Malachowski, Jakub and Pandey, Abhinav},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2601.02370. 5-source variance taxonomy (construct, interface, model preferences, output extraction, system aggregation) with sampling-budget protocol (P/S/M); 12--85pp shifts from design choices; non-classical measurement-error framing}
+}
+
+@techreport{keller2026nist,
+  author       = {Keller, Drew and Kwegyir-Aggrey, Kweku and Steed, Ryan
+                  and Rao, Anita K. and Sharp, Julia L. and Bergman, A. Stevie},
+  title        = {Expanding the {AI} Evaluation Toolbox with Statistical Models},
+  number       = {NIST AI 800-3},
+  type         = {NIST Trustworthy and Responsible AI Report},
+  institution  = {National Institute of Standards and Technology},
+  year         = {2026},
+  month        = feb,
+  doi          = {10.6028/NIST.AI.800-3},
+  url          = {https://doi.org/10.6028/NIST.AI.800-3}
+}
+
+@article{kunievsky2025worldmodel,
+  title={Measuring (a Sufficient) World Model in {LLMs}: A Variance Decomposition Framework},
+  author={Kunievsky, Daniel and Evans, James},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2506.16584. Purpose Sensitivity / Articulation Sensitivity / Model Uncertainty decomposition}
+}
+
+@article{miller2024errorbars,
+  title={Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations},
+  author={Miller, Evan},
+  year={2024},
+  journal={arXiv preprint},
+  note={arXiv:2411.00640. Anthropic. Law of total variance: between-question + within-question variance}
+}
+
+@article{wang2024measuring,
+  title={Measuring All the Noises of {LLM} Evals},
+  author={Wang, Sida},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2512.21326. Law of total variance decomposition into prediction noise and data noise via all-pairs pairwise comparisons}
+}
+
+@article{mustahsan2025icc,
+  title={Stochasticity in Agentic Evaluations: Quantifying Inconsistency with Intraclass Correlation},
+  author={Mustahsan, Hashir and Lim, Jee Young and Anand, Siddharth and Jain, Vasu and McCann, Bryan},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2512.06710. ICC 0.304--0.774; convergence at 8--16 trials for structured, 32+ for reasoning}
+}
+
+@article{zhai2026deepresearch,
+  title={Evaluating Stochasticity in Deep Research Agents},
+  author={Zhai, Shuyang and Stengel-Eskin, Elias and Patil, Amogh and Leqi, Liu},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2602.23271. MDP decomposition: acquisition, compression, inference + propagated vs. intrinsic}
+}
+
+% ============================================================================
+% PROMPT SENSITIVITY
+% ============================================================================
+
+@article{baumann2025llmhacking,
+  title={Large Language Model Hacking: Quantifying the Hidden Risks of Using {LLMs} for Text Annotation},
+  author={Baumann, Joachim and R{\"o}ttger, Paul and Urman, Aleksandra and Wendsj{\"o}, Albert and Plaza-del-Arco, Flor Miriam and Gruber, Johannes B. and Hovy, Dirk},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2509.08825. 37 tasks from 21 studies; 31\% incorrect conclusions from prompt variation. Type S/M error framing}
+}
+
+@inproceedings{sclar2024sensitivity,
+  title={Quantifying Language Models' Sensitivity to Spurious Features in Prompt Design},
+  author={Sclar, Melanie and Choi, Yejin and Tsvetkov, Yulia and Suhr, Alane},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2024},
+  note={Up to 76-point accuracy range from formatting alone. FormatSpread metric}
+}
+
+@article{mizrahi2024multiprompt,
+  title={State of What Art? {A} Call for Multi-Prompt {LLM} Evaluation},
+  author={Mizrahi, Moran and Kaplan, Guy and Malkin, Dan and Dror, Rotem and Shahaf, Dafna and Stanovsky, Gabriel},
+  journal={Transactions of the Association for Computational Linguistics},
+  volume={12},
+  pages={933--949},
+  year={2024},
+  note={6.5M instances, 20 LLMs, 39 tasks. Model rankings unstable across prompts}
+}
+
+@article{carlson2026smj,
+  title={The Use of {LLMs} to Annotate Data in Management Research: Foundational Guidelines and Warnings},
+  author={Carlson, Natalie and Burbano, Vanessa},
+  journal={Strategic Management Journal},
+  volume={47},
+  number={3},
+  pages={699--725},
+  year={2026},
+  doi={10.1002/smj.70023},
+  note={Prompt Variance Estimation (PVE) method; ``LLM p-hacking'' concern}
+}
+
+@inproceedings{cox2025mapping,
+  title={Mapping from Meaning: Addressing the Miscalibration of Prompt-Sensitive Language Models},
+  author={Cox, Benjamin and Xu, Xia and Han, Xu and Xu, Ke and Li, Jingyang and Hsu, Yi-Pei and Chen, Lin and Gerych, Woodrow and Ding, Beibin},
+  booktitle={AAAI Conference on Artificial Intelligence},
+  volume={39},
+  number={22},
+  year={2025},
+  note={arXiv:2510.17028. Uncertainty decomposition isolating prompt-induced from other model uncertainty}
+}
+
+@inproceedings{hua2025flaw,
+  title={Flaw or Artifact? Rethinking Prompt Sensitivity in Evaluating {LLMs}},
+  author={Hua, Hang and Tang, Jiaqi and Gu, Xinyu and Gu, Yu and Wong, Kam-Fai and Qin, Jian},
+  booktitle={Empirical Methods in Natural Language Processing (EMNLP)},
+  year={2025},
+  note={arXiv:2509.01790. Prompt sensitivity partly artifact of evaluation method (log-likelihood vs. LLM-as-judge)}
+}
+
+@article{pecher2026underspecification,
+  title={Revisiting Prompt Sensitivity in Large Language Models for Text Classification: The Role of Prompt Underspecification},
+  author={Pecher, Branislav and Spiegel, Stefan and Belanec, Samuel and Cegin, Jan},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2602.04297. Prompt sensitivity as specificity problem; underspecified prompts have higher variance}
+}
+
+@article{lior2025reliableeval,
+  title={{ReliableEval}: A Recipe for Stochastic {LLM} Evaluation via Method of Moments},
+  author={Lior, Gal and Habba, Maryam and Levy, Omer and Caciularu, Avi and Stanovsky, Gabriel},
+  year={2025},
+  note={arXiv:2505.22169. Findings of EMNLP 2025. Method of moments for prompt sample-size estimation}
+}
+
+@article{schoenegger2024synthetic,
+  title={Synthetic Replacements for Human Survey Data? {The} Perils of Large Language Models},
+  author={Schoenegger, Philipp and Pilditch, Tyrone D.},
+  journal={Political Analysis},
+  volume={32},
+  number={4},
+  year={2024},
+  note={Prompt sensitivity as question-wording effects; temporal instability over 3 months}
+}
+
+@article{abdurahman2025primer,
+  title={A Primer for Evaluating Large Language Models in Social-Science Research},
+  author={Abdurahman, Shayan and Ziabari, Alireza and Moore, Ryan and Bartels, Larry and Dehghani, Morteza},
+  journal={Advances in Methods and Practices in Psychological Science},
+  year={2025},
+  note={``Measurement phantoms''; dual-validity framework for LLM evaluation in social science}
+}
+
+% ============================================================================
+% GENERATION STOCHASTICITY AND INFRASTRUCTURE
+% ============================================================================
+
+@inproceedings{yuan2025numerical,
+  title={Understanding and Mitigating Numerical Sources of Nondeterminism in {LLM} Inference},
+  author={Yuan, Jiayi and Li, Hao and Ding, Xinheng and Xie, Wenya and Li, Yu-Jhe and Zhao, Wentian and Wan, Kun and Shi, Jing and Hu, Xia and Liu, Zirui},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2025},
+  note={arXiv:2506.09501. Oral presentation. FP32/FP16/BF16, batch size, GPU effects: up to 9\% accuracy variation}
+}
+
+@article{renze2024temperature,
+  title={The Effect of Sampling Temperature on Problem Solving in Large Language Models},
+  author={Renze, Matthew and Guven, Erhan},
+  journal={arXiv preprint arXiv:2402.05201},
+  year={2024},
+  note={Nine LLMs, five prompt techniques: temperature 0.0--1.0 has no significant effect on problem-solving accuracy; effects emerge beyond 1.0}
+}
+
+@inproceedings{li2025hotcold,
+  title={Exploring the Impact of Temperature on Large Language Models: {Hot} or {Cold}?},
+  author={Li, Lujun and Sleem, Lama and Gentile, Niccol\`{o} and Nichil, Geoffrey and State, Radu},
+  booktitle={Procedia Computer Science},
+  year={2025},
+  note={Temperature effects are skill-specific and nonlinear; ``mutation temperature'' threshold increases with model size (1.0--1.3 for small, 1.6--1.9 for large models)}
+}
+
+@article{nicholson2026drift,
+  title={Quantifying Non-Deterministic Drift in Large Language Models},
+  author={Nicholson, Charles},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2601.19934. Temporal output variability under identical conditions}
+}
+
+@inproceedings{haldar2025roulette,
+  title={Rating Roulette: Self-Inconsistency in {LLM-As-A-Judge} Frameworks},
+  author={Haldar, Rajarshi and Hockenmaier, Julia},
+  booktitle={Findings of EMNLP},
+  year={2025},
+  note={arXiv:2510.27106. Intra-rater reliability of LLM judges near-arbitrary in worst cases}
+}
+
+@article{larsen2025instability,
+  title={The Instability of Safety: How Random Seeds and Temperature Expose Inconsistent {LLM} Refusal Behavior},
+  author={Larsen, Ken},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2512.12066. 18--28\% of prompts show safety decision flips across seeds/temperatures}
+}
+
+@article{schroeder2024trust,
+  title={Can You Trust {LLM} Judgments? Reliability of {LLM-as-a-Judge}},
+  author={Schroeder, Ian and Wood-Doughty, Zach},
+  year={2024},
+  journal={arXiv preprint},
+  note={arXiv:2412.12509. McDonald's omega for LLM judge reliability; temperature effects}
+}
+
+@article{feuer2025noise,
+  title={When Judgment Becomes Noise: How Design Failures in {LLM} Judge Benchmarks Silently Undermine Validity},
+  author={Feuer, Benjamin and others},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2509.20293. Unexplained variance >90\% for some judges}
+}
+
+% ============================================================================
+% SURVIVAL ANALYSIS AND MULTI-TURN DYNAMICS
+% ============================================================================
+
+@article{li2025timetoincon,
+  title={Time-To-Inconsistency: A Survival Analysis of Large Language Model Robustness to Adversarial Attacks},
+  author={Li, Yubo and Krishnan, Ram and Padman, Rema},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2510.02712. Cox PH, AFT, RSF models; 36,951 turns, 9 LLMs. PH assumption violations for drift covariates}
+}
+
+@inproceedings{wang2025catastrophic,
+  title={How Catastrophic is Your {LLM}? Certifying Risk in Conversation},
+  author={Wang, Xin and Chaudhary, Yuvraj and Hu, Jinghan and Ruan, Yankai and Gupta, Gagandeep and Singh, Vivek},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2026},
+  note={arXiv:2510.03969. QRLLM: Markov process on query graph; certified catastrophic risk bounds up to 70\%}
+}
+
+@article{burden2024complexity,
+  title={Conversational Complexity for Assessing Risk in Large Language Models},
+  author={Burden, John and Cebrian, Manuel and Hernandez-Orallo, Jose},
+  journal={EPJ Data Science},
+  year={2025},
+  note={arXiv:2409.01247. Conversational Length (survival-time analog) and Conversational Complexity metrics}
+}
+
+@inproceedings{li2025firmfickle,
+  title={Firm or Fickle? Evaluating Large Language Models Consistency in Sequential Interactions},
+  author={Li, Wentao and Krishnan, Ram and Miao, Yiwei and Ding, Yachuan and Padman, Rema},
+  booktitle={Findings of the Association for Computational Linguistics (ACL)},
+  year={2025},
+  note={arXiv:2503.22353. Position-Weighted Consistency; MT-Consistency benchmark}
+}
+
+@inproceedings{weng2025footinthedoor,
+  title={Foot-In-The-Door: A Multi-turn Jailbreak for {LLMs}},
+  author={Weng, Zixuan and Jin, Xiaolong and Jia, Jinyuan and Zhang, Xiangyu},
+  booktitle={Empirical Methods in Natural Language Processing (EMNLP)},
+  year={2025},
+  note={arXiv:2502.19820. Progressive escalation: harmfulness 2.32 to 4.23; 94\% ASR}
+}
+
+@inproceedings{russinovich2024crescendo,
+  title={Great, Now Write an Article About That: The Crescendo Multi-Turn {LLM} Jailbreak Attack},
+  author={Russinovich, Mark and Salem, Ahmed and Eldan, Ronen},
+  booktitle={USENIX Security Symposium},
+  year={2025},
+  note={arXiv:2404.01833. 98\% ASR on GPT-4 via incremental escalation}
+}
+
+@article{li2024multiturnhuman,
+  title={{LLM} Defenses Are Not Robust to Multi-Turn Human Jailbreaks Yet},
+  author={Li, Nathaniel and others},
+  year={2024},
+  journal={arXiv preprint},
+  note={arXiv:2408.15221. Scale AI. Multi-turn human jailbreaks >70\% ASR}
+}
+
+@article{li2026unsafer,
+  title={Unsafer in Many Turns: Benchmarking and Defending Multi-Turn Safety Risks in Tool-Using Agents},
+  author={Li, Haonan and others},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2602.13379. ASR increases by 16\% on average in multi-turn; per-model rates as hazard parameters}
+}
+
+@article{kao2025alignment,
+  title={Safety Alignment Depth in Large Language Models: A {Markov} Chain Perspective},
+  author={Kao, Cheng-Yen and Yu, Yixiao and Lu, Yiran and Chen, Pin-Yu},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2502.00669. Safety alignment only tokens deep; Markov chain analysis}
+}
+
+% ============================================================================
+% MULTI-AGENT UNCERTAINTY PROPAGATION
+% ============================================================================
+
+@article{duan2025uprop,
+  title={{UProp}: Investigating the Uncertainty Propagation of {LLMs} in Multi-Step Agentic Decision-Making},
+  author={Duan, Jinhao and Diffenderfer, James and Madireddy, Sandeep and Chen, Tianlong and Kailkhura, Bhavya and Xu, Kaidi},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2506.17419. Intrinsic/extrinsic uncertainty via PMI; 2.3--11\% AUROC over baselines}
+}
+
+@inproceedings{zhao2025saup,
+  title={{SAUP}: Situation Awareness Uncertainty Propagation on {LLM} Agent},
+  author={Zhao, Qingyun and others},
+  booktitle={Association for Computational Linguistics (ACL)},
+  year={2025},
+  note={arXiv:2412.01033. Situational weights for per-step uncertainty; 20\% AUROC improvement}
+}
+
+@article{oh2026reducible,
+  title={Towards Reducible Uncertainty Modeling for Reliable Large Language Model Agents},
+  author={Oh, Chanwoo and others},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2602.05073. Interactive agents can reduce inherited uncertainty; between-agent covariance can be negative}
+}
+
+@article{cemri2025mast,
+  title={Why Do Multi-Agent {LLM} Systems Fail?},
+  author={Cemri, Mert and others},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2503.13657. MAST taxonomy: 14 failure modes, 3 categories, 1,600+ traces, $\kappa$=0.88}
+}
+
+@article{kim2025scaling,
+  title={Towards a Science of Scaling Agent Systems},
+  author={Kim, Yubin and others},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2512.08296. 17.2x error amplification (independent) vs. 4.4x (centralized); R$^2$=0.513}
+}
+
+@inproceedings{zhang2025failureattribution,
+  title={Which Agent Causes Task Failures and When? On Automated Failure Attribution of {LLM} Multi-Agent Systems},
+  author={Zhang, Shuoyang and others},
+  booktitle={International Conference on Machine Learning (ICML)},
+  year={2025},
+  note={arXiv:2505.00212. Spotlight. 53.5\% agent ID accuracy, 14.2\% step ID accuracy}
+}
+
+@article{zhao2026entropy,
+  title={On the Uncertainty of Large Language Model-Based Multi-Agent Systems},
+  author={Zhao, Yongjin and Chen, Simin and Su, Norman Makoto},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2602.04234. Single agent outperforms MAS in 43.3\% of cases}
+}
+
+@article{arbuzov2025exponential,
+  title={Beyond Exponential Decay: Rethinking Error Accumulation in Large Language Models},
+  author={Arbuzov, Mikhail L. and Shvets, Alexey A. and Beir, Sezer},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2505.24187. Errors at sparse ``key tokens'' (5--10\%); heterogeneous per-step error rates}
+}
+
+@article{meyerson2025maker,
+  title={Solving a Million-Step {LLM} Task with Zero Errors},
+  author={Meyerson, Elliot and others},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2511.09030. MAKER: zero errors over 1,048,575 steps; votes scale logarithmically}
+}
+
+% ============================================================================
+% GENERALIZABILITY THEORY AND PSYCHOMETRICS
+% ============================================================================
+
+@article{song2025gtheory,
+  title={Exploring {LLM} Autoscoring Reliability in Large-Scale Writing Assessments Using Generalizability Theory},
+  author={Song, Dan and Lee, Won-Chan and Jiao, Hong},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2507.19980. Full G-study: person x rater x task x dimension; D-study for optimal configurations}
+}
+
+@article{wang2025psychometric,
+  title={Evaluating Large Language Models as Raters in Large-Scale Writing Assessments: A Psychometric Framework for Reliability and Validity},
+  author={Wang, Yupeng and Huang, Jun and Du, Lei and Guo, Yirong and Liu, Yueming and Wang, Rongxiu},
+  journal={Computers and Education: Artificial Intelligence},
+  year={2025},
+  note={G-theory + many-facet Rasch; 4,315 writing samples; Claude models show superior stability}
+}
+
+@article{degen2025gtheory,
+  title={Revisiting Generalizability Theory in the Age of Artificial Intelligence: Implications for Empirical Educational Research},
+  author={Degen, Julia},
+  journal={Computers and Education: Open},
+  year={2025},
+  note={DOI: 10.1016/j.caeo.2025.100278. G-theory ``uniquely suited'' for AI evaluation}
+}
+
+@inproceedings{xiao2023metriceval,
+  title={Evaluating Evaluation Metrics: A Framework for Analyzing {NLG} Evaluation Metrics using Measurement Theory},
+  author={Xiao, Ziang and Zhang, Susu and Lai, Vivian and Liao, Q. Vera},
+  booktitle={Empirical Methods in Natural Language Processing (EMNLP)},
+  pages={10967--10982},
+  year={2023},
+  note={MetricEval: measurement theory applied to NLG evaluation metrics}
+}
+
+@article{lee2025reporting,
+  title={How to Correctly Report {LLM-as-a-Judge} Evaluations},
+  author={Lee, Chaeyun and Zeng, Tao and Jeong, Joonhyuk and Sohn, Jy-yong and Lee, Kangwook},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2511.21140. LLM judges as imperfect instruments; bias-corrected estimators with CIs}
+}
+
+@article{choi2026irt,
+  title={Diagnosing the Reliability of {LLM-as-a-Judge} via Item Response Theory},
+  author={Choi, Hyun-Suk and Park, Joonhyung and Cho, Hyungjin and Park, Gyumin and Kim, Gunhee},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2602.00521. Graded Response Model for LLM judge reliability diagnosis}
+}
+
+@inproceedings{chehbouni2025neither,
+  title={Neither Valid nor Reliable? Investigating the Use of {LLMs} as Judges},
+  author={Chehbouni, Khaoula and Haddou, Mohammed and Cheung, Jackie Chi Kit and Farnadi, Golnoosh},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2025},
+  note={arXiv:2508.18076. Position paper challenging core assumptions of LLM-as-judge}
+}
+
+% ============================================================================
+% RAG PIPELINE UNCERTAINTY
+% ============================================================================
+
+@inproceedings{kang2024crag,
+  title={{C-RAG}: Certified Generation Risks for Retrieval-Augmented Language Models},
+  author={Kang, Mintong and G{\"u}rel, Nezihe Merve and Yu, Ning and Song, Dawn and Li, Bo},
+  booktitle={International Conference on Machine Learning (ICML)},
+  year={2024},
+  note={arXiv:2402.03181. Conformal risk guarantees for RAG pipelines}
+}
+
+% ============================================================================
+% EVALUATION METHODOLOGY (CLT, Bayesian, UQ)
+% ============================================================================
+
+@inproceedings{mcgregor2025benchrisk,
+  title={Risk Management for Mitigating Benchmark Failure Modes: {BenchRisk}},
+  author={McGregor, Sean and Lu, Victor and Tashev, Vassil and Foundjem, Armstrong and Ramasethu, Aishwarya and Zarkouei, Sadegh AlMahdi Kazemi and Knotz, Chris and Chen, Kongtao and Parrish, Alicia and Reuel, Anka and Frase, Heather},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2025},
+  note={arXiv:2510.21460. Metaevaluation of 26 LLM benchmarks; identifies 57 failure modes.}
+}
+
+@inproceedings{bowyer2025dont,
+  title={Position: Don't Use the {CLT} in {LLM} Evals With Fewer Than a Few Hundred Datapoints},
+  author={Bowyer, Sam and Aitchison, Laurence and Ivanova, Desi R.},
+  booktitle={International Conference on Machine Learning (ICML)},
+  year={2025},
+  note={arXiv:2503.01747. Spotlight position paper. CLT-based intervals fail for discrete outcomes, heavy-tailed scores, or small evaluation sets}
+}
+
+@inproceedings{hariri2025dont,
+  title={Don't {Pass@k}: A {Bayesian} Framework for Large Language Model Evaluation},
+  author={Hariri, Mohsen and Samandar, Amirhossein and Hinczewski, Michael and Chaudhary, Vipin},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2026},
+  note={arXiv:2510.04265. Replaces frequentist Pass@k with Dirichlet priors on categorical outcomes; credible intervals and convergence diagnostics}
+}
+
+@article{longjohn2025statistical,
+  title={Statistical Uncertainty Quantification for Aggregate Performance Metrics in Machine Learning Benchmarks},
+  author={Longjohn, Rachel and Gopalan, Giri and Casleton, Emily},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2501.04234. Bootstrap and Bayesian hierarchical methods for propagating uncertainty through aggregate benchmark metrics}
+}
+
+% ============================================================================
+% SCORING METHOD COMPARISON (Likert vs Pairwise)
+% ============================================================================
+
+@inproceedings{peysakhovich2015pairwise,
+  title={Pairwise Choice as a Simple and Robust Method for Inferring Ranking Data},
+  author={Peysakhovich, Alexander and Chiraphadhanakul, Virot and Bailey, Michael},
+  booktitle={Proceedings of the 24th International Conference on World Wide Web (WWW)},
+  year={2015},
+  organization={Facebook},
+  note={Likert modestly beats pairwise under ideal conditions (identical thresholds); pairwise wins with any DIF. Same noise model for both methods (SNR=1:1). Validated on Facebook News Feed ranking}
+}
+
+@article{defined2024radiology,
+  title={Pairwise Comparisons Outperform {Likert} Scales for Collecting Clinician Quality Ratings of {AI}-Generated Content},
+  author={Defined, Not Yet and others},
+  journal={Journal of the American College of Radiology},
+  year={2024},
+  note={PMC11213789. Pairwise comparison superior to Likert for AI radiology output evaluation}
+}
+
+% ============================================================================
+% ADDITIONAL CONTEXT
+% ============================================================================
+
+@article{zhang2025beyondsingular,
+  title={Beyond the Singular: Revealing the Value of Multiple Generations in Benchmark Evaluation},
+  author={Zhang, Yiwen and others},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2502.08943. Hierarchical model: benchmark characteristics + LLM randomness}
+}
+
+@article{xie2025uncertainty,
+  title={An Empirical Analysis of Uncertainty in Large Language Model Evaluations},
+  author={Xie, Zijun and others},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2502.10709. ICLR 2025. Uncertainty across 9 evaluators; ConfiLM}
+}
+
+@article{zhang2025bayeslatent,
+  title={From Stochasticity to Signal: A {Bayesian} Latent State Model for Reliable Measurement with {LLMs}},
+  author={Zhang, Yilin and Martinez, Ines},
+  year={2025},
+  journal={arXiv preprint},
+  note={arXiv:2510.23874. True classification as latent variable; multiple LLM ratings as noisy measurements}
+}
+
+@article{yang2026benchmark,
+  title={Benchmark Illusion: Disagreement among {LLMs} and Its Scientific Consequences},
+  author={Yang, Elliot and Wang, Dingding},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2602.11898. LLMs disagree on 16--66\% of items; model choice changes treatment effects >80\%}
+}
+
+@inproceedings{gao2024spuq,
+  title={{SPUQ}: Perturbation-Based Uncertainty Quantification for Large Language Models},
+  author={Gao, Yao and Zhang, Zhe and Mouatadid, Luana and Das, Mrinmaya},
+  booktitle={European Chapter of the Association for Computational Linguistics (EACL)},
+  year={2024},
+  note={Prompt + temperature perturbation for epistemic/aleatoric uncertainty decomposition}
+}
+
+@inproceedings{tonolini2024bayesian,
+  title={{Bayesian} Prompt Ensembles: Model Uncertainty Estimation for Black-Box Large Language Models},
+  author={Tonolini, Francesco and Aletras, Nikolaos and Massiah, Jordan and Kazai, Gabriella},
+  booktitle={Findings of the Association for Computational Linguistics (ACL)},
+  year={2024},
+  note={Prompt variation as Bayesian input layer; marginalizes over prompt sensitivity}
+}
+
+@article{barrie2025replication,
+  title={Replication for Language Models},
+  author={Barrie, Christopher and Palmer, Alexis and Spirling, Arthur},
+  year={2025},
+  journal={Working paper},
+  note={Rolling iterated replication design showing LLM performance variance is high and temporally unstable across monthly re-runs}
+}
+
+@unpublished{feuerriegel2026guidellm,
+  title={{GUIDE-LLM}: A Consensus-Based Reporting Checklist for Large Language Models in Behavioral and Social Science},
+  author={Feuerriegel, Stefan and Barrie, Christopher and Crockett, M. J. and Globig, Laura K. and McLoughlin, Killian L. and Mirea, Dan-Mircea and Spirling, Arthur and Yang, Diyi and others},
+  year={2026},
+  note={Working paper. Delphi consensus with 80 experts; 14-item reporting checklist},
+  url={https://sfeuerriegel.github.io/llm-checklist/}
+}
+
+@article{barrie2024pss,
+  title={Prompt Stability Scoring for Text Annotation with Large Language Models},
+  author={Barrie, Christopher and Palaiologou, Elli and T{\"o}rnberg, Petter},
+  year={2024},
+  journal={arXiv preprint},
+  note={arXiv:2407.02039. Adapts intra-/inter-coder reliability to LLM prompt sensitivity via Krippendorff's alpha across paraphrased prompts}
+}
+
+% ============================================================================
+% CITATION AUDIT ADDITIONS
+% ============================================================================
+
+@article{gelman2006prior,
+  author  = {Gelman, Andrew},
+  title   = {Prior Distributions for Variance Parameters in Hierarchical Models
+             (Comment on Article by {Browne} and {Draper})},
+  journal = {Bayesian Analysis},
+  volume  = {1}, number = {3}, pages = {515--534}, year = {2006}
+}
+
+@article{jiang1996reml,
+  author  = {Jiang, Jiming},
+  title   = {{REML} Estimation: Asymptotic Behavior and Related Topics},
+  journal = {Annals of Statistics},
+  volume  = {24}, number = {1}, pages = {255--286}, year = {1996}
+}
+
+@article{schulz2010consort,
+  author  = {Schulz, Kenneth F. and Altman, Douglas G. and Moher, David},
+  title   = {{CONSORT} 2010 Statement: Updated Guidelines for Reporting
+             Parallel Group Randomised Trials},
+  journal = {BMJ}, volume = {340}, pages = {c332}, year = {2010}
+}
+
+@article{vonelm2007strobe,
+  author  = {von Elm, Erik and Altman, Douglas G. and Egger, Matthias and
+             Pocock, Stuart J. and G{\o}tzsche, Peter C. and
+             Vandenbroucke, Jan P.},
+  title   = {The {Strengthening the Reporting of Observational Studies in
+             Epidemiology} ({STROBE}) Statement: Guidelines for Reporting
+             Observational Studies},
+  journal = {The Lancet},
+  volume  = {370}, number = {9596}, pages = {1453--1457}, year = {2007}
+}
+
+@book{pinheirobates2000,
+  author    = {Pinheiro, Jos{\'e} C. and Bates, Douglas M.},
+  title     = {Mixed-Effects Models in {S} and {S-PLUS}},
+  publisher = {Springer}, year = {2000}
+}
+
+@article{ghosh2025ailuminate,
+  title     = {{AILuminate}: Introducing v1.0 of the {AI} Risk and Reliability Benchmark from {MLCommons}},
+  author    = {Ghosh, Shaona and Frase, Heather and Williams, Adina and Luger, Sarah and R{\"o}ttger, Paul and Barez, Fazl and McGregor, Sean and Fricklas, Kenneth and Kumar, Mala and Feuillade-Montixi, Quentin and Bollacker, Kurt and Friedrich, Felix and Tsang, Ryan and Vidgen, Bertie and others},
+  journal   = {arXiv preprint arXiv:2503.05731},
+  year      = {2025}
+}
+
+@inproceedings{liu2024pairs,
+  title     = {Aligning with Human Judgement: The Role of Pairwise Preference in Large Language Model Evaluators},
+  author    = {Liu, Yinhong and Zhou, Han and Guo, Zhijiang and Shareghi, Ehsan and Vuli{\'c}, Ivan and Korhonen, Anna and Collier, Nigel},
+  booktitle = {Conference on Language Modeling (COLM)},
+  year      = {2024},
+  note      = {arXiv:2403.16950. Pairwise vs.\ pointwise Spearman: +0.09 (GPT-4) to +0.41 (Llama-2 7B)}
+}
+
+@article{wu2023large,
+  title={Large Language Models Can Be Used to Estimate the Latent Positions of Politicians},
+  author={Wu, Patrick Y. and Nagler, Jonathan and Tucker, Joshua A. and Messing, Solomon},
+  journal={arXiv preprint arXiv:2303.12057},
+  year={2023},
+  note={Pairwise comparisons via ChatGPT to scale U.S.\ senators on ideology; Bradley-Terry model}
+}
+
+@article{esmaeili2025quantitative,
+  title     = {Quantitative {LLM} Judges},
+  author    = {Sahoo, Aishwarya and Karnuthala, Jeevana Kruthi and Budhwani, Tushar Parmanand and Agarwal, Pranchal and Vaidyanathan, Sankaran and Siu, Alexa and Dernoncourt, Franck and Healey, Jennifer and Lipka, Nedim and Rossi, Ryan and Bhattacharya, Uttaran and Kveton, Branislav},
+  journal   = {arXiv preprint arXiv:2506.02945},
+  year      = {2025},
+  note      = {LLM judges use only 2--3 of 5--7 Likert points without calibration}
+}
+
+@article{thurstone1927law,
+  author  = {Thurstone, Louis Leon},
+  title   = {A Law of Comparative Judgment},
+  journal = {Psychological Review},
+  volume  = {34},
+  number  = {4},
+  pages   = {273--286},
+  year    = {1927}
+}
+
+@article{krosnick1991response,
+  author  = {Krosnick, Jon A.},
+  title   = {Response Strategies for Coping with the Cognitive Demands of
+             Attitude Measures in Surveys},
+  journal = {Applied Cognitive Psychology},
+  volume  = {5},
+  number  = {3},
+  pages   = {213--236},
+  year    = {1991}
+}
+
+@article{hainmueller2014causal,
+  author  = {Hainmueller, Jens and Hopkins, Daniel J. and Yamamoto, Teppei},
+  title   = {Causal Inference in Conjoint Analysis: Understanding
+             Multidimensional Choices via Stated Preference Experiments},
+  journal = {Political Analysis},
+  volume  = {22},
+  number  = {1},
+  pages   = {1--30},
+  year    = {2014}
+}
+
+@book{holland1993differential,
+  editor    = {Holland, Paul W. and Wainer, Howard},
+  title     = {Differential Item Functioning},
+  publisher = {Lawrence Erlbaum Associates},
+  year      = {1993}
+}
+
+@inproceedings{chiang2024chatbot,
+  author  = {Chiang, Wei-Lin and Zheng, Lianmin and Sheng, Ying and Angelopoulos, Anastasios Nikolas and Li, Tianle and Li, Dacheng and Zhang, Hao and Zhu, Banghua and Jordan, Michael and Gonzalez, Joseph E. and Stoica, Ion},
+  title   = {Chatbot Arena: An Open Platform for Evaluating {LLMs} by Human Preference},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning (ICML)},
+  year    = {2024},
+  note    = {arXiv:2403.04132}
+}
+
+@article{xue2026consistency,
+  author  = {Xue, Jing and others},
+  title   = {On the Consistency of Automatic Scoring with Large Language Models},
+  journal = {PLoS ONE},
+  year    = {2026},
+  note    = {5 replications sufficient for stable LLM judge scores; 10 yields $<$2\% improvement}
+}
+
+@unpublished{waight_state_forthcoming,
+  author = {Waight, Hannah and Yang, Eddie and Yuan, Yin and Messing, Solomon and Roberts, Margaret E. and Stewart, Brandon M. and Tucker, Joshua A.},
+  title  = {State Control of Media Influences Large Language Models},
+  year   = {2026},
+  note   = {Forthcoming}
+}
+
+@article{romanou2026brittlebench,
+  title={{BrittleBench}: Quantifying {LLM} Robustness via Prompt Sensitivity},
+  author={Romanou, Angelika and Ibrahim, Mark and Ross, Candace and Shaib, Chantal and Oktar, Kerem and Bell, Samuel J. and Ovalle, Anaelia and Dodge, Jesse and Bosselut, Antoine and Sinha, Koustuv and Williams, Adina},
+  year={2026},
+  journal={arXiv preprint},
+  note={arXiv:2603.13285. Semantics-preserving perturbations account for up to half of performance variance; degrade performance up to 12\% and shift model rankings in 63\% of cases}
+}
+
+% ============================================================================
+% BIBLIOGRAPHY CHECK ADDITIONS (2026-04-06)
+% ============================================================================
+
+@inproceedings{hendrycks2021mmlu,
+  title={Measuring Massive Multitask Language Understanding},
+  author={Hendrycks, Dan and Burns, Collin and Basart, Steven and Zou, Andy and Mazeika, Mantas and Song, Dawn and Steinhardt, Jacob},
+  booktitle={Proceedings of the International Conference on Learning Representations (ICLR)},
+  year={2021}
+}
+
+@article{bates2015lme4,
+  title={Fitting Linear Mixed-Effects Models Using \texttt{lme4}},
+  author={Bates, Douglas and M{\"a}chler, Martin and Bolker, Ben and Walker, Steve},
+  journal={Journal of Statistical Software},
+  volume={67},
+  number={1},
+  pages={1--48},
+  year={2015}
+}
+
+@book{shavelson1991gtheory,
+  title={Generalizability Theory: A Primer},
+  author={Shavelson, Richard J. and Webb, Noreen M.},
+  publisher={Sage},
+  year={1991}
+}
+
+@inproceedings{zheng2023llmjudge,
+  title={Judging {LLM}-as-a-Judge with {MT-Bench} and {Chatbot Arena}},
+  author={Zheng, Lianmin and Chiang, Wei-Lin and Sheng, Ying and Zhuang, Siyuan and Wu, Zhanghao and Zhuang, Yonghao and Lin, Zi and Li, Zhuohan and Li, Dacheng and Xing, Eric P. and Zhang, Hao and Gonzalez, Joseph E. and Stoica, Ion},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+  year={2023}
+}
+
+@article{gilardi2023chatgpt,
+  title={{ChatGPT} Outperforms Crowd-Workers for Text-Annotation Tasks},
+  author={Gilardi, Fabrizio and Alizadeh, Meysam and Kubli, Ma{\"e}l},
+  journal={Proceedings of the National Academy of Sciences},
+  volume={120},
+  number={30},
+  pages={e2305016120},
+  year={2023},
+  doi={10.1073/pnas.2305016120}
+}
+
+@article{singh2025leaderboard,
+  title={The Leaderboard Illusion},
+  author={Singh, Shivalika and Nan, Yiyang and Wang, Alex and D'Souza, Daniel and Kapoor, Sayash and Ustun, Ahmet and Koyejo, Sanmi and Deng, Yuntian and Longpre, Shayne and Smith, Noah A. and Ermis, Beyza and Fadaee, Marzieh and Hooker, Sara},
+  journal={arXiv preprint arXiv:2504.20879},
+  year={2025}
+}
+
+@inproceedings{calderon2025alttest,
+  title={The Alternative Annotator Test for {LLM}-as-a-Judge: How to Statistically Justify Replacing Human Annotators with {LLMs}},
+  author={Calderon, Nitay and Reichart, Roi and Dror, Rotem},
+  booktitle={Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics},
+  year={2025},
+  note={arXiv:2501.10970}
+}
+
+@article{dubois2024alpacaeval,
+  title={Length-Controlled {AlpacaEval}: A Simple Way to Debias Automatic Evaluators},
+  author={Dubois, Yann and Galambosi, Bal{\'a}zs and Liang, Percy and Hashimoto, Tatsunori B.},
+  journal={arXiv preprint arXiv:2404.04475},
+  year={2024}
+}
+
+@article{liang2023helm,
+  title={Holistic Evaluation of Language Models},
+  author={Liang, Percy and Bommasani, Rishi and Lee, Tony and Tsipras, Dimitris and Soylu, Dilara and Yasunaga, Michihiro and Zhang, Yian and Narayanan, Deepak and Wu, Yuhuai and Kumar, Ananya and others},
+  journal={Annals of the New York Academy of Sciences},
+  volume={1525},
+  number={1},
+  pages={140--146},
+  year={2023}
+}
+
+@article{xu2024benbench,
+  title={Benchmarking Benchmark Leakage in Large Language Models},
+  author={Xu, Ruijie and Wang, Zengzhi and Fan, Run-Ze and Liu, Pengfei},
+  journal={arXiv preprint arXiv:2404.18824},
+  year={2024}
+}
+
+@article{li2024arenahard,
+  title={From Crowdsourced Data to High-Quality Benchmarks: Arena-Hard and {BenchBuilder} Pipeline},
+  author={Li, Tianle and Chiang, Wei-Lin and Frick, Evan and Dunlap, Lisa and Wu, Tianhao and Zhu, Banghua and Gonzalez, Joseph E. and Stoica, Ion},
+  journal={arXiv preprint arXiv:2406.11939},
+  year={2024}
+}
+
+@inproceedings{jimenez2024swebench,
+  title={{SWE}-bench: Can Language Models Resolve Real-World {GitHub} Issues?},
+  author={Jimenez, Carlos E. and Yang, John and Wettig, Alexander and Yao, Shunyu and Pei, Kexin and Press, Ofir and Narasimhan, Karthik},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2024},
+  note={arXiv:2310.06770}
+}
+
+@article{chollet2024arcagi,
+  title={On the Measure of Intelligence},
+  author={Chollet, Fran\c{c}ois},
+  journal={arXiv preprint arXiv:1911.01547},
+  year={2019},
+  note={ARC-AGI benchmark, \url{https://arcprize.org}}
+}
+
+@article{tornberg2025llm,
+  title={Large Language Models Outperform Expert Coders and Supervised Classifiers at Annotating Political Social Media Messages},
+  author={T{\"o}rnberg, Petter},
+  journal={Social Science Computer Review},
+  year={2025},
+  publisher={SAGE}
+}
+
+@article{heseltine2024llm,
+  title={Large Language Models as a Substitute for Human Experts in Annotating Political Text},
+  author={Heseltine, Michael and Clemm von Hohenberg, Bernhard},
+  journal={Research \& Politics},
+  volume={11},
+  number={1},
+  year={2024},
+  publisher={SAGE}
+}
+
+@article{ziems2024css,
+  title={Can Large Language Models Transform Computational Social Science?},
+  author={Ziems, Caleb and Held, William and Shaikh, Omar and Chen, Jiaao and Zhang, Zhehao and Yang, Diyi},
+  journal={Computational Linguistics},
+  volume={50},
+  number={1},
+  pages={237--291},
+  year={2024},
+  publisher={MIT Press}
+}
+
+@article{bradley1952rank,
+  title={Rank Analysis of Incomplete Block Designs: {I}. The Method of Paired Comparisons},
+  author={Bradley, Ralph Allan and Terry, Milton E.},
+  journal={Biometrika},
+  volume={39},
+  number={3/4},
+  pages={324--345},
+  year={1952}
+}
+
+@article{cox1972regression,
+  title={Regression Models and Life-Tables},
+  author={Cox, David R.},
+  journal={Journal of the Royal Statistical Society: Series B (Methodological)},
+  volume={34},
+  number={2},
+  pages={187--202},
+  year={1972}
+}
+
+@article{cohen1960kappa,
+  title={A Coefficient of Agreement for Nominal Scales},
+  author={Cohen, Jacob},
+  journal={Educational and Psychological Measurement},
+  volume={20},
+  number={1},
+  pages={37--46},
+  year={1960}
+}
+
+@book{krippendorff2004content,
+  title={Content Analysis: An Introduction to Its Methodology},
+  author={Krippendorff, Klaus},
+  edition={2nd},
+  year={2004},
+  publisher={Sage},
+  address={Thousand Oaks, CA}
+}
+
+@article{hunter2004mmalgorithms,
+  title={{MM} algorithms for generalized {B}radley--{T}erry models},
+  author={Hunter, David R.},
+  journal={The Annals of Statistics},
+  volume={32},
+  number={1},
+  pages={384--406},
+  year={2004}
+}
+
+@article{robinson1991blup,
+  title={That {BLUP} is a Good Thing: The Estimation of Random Effects},
+  author={Robinson, G. K.},
+  journal={Statistical Science},
+  volume={6},
+  number={1},
+  pages={15--32},
+  year={1991}
+}
+
+@article{eloundou2023gpts,
+  title={GPTs are GPTs: An Early Look at the Labor Market Impact Potential of Large Language Models},
+  author={Eloundou, Tyna and Manning, Sam and Mishkin, Pamela and Rock, Daniel},
+  journal={arXiv preprint arXiv:2303.10130},
+  year={2023}
+}

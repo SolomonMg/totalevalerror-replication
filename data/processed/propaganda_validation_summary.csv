@@ -1,0 +1,13 @@
+metric,value
+single_config_mean_acc,0.7626666666666667
+prompt_averaged_acc,0.8022222222222222
+tee_optimal_acc,0.8
+acc_range_pp,0.17999999999999994
+correlation_disagree_vs_acc,-0.6841521920697999
+pct_configs_worse_than_tee,0.7333333333333333
+n_items,50
+n_configs,45
+n_clean_rows,11228
+low_var_acc,1
+medium_var_acc,0.7861111111111111
+high_var_acc,0.5464052287581699

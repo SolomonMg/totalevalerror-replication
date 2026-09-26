@@ -1,0 +1,125 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Why Scenario C (multi-prompt item means) captures $\sigma^2_{\alpha\rho}$ but not $\sigma^2_\rho$}
+\author{Notes for Figure~1 simulation (\texttt{04g\_sim\_underestimation.R})}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+The core insight: \textbf{\texttt{sd(item means)} measures variability \emph{across items within a simulation}. Only components that vary across items at fixed $(v_{\text{set}}, h_c, m_c)$ contribute.}
+
+\section*{Derivation}
+
+The item mean under scenario C (multi-prompt item means, $V=3$, $R=5$, fixed $h_c$, $m_c$) is:
+\begin{align*}
+\bar{y}_{i,\cdot}
+  &= \mu + \alpha_i + \underbrace{\bar\rho}_{\text{avg over }v} + \tau[h_c] + \lambda[m_c] \\
+  &\quad + \underbrace{\overline{(\alpha\rho)_i}}_{\text{avg over }v \text{ for item }i} + (\alpha\tau)_{i,h_c} + (\alpha\lambda)_{i,m_c} \\
+  &\quad + \underbrace{\overline{(\rho\tau)_{\cdot,h_c}}}_{\text{avg over }v} + \underbrace{\overline{(\rho\lambda)_{\cdot,m_c}}}_{\text{avg over }v} + \bar\epsilon_i.
+\end{align*}
+
+Now sort each term by whether it varies across items within one simulation.
+
+\paragraph{Varies across items (contributes to \texttt{sd(item means)}).}
+\begin{itemize}
+  \item $\alpha_i$ \quad $\longrightarrow$ \quad $\sigma^2_\alpha$
+  \item $\overline{(\alpha\rho)_i} \quad \longrightarrow \quad \sigma^2_{\alpha\rho} / V$ \quad \emph{(this is the key one)}
+  \item $(\alpha\tau)_{i,h_c} \quad \longrightarrow \quad \sigma^2_{\alpha\tau}$
+  \item $(\alpha\lambda)_{i,m_c} \quad \longrightarrow \quad \sigma^2_{\alpha\lambda}$
+  \item $\bar\epsilon_i \quad \longrightarrow \quad \sigma^2_\epsilon / (VR)$
+\end{itemize}
+
+\paragraph{Constant across items in one simulation (invisible to \texttt{sd(item means)}).}
+\begin{itemize}
+  \item $\bar\rho$ --- same for every item in the simulation; just shifts all item means by the same amount
+  \item $\overline{(\rho\tau)_{\cdot,h_c}}$ --- same
+  \item $\overline{(\rho\lambda)_{\cdot,m_c}}$ --- same
+  \item $\tau[h_c]$, $\lambda[m_c]$ --- deterministic constants
+\end{itemize}
+
+\section*{The key distinction}
+
+Any term with an \textbf{$i$ subscript} that remains after averaging over $v$ varies across items $\longrightarrow$ captured by \texttt{sd(item means)}.
+
+Any term \textbf{without an $i$ subscript} becomes a constant offset after averaging $\longrightarrow$ invisible.
+
+\begin{itemize}
+  \item $(\alpha\rho)_{i,v}$ has both $i$ and $v$. Averaging over $v$ gives $\overline{(\alpha\rho)_i}$, which \emph{still has $i$} and varies across items. Its contribution shrinks from $\sigma^2_{\alpha\rho}$ to $\sigma^2_{\alpha\rho} / V$ (because we averaged $V$ iid draws per item) but stays nonzero. \textbf{Captured.}
+  \item $\rho_v$ has only $v$. Averaging over $v$ gives $\bar\rho$, a scalar. Every item in the simulation gets the same $\bar\rho$. Across items: zero variance. \textbf{Blind.}
+\end{itemize}
+
+\section*{Where $\sigma^2_\rho$ actually lives}
+
+In the \emph{bias}, not the SE. Across simulations:
+\[
+\bar\rho \sim \mathcal{N}\!\left(0, \; \sigma^2_\rho / V\right).
+\]
+This shifts the entire set of item means by a per-simulation constant. The CI around \texttt{mean(item means)} doesn't include this shift. So each simulation's CI is off-center by $\bar\rho$, and coverage of the grand mean drops.
+
+C gets the \emph{smaller} blind spot $\sigma^2_\rho / V$ (because averaging shrinks the shift variance) but still misses it entirely---because the estimator sees variance \emph{across items within a simulation}, not variance \emph{across simulations}.
+
+\section*{Implications for Panel (a)}
+
+C should show:
+\begin{itemize}
+  \item $\alpha$, $\gamma$, $\epsilon$: captured
+  \item $\alpha \times \rho$: captured (this is what's new vs B)
+  \item $\rho$, $\rho \times \tau$, $\rho \times \lambda$: still blind (captured only as cross-simulation bias, not in-sample SE)
+  \item $\alpha \times \tau$, $\alpha \times \lambda$: captured
+\end{itemize}
+
+Scenario B has $V=1$, so the item mean simplifies to:
+\[
+\bar{y}_{i,\cdot} = \mu + \alpha_i + \rho_{v_c} + \tau[h_c] + \lambda[m_c] + (\alpha\rho)_{i,v_c} + (\alpha\tau)_{i,h_c} + (\rho\tau)_{v_c,h_c} + (\alpha\lambda)_{i,m_c} + (\rho\lambda)_{v_c,m_c} + \bar\epsilon_i.
+\]
+Same structure: anything with $i$ subscript contributes to \texttt{sd(item means)}. So B captures $\alpha$, $(\alpha\rho)$ at the chosen $v$, $(\alpha\tau)$ at the chosen $h$, $(\alpha\lambda)$ at the chosen $m$, and $\epsilon$.
+
+B and C both capture $\alpha$, $\alpha\times\rho$, $\alpha\times\tau$, $\alpha\times\lambda$ in the numerical SE---the only difference is that C's contribution for $\alpha\times\rho$ is $\sigma^2_{\alpha\rho}/V$ (averaged over the chosen variants) instead of $\sigma^2_{\alpha\rho}$ (at the single $v$). But that difference is small for the grand-mean estimand because the true contribution of $\alpha\times\rho$ to $\mathrm{Var}(\hat\theta)$ is $\sigma^2_{\alpha\rho}/(NV)$ regardless.
+
+This means the earlier Panel (a) classification was wrong: $\alpha\times\tau$ and $\alpha\times\lambda$ were marked ``blind'' for A/B but should be ``captured'' in the same sense that the new C captures $\alpha\times\rho$---they vary across items at the fixed config and contribute to \texttt{sd(item means)}.
+
+\section*{The cleaner classification}
+
+A component is ``captured in the SE'' if the estimator's within-simulation cross-item variance includes it. That is:
+\begin{center}
+\emph{anything with an $i$ subscript (items vary).}
+\end{center}
+
+Blind components are:
+\begin{itemize}
+  \item Main effects on factors not in the design ($\rho$, $\tau$, $\lambda$ at their chosen fixed levels)
+  \item Interactions between non-item factors at their chosen fixed levels ($\rho\tau$, $\rho\lambda$ at fixed $v$, $h$, $m$)
+\end{itemize}
+
+Under this rule:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Scenario & Captured in SE & Blind \\
+\midrule
+A ($V=1$, $R=1$) & $\alpha$, $\gamma$, $\alpha\rho$, $\alpha\tau$, $\alpha\lambda$, $\epsilon$ & $\rho$, $\rho\tau$, $\rho\lambda$ \\
+B ($V=1$, $R=5$) & $\alpha$, $\gamma$, $\alpha\rho$, $\alpha\tau$, $\alpha\lambda$, $\epsilon$ & $\rho$, $\rho\tau$, $\rho\lambda$ \\
+C new ($V=3$, $R=5$, item means) & $\alpha$, $\gamma$, $\alpha\rho$, $\alpha\tau$, $\alpha\lambda$, $\epsilon$ & $\bar\rho$, $\bar{\rho\tau}$, $\bar{\rho\lambda}$\\
+  & & \footnotesize(averaged but blind to variance)\\
+D ($V=3$, $R=5$, crossed lmer) & $\alpha$, $\gamma$, $\alpha\rho$, $\alpha\tau$, $\alpha\lambda$, $\epsilon$, $\boldsymbol{\rho}$ & $\rho\tau$, $\rho\lambda$\\
+  & \footnotesize($\rho$ modeled explicitly) & \footnotesize(still blind at fixed $h$, $m$)\\
+E ($V=3$, $H=3$, $M=3$, $R=5$) & everything & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Meaningful differences across scenarios}
+
+\begin{itemize}
+  \item \textbf{B vs C}: same captured set in principle, but C's ``blind'' bias is $\sigma^2_\rho/V$ instead of $\sigma^2_\rho$ (smaller by factor $V$).
+  \item \textbf{C vs D}: D explicitly models $\rho$ as a random effect, so its SE includes $\sigma^2_\rho/V$ as a term.
+  \item \textbf{D vs E}: E captures $\rho\times\tau$, $\rho\times\lambda$ via multi-$h$ and multi-$m$ data.
+\end{itemize}
+
+\end{document}

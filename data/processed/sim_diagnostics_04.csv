@@ -1,0 +1,7 @@
+config,n_items,n_sims,n_converged,convergence_rate,n_singular,singular_rate
+"Full (100i, 4p, 8r)",100,1000,1000,1,22,0.022
+"Large (200i, 5p, 10r)",200,1000,1000,1,7,0.007
+"Medium (50i, 4p, 5r)",50,1000,1000,1,69,0.069
+"Pilot (30i, 3p, 5r)",30,1000,1000,1,140,0.14
+"Pilot-like (20i, 3p, 5r)",20,1000,1000,1,225,0.225
+"Small (10i, 3p, 3r)",10,1000,1000,1,456,0.456

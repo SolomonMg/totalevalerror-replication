@@ -1,0 +1,419 @@
+% GENERATED from neurips_arxiv.tex by make. Edit neurips_arxiv.tex, not this file.
+\documentclass{article}
+
+% arXiv preprint: un-anonymizes via [preprint] option per NeurIPS 2026 handbook.
+\usepackage[main, final]{neurips/neurips_2026}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\graphicspath{{../figures/}}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{bm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, fit, backgrounds, calc}
+\usepackage{titlesec}
+
+% Whitespace tightening (defaults LaTeX leaves alone; .sty already tightens captions/lists/math)
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\titlespacing*{\section}{0pt}{8pt plus 2pt minus 2pt}{4pt plus 1pt minus 1pt}
+\titlespacing*{\subsection}{0pt}{6pt plus 1pt minus 1pt}{3pt plus 1pt minus 1pt}
+\titlespacing*{\paragraph}{0pt}{4pt plus 1pt minus 1pt}{1em}
+
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\E}{E}
+
+% NeurIPS-style answer macros (used in the paper checklist)
+\providecommand{\answerYes}[1][]{\textcolor{blue}{[Yes]}#1}
+\providecommand{\answerNo}[1][]{\textcolor{red}{[No]}#1}
+\providecommand{\answerNA}[1][]{\textcolor{gray}{[NA]}#1}
+\providecommand{\answerTODO}[1][]{\textcolor{orange}{[TODO]}#1}
+
+% Public code repository (real GitHub URL for the preprint)
+\newcommand{\codeurl}{\url{https://github.com/SolomonMg/totalevalerror}}
+\newcommand{\codeurltext}{github.com/SolomonMg/totalevalerror}
+
+\title{Hidden Measurement Error in LLM Pipelines Distorts Annotation, Evaluation, and Benchmarking}
+
+\author{%
+  Solomon Messing\thanks{Corresponding author.} \\
+  Center for Social Media, AI, and Politics, New York University \\
+  MLCommons \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+LLM evaluations drive which models get deployed, what safety standards get adopted, which research conclusions get published, and how projections of AI's labor-market impact get made. Yet standard confidence intervals ignore variability from judge model choice, model temperature, and prompt phrasing, producing under-coverage that worsens with more data. The omitted variance can shift results enough to reverse conclusions \citep{baumann2025llmhacking, huang2026dropping}; pipelines that fail to average over it leave the surface that ``benchmark hacking'' exploits \citep{singh2025leaderboard}. This paper decomposes LLM pipeline uncertainty into its sources, distinguishes variance that shrinks with more data from sensitivity to researcher design choices, and uses design-study projections to reduce total evaluation error (TEE). Across the demonstrations, naive standard errors are 40 - 60\% smaller than the TEE-corrected SE. Using Chatbot Arena data, we show naive 95\% CI coverage drops as $n$ grows while TEE-corrected coverage holds at 95\%, and TEE-guided pipelines restrict the benchmark gaming surface from 56 to 32 Elo ($K=27$), below the human-leaderboard baseline. We show further that a small pilot recovers honest CIs and projects which design changes most improve precision. Acting on those projections roughly halves MMLU estimation error against the answer key at equivalent cost, and raises per-match agreement with human votes by 7.9 percentage points on Chatbot Arena.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+LLM measurement pipelines introduce variance at multiple stages that traditional reporting norms ignore. Researchers who use LLMs for annotation, evaluation, or content moderation routinely do so with no assessment of prompt sensitivity, temperature dependence, or item-level heterogeneity \citep{pecher2026underspecification, barrie2025replication}. Benchmark scores likewise depend on prompt wording and scoring model choice, and this dependence is seldom measured (SI Appendix, Table~\ref{tab:current_practice}).\footnote{AlpacaEval and Chatbot Arena report item-sampling CIs; AILuminate uses a multi-judge evaluator ensemble; no benchmark decomposes prompt, temperature, or interaction variance. Full 13-benchmark survey in SI Appendix, Table~\ref{tab:current_practice}.} In all cases, unmeasured variation can create analogues to $p$-hacking \citep{simmons2011falsepositive, gelman2013garden} and overfitting \citep{recht2019imagenet} such that the results reflect measurement noise, not general phenomena.
+
+At best, current practice reports confidence intervals (CIs) reflecting variation from repeated sampling at identical settings, ignoring prompt sensitivity, item heterogeneity, and their interactions. Figure \ref{fig:underestimation} presents simulation results showing that we should expect under-coverage to \emph{worsen} with more items, because omitted variance from prompt and judge choices does not shrink with~$N$.\footnote{Variance parameters estimated via REML under the framework introduced below; 1,000 simulation replicates per data point (SI Appendix, Section~\ref{si:underestimation_sim}).}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\linewidth]{fig_underestimation_slide_v2.pdf}
+\caption{Naive confidence intervals fail because pipeline variance from prompt, judge, and temperature choice does not shrink with items ($N$). (a)~95\% CI coverage versus $N$ in six scenarios (A - F). (b)~Variance components each scenario accounts for. Scenario A is the naive estimate $\Phi^{-1}(0.975) \times s/\sqrt{N}$; B - F add variance parameters from the framework below, F including the item interactions and $\sigma^2_\epsilon$. D - F overlap near 99\% (E lies under F).%Scenarios: A, $\mathrm{SE}=s/\sqrt{N}$; B adds $V=3$ prompts and fits $(1\,|\,\text{item})+(1\,|\,\text{variant})$, capturing $\phi$. C adds $M=3$ judges and $(1\,|\,\text{judge})$, capturing $\lambda$. D adds $H=3$ temperatures and $(1\,|\,\text{temp})$, capturing $\tau$. E adds $(1\,|\,\text{variant:judge}) + (1\,|\,\text{variant:temp})$ for the pairwise interactions.DGP parameters rescaled for illustrative purposes.
+}
+\label{fig:underestimation}
+\end{figure}
+
+The problem is especially urgent in benchmarking, where unstable scores make rank-order differences between closely spaced models (or systems under test, SUT) uninterpretable for evaluators and give model developers exploitable degrees of freedom. On stable measurement, \citet{romanou2026brittlebench} show that semantics-preserving input perturbations explain near half of performance variance, minor reorderings of answer choices shift MMLU leaderboard rankings by up to 8~positions \citep{alzahrani2024benchmarks}, and on Chatbot Arena dropping just 0.003\% of human preferences is enough to flip the top-ranked model \citep{huang2026dropping}. With respect to exploitation, \citet{singh2025leaderboard} document best-of-$K$ leaderboard gaming in production, the mechanism Section~\ref{sec:gaming} quantifies.
+
+Ignoring this variability can harm the scientific literature as well. One re-evaluation study found 31\% of hypotheses tested with LLM annotations yielded incorrect conclusions under LLM configuration variation (model, prompt, temperature, output mapping), and found malicious actors could reverse the sign of 68\% of statistically significant effects through adversarial configuration selection \citep{baumann2025llmhacking}. Other work has found that formatting choices alone produced a 76-point accuracy spread \citep{sclar2024sensitivity}, while infrastructure nondeterminism shifted results by up to nine percentage points even at temperature zero \citep{yuan2025numerical}.\footnote{$T = 0$ does not remove model uncertainty. Greedy decoding returns one deterministic path, but the token distribution keeps its entropy, and for chain-of-thought models early token choices compound along that path \citep{renze2024temperature}.}
+
+\section{Related Work}
+
+Several concurrent works address pieces of this problem, including variance decomposition \citep{haase2026withinmodel, wang2024measuring}, uncertainty quantification \citep{longjohn2025statistical}, sensitivity taxonomies \citep{romanou2026brittlebench}, meta-evaluation of benchmark reliability \citep{mcgregor2025benchrisk}, and tests of whether LLMs can replace human annotators \citep{calderon2025alttest}. \citet{camuffo2026variance} build a five-part variance taxonomy for LLM annotation and tie annotation variance to downstream bias. NIST AI 800-3 \citep{keller2026nist} fits a GLMM to benchmark data and separates benchmark accuracy from generalized accuracy as estimands. \citet{song2025gtheory} apply G-theory to writing assessment. \citet{dobriban2025statistical} note that a unified statistical methodology for evaluation ``remains to be developed'' (SI Appendix, Section~\ref{si:comparison}).
+
+\section{Framework}
+\label{sec:framework}
+
+We call the framework \textit{Total Evaluation Error} (TEE, Figure~\ref{fig:pipeline}). TEE decomposes pipeline variance into components that include the first-order interactions, then projects from those components the standard error of any design a researcher might run. The projections are what let us calibrate CIs, allocate budget, and shrink the surface that benchmark gaming exploits. The name follows total survey error \citep{sen2019tedon, groves2010survey}, which treats every stage of a measurement pipeline as a source of error, and the framework draws on the text-as-data literature \citep{grimmer2013text}. %\footnote{``Total'' refers to accounting for items, prompts, judges, temperatures, replications and their interactions. It does not model every conceivable source of operational variation. For example, cross-layer interactions between the system under test and the judge are not captured by the current within-layer decomposition, though extensions are certainly possible.}. 
+
+%combines crossed prompt, judge, and temperature random effects \textit{with their interactions} to more fully decompose the variance and allow for better calibrated CIs. It also provides projections that can be used by analysts and evaluators to reduce error and benchmark hacking vulnerability, by translating the decomposition into D-study allocations and gaming-surface bounds.  %TEE enables researchers to identify the dominant sources of pipeline uncertainty and benchmark builders to diagnose which design choices are most exploitable (SI Appendix, Table~\ref{tab:gaming}).
+
+\subsection{Relation to Generalizability Theory}
+\label{sec:gtheory}
+
+TEE operationalizes generalizability theory (G-theory) for LLM pipelines \citep{cronbach1972dependability, brennan2001gtheory, shavelson1991gtheory, bayerl2007gtheory} and uses its standard estimators. Our contribution is the LLM-specific measurement design that makes prompts, temperatures, models, judges, scoring methods, and interactions such as item$\times$judge and prompt$\times$judge explicit sources of pipeline error, where today they are hidden implementation choices. Four links to G-theory carry the rest of the paper.
+
+(1)~The universe of admissible observations here spans items, prompt phrasings, judge models, SUT models, decoding temperatures, replications, and scoring protocols. The object of measurement is the \emph{item}, the unit whose score the evaluation generalizes over. On MMLU an item is a benchmark question. On safety and Arena a judge scores model output, and an item is the fixed evaluation case, a user prompt plus the SUT response(s) being judged. The prompt variants that instruct the judge index a facet of their own.
+(2)~We apply the random versus fixed distinction to LLM design choices. Facets we sample over (items, prompt variants, replications) contribute uncertainty that averaging shrinks. A model, temperature, or scoring protocol we hold fixed is a design feature, and its contribution belongs in a sensitivity analysis (Section~\ref{sec:dgp}).
+(3)~A G-study diagnoses which facets and interactions dominate under the design actually run (Section~\ref{sec:gstudy}). A D-study projects which alternative design would reduce the target SE (Section~\ref{sec:dstudy}). We map those projections onto budget choices and test how far the rankings survive pilot-size limits and misspecification.
+(4)~The scoring protocol produces the observed score, so it belongs to the measurement design. Estimated components change under binary or Likert judging versus Bradley-Terry pairwise scoring, and on the probability versus the logit scale (SI Appendix, Sections~\ref{si:scoring_comparison} and~\ref{si:glmm}).
+
+Classical G-theory grew up where raters are scarce and expensive while items and occasions are cheap, so its D-studies mostly ask how many raters one can afford \citep{brennan2001gtheory}. LLM pipelines price every facet in the same unit. An extra judge, prompt variant, item, or replication adds API calls in proportion to the rest of the design, and none of them needs recruiting or training, so every facet competes for one budget and the D-study has to rank them. TEE measures reliability. Judge correctness and construct coverage are validity questions that need external data, and Sections~\ref{sec:safety} and~\ref{sec:limitations} say what to pair the decomposition with.
+
+\begin{figure}[t!]
+\centering
+\resizebox{0.82\linewidth}{!}{%
+\begin{tikzpicture}[
+    node distance=0.4cm and 1.6cm,
+    box/.style    = {rectangle, draw, thick, rounded corners=2pt,
+                     minimum width=4.0cm, minimum height=0.7cm,
+                     align=center, font=\small, fill=blue!4},
+    final/.style  = {box, fill=blue!18, font=\bfseries\small,
+                     minimum width=4.4cm},
+    layer/.style  = {draw=gray!55, dashed, semithick, rounded corners=5pt,
+                     inner xsep=10pt, inner ysep=4pt, fill=gray!5},
+    llabel/.style = {font=\scriptsize\itshape, text=gray!72!black,
+                     fill=white, inner xsep=2pt, inner ysep=0pt},
+    vleft/.style  = {font=\footnotesize, align=right, anchor=east,
+                     text width=4.6cm},
+    vright/.style = {font=\footnotesize, align=left,  anchor=west,
+                     text width=4.6cm},
+    arrow/.style  = {-{Stealth[length=2.6mm]}, thick},
+    header/.style = {font=\small\bfseries, align=center,
+                     text=gray!40!black, text width=4.6cm}
+]
+
+% ========= central pipeline =========
+\node[box]                            (items)  {\textbf{Items} {\scriptsize\itshape(benchmark or annotation)}};
+\node[box, below=0.55cm of items]     (sutpr)  {\textbf{SUT prompt} {\scriptsize\itshape(instruction wrapping item)}};
+\node[box, below=of sutpr]            (sutres) {\textbf{SUT response} {\scriptsize\itshape(model's answer)}};
+\node[box, below=0.55cm of sutres]    (jpr)    {\textbf{Judge prompt} {\scriptsize\itshape(rubric, scale, examples)}};
+\node[box, below=of jpr]              (jres)   {\textbf{Judge rating} {\scriptsize\itshape(judge's score)}};
+\node[final, below=0.55cm of jres]    (agg)    {Aggregate score $\hat{\theta}_{hm}$};
+
+\draw[arrow] (items)  -- (sutpr);
+\draw[arrow] (sutpr)  -- (sutres);
+\draw[arrow] (sutres) -- (jpr);
+\draw[arrow] (jpr)    -- (jres);
+\draw[arrow] (jres)   -- (agg);
+
+% ========= layer frames =========
+% SUT layer drawn lighter to signal it is conditional on a benchmarking task.
+\begin{scope}[on background layer]
+  \node[layer, draw=gray!40, fill=gray!3,
+        fit=(sutpr)(sutres)] (sutlayer) {};
+  \node[layer, fit=(jpr)(jres)]      (jlayer)   {};
+\end{scope}
+\node[llabel, anchor=north] at ([yshift=-1pt]sutlayer.north)
+   {SUT layer (skip for content annotation)};
+\node[llabel, anchor=north] at ([yshift=-1pt]jlayer.north)
+   {judge / annotation layer};
+
+% ========= LEFT: random variance =========
+\node[vleft] at ([xshift=-1.0cm]items.west)
+    {real differences between items {\scriptsize\textcolor{gray!55!black}{$\sigma^{2}_{\alpha}$}}};
+\node[vleft] at ([xshift=-1.0cm]sutpr.west)
+    {rewording the instruction changes answers {\scriptsize\textcolor{gray!55!black}{$\sigma^{2}_{\phi}$}}};
+\node[vleft] at ([xshift=-1.0cm]sutres.west)
+    {noise across replicate calls {\scriptsize\textcolor{gray!55!black}{$\sigma^{2}_{\rho}$}}};
+\node[vleft] at ([xshift=-1.0cm]jpr.west)
+    {rewording the rubric changes scores {\scriptsize\textcolor{gray!55!black}{$\sigma^{2}_{\phi}$}}};
+\node[vleft] at ([xshift=-1.0cm]jres.west)
+    {judges disagree on which items get scored how {\scriptsize\textcolor{gray!55!black}{$\sigma^{2}_{\alpha\lambda}$}}};
+
+% ========= RIGHT: design choices =========
+\node[vright] at ([xshift=1.0cm]items.east)
+    {category sampling, sample size $N$};
+\node[vright] at ([xshift=1.0cm]sutpr.east)
+    {format, system message, few-shot examples};
+\node[vright] at ([xshift=1.0cm]sutres.east)
+    {temperature, seed, sampling parameters};
+\node[vright] at ([xshift=1.0cm]jpr.east)
+    {rubric structure, scale anchors};
+\node[vright] at ([xshift=1.0cm]jres.east)
+    {which judge model, scoring rule (binary / Likert / BT)};
+
+% ========= column headers =========
+\node[header] at ([xshift=-5.2cm,yshift=0.5cm]items.north)
+    {sources of noise\\{\normalfont\footnotesize shrink with more data}};
+\node[header] at ([xshift=5cm,yshift=0.5cm]items.north)
+    {design choices\\{\normalfont\footnotesize aggregate/sensitivity analysis}};
+\end{tikzpicture}}%
+
+\caption{TEE separates aggregation-reducible noise from design-choice sensitivity at every pipeline stage. %Each variance component on the left shrinks with more items, prompts, or replications within a chosen design. Each design choice on the right is fixed within a design but its contribution shrinks across designs (averaging over multiple judges, temperatures, or scoring rules); when no aggregation occurs, the contribution should be reported as sensitivity. 
+For content-annotation tasks (e.g., labeling social media posts) the SUT layer is omitted.}
+\label{fig:pipeline}
+\end{figure}
+% \clearpage
+
+
+Figure~\ref{fig:safety_combined}(a) illustrates the TEE decomposition. Three LLM judges \citep{zheng2023llmjudge} classify 141 safety items from the AILuminate benchmark. Judge design sensitivity contributes 43.8\% of the variance with item$\times$judge adding another 16.7\%. On the other hand, prompt wording contributes less than 0.5\%. In this example, investing in additional judges has higher returns to variance reduction than better prompts or additional benchmark items.
+
+\subsection{Data-Generating Process}
+\label{sec:dgp}
+
+An LLM measurement pipeline produces a scored output $Y_{ivhm}^{(r)}$ depending on five factors: item~$i$ ($i = 1, \ldots, N$), prompt variant~$v$ ($v = 1, \ldots, V$), temperature~$h$ ($h = 1, \ldots, H$), model~$m$ (a judge at the judge layer, a SUT at the SUT layer), and replication~$r$ ($r = 1, \ldots, R$). A replication is a repeated API call with identical inputs. The framework specifies the linear mixed model:
+\begin{equation}
+\label{eq:dgp}
+\begin{split}
+Y_{ivhm}^{(r)} = \mu + \alpha_i + \phi_v + \tau_h + \lambda_m 
+ + (\alpha\phi)_{iv} + (\alpha\tau)_{ih} + (\phi\tau)_{vh} 
+ + (\alpha\lambda)_{im} + (\phi\lambda)_{vm} \\
+ + \epsilon_{ivhm} + \rho_{ivhm}^{(r)}
+\end{split}
+\end{equation}
+where $\mu$ is the grand mean, $\alpha_i$ is the item random effect, $\phi_v$ the prompt variant random effect, $\tau_h$ the temperature fixed effect, $\lambda_m$ the model fixed effect, the five parenthesized interaction terms are two-way interaction random effects, $\epsilon_{ivhm} \sim N(0, \sigma^2_\epsilon)$ captures cell-level error from unmodeled higher-order interactions, and $\rho_{ivhm}^{(r)} \sim N(0, \sigma^2_\rho)$ captures within-cell replicate noise. %$\epsilon_{ivhm}$ is constant within a cell, $\rho_{ivhm}^{(r)}$ varies by replication within a cell. %The cell-level term $\sigma^2_\epsilon$ does not shrink with replications $R$; only items, prompts, judges, and other facets indexing the cell can reduce it.
+
+We treat items and prompt variants as \emph{random} because we wish to get an estimand over all items and prompts that might have been drawn, so we average over them. On the other hand, we treat temperature and model as \emph{fixed} because we purposefully assembled the judge panel and do not wish to generalize to some model population, and similarly we consider temperatures as analogous to a ``dose'' rather than something to be sampled. Temperature also has nonlinear, non-additive effects on output variance \citep{renze2024temperature, li2025hotcold} (SI Appendix, Section~\ref{si:temperature}). %Some LLM-as-judge applications may want to characterize variance across a population of judge models, for example to bound how rankings shift under arbitrary judge swap. We still treat model as fixed because exchangeability across typical judge panels is implausible (different model families, sizes, training distributions) and 3 - 4 judges is too few to estimate a between-model variance with usable precision; the design-sensitivity index instead summarizes spread across the specific chosen levels. 
+% Averaging over an $M$-judge panel reduces the model contribution to the grand mean as $\sigma^2_\lambda/M$ (Eq.~\ref{eq:dstudy_multi}), which the empirical demonstrations rely on. 
+
+\subsection{G-Study: Estimating the Variance Components}
+\label{sec:gstudy}
+The G-study is the factorial we actually run, and its output is one variance component per facet and interaction under that observed design. Three assumptions hold the decomposition together. The first is exchangeability. Any repeated call at the same settings could stand in for any other, and no prompt variant is systematically better than the rest. That is what makes prompts and replications draws from a population, so their contributions shrink as a design adds variants or repeated calls. A prompt that reliably beats its alternatives is a design choice, and adding variants would only dilute it. The second is additivity up to two-way interactions. Each variance component then belongs to one or two facets, and averaging over them divides its contribution by their counts. Higher-order terms land in the residual, which does no harm so long as they stay small. The third is that random effects are independent and normally distributed. Independence lets the total variance equal the sum of its parts. If the difficult items were also the prompt-sensitive ones, a cross term would appear that no facet owns. Normality does less work. It supplies the likelihood and the 1.96 in the confidence interval, and the variance estimates stay consistent without it \citep{jiang1996reml}. We state each assumption formally in SI Appendix, Section~\ref{si:framework}, and test how D-study projections hold up when each is violated in Section~\ref{si:simulations}.
+
+Which variants are admissible is therefore a construct question, and we settle it with a screen that never sees scores \citep{cronbach1972dependability, groves2010survey, mizrahi2024multiprompt, sclar2024sensitivity, barrie2024pss}. We anchor on the original prompt and require each candidate to preserve the task or rubric, the inserted content, the answer format, and the reasoning and scoring mode. A deterministic check rejects candidates that drop an input placeholder or the answer-format instruction. An independent screener model, never used as a judge, then rates construct equivalence from 1 to 5, and we reject anything below 4. On safety and MMLU the decoys score 1.0 and 2.5, and every retained variant scores 4 or 5. Applied retroactively, the deterministic check flags one MMLU variant that the screener had passed, and we drop it (Section~\ref{sec:mmlu}). We then pick diverse admissible variants and report how the estimates move with breadth. Widening from strict paraphrase to the framing variants raises the MMLU prompt-attributable share of per-observation G-study variance from 2.1\% to 7.3\%, and a broader hand-authored set reaches 20.6\%, so we do not claim coverage saturation there. The safety share holds at 1.3\% across narrow, broad-wording, and broad-framing sets (SI Appendix, Section~\ref{si:prompt_admissibility}). These per-observation shares are a different quantity from the $\Var(\hat\theta)$ shares reported in Section~\ref{sec:empirical}.
+
+At fixed temperature $h$ and model $m$, the observation-level variance decomposes as:
+\begin{equation}
+\label{eq:tle}
+\begin{split}
+\Var(Y \mid h, m) = \sigma^2_\alpha + \sigma^2_\phi + \sigma^2_{\alpha\phi} + \sigma^2_{\alpha\tau} \\
++ \sigma^2_{\phi\tau} + \sigma^2_{\alpha\lambda} + \sigma^2_{\phi\lambda} + \sigma^2_\epsilon + \sigma^2_\rho
+\end{split}
+\end{equation}
+While the decomposition conditions on the temperature and model main effects ($\tau_h$ and $\lambda_m$), the interaction terms remain because they are variance components of random effects. When averaging over $M$ models, a design-sensitivity term $\sigma^2_\lambda = \frac{1}{M}\sum_m(\lambda_m - \bar{\lambda})^2$ is added. The same is true for averaging over multiple temperatures. Equation~\ref{eq:dgp} omits the temperature$\times$model interaction. A design that averages over both factors also adds a term for their interaction, $\sigma^2_{\tau\lambda}$ (SI Appendix, Section~\ref{si:framework}).
+
+In practice the G-study is a single \texttt{lmer} call \citep{bates2015lme4}. Fixed factors enter as covariates, \texttt{temperature + model}, and every random facet or interaction enters as its own term, for example \texttt{(1|item) + (1|prompt\_variant) + (1|item:model)}. REML \citep{jiang1996reml} returns one variance estimate per term, and those estimates are the $\sigma^2$ components in Equation~\ref{eq:tle}. The D-study below divides each component by the number of levels of its facets that a proposed design averages over. The full formula, pilot-design thresholds, and bootstrap-CI guidance for small facet counts are in SI Appendix, Sections~\ref{si:estimation} and~\ref{si:checklist}.
+
+%Random components (item, prompt variant, replication) shrink by aggregation within a chosen design; fixed-effect contributions (temperature, model, scoring method) shrink only by aggregating across designs, and otherwise should be reported as sensitivity alongside the point estimate \citep{steegen2016multiverse}.
+
+\subsection{D-Study: Projecting Precision Under Alternative Designs}
+\label{sec:dstudy}
+
+The G-study reports which facets dominate under the design we ran. A D-study takes the estimated variance components and projects the variance of the grand mean $\hat{\theta}$ under any design a researcher might run. Following G-theory, primes mark the proposed design ($N'$ items, $V'$ prompt variants, $R'$ replications) and unprimed letters the estimation design (the G-study). Each component enters the projection divided by the number of levels the proposed design averages it over. Item heterogeneity is divided by $N'$, prompt sensitivity by $V'$, and judge sensitivity by the panel size $M$. Each interaction is divided by the product of the counts for the facets it spans, cell-level error by $N'V'M$, and replicate noise by $N'V'MR'$. The formula treats items as draws from a larger population. When a benchmark's fixed item set is itself the target, the $\sigma^2_\alpha / N'$ term drops out.
+
+The item$\times$judge and prompt$\times$judge terms, $\sigma^2_{\alpha\lambda}$ and $\sigma^2_{\phi\lambda}$, are identifiable only when the estimation design crosses $M$ models; with a single model they fold into $\sigma^2_\alpha$ and $\sigma^2_\phi$ (SI Appendix, Section~\ref{si:framework}).\footnote{When items belong to categories, as in the demonstrations here, $\sigma^2_\alpha = \sigma^2_\kappa + \sigma^2_\delta$ splits item heterogeneity into between-category and within-category parts. Sampled categories would add a $\sigma^2_\kappa / C$ term. The categories here are fixed (specific hazard types, ideology dimensions, MMLU subjects), so $\sigma^2_\kappa$ stays inside $\sigma^2_\alpha / N'$.} The cell-level and replicate-noise variances are estimated per model and averaged over the panel, $\bar{\sigma}^2_\epsilon = \frac{1}{M}\sum_m \sigma^2_{\epsilon,m}$ and $\bar{\sigma}^2_\rho = \frac{1}{M}\sum_m \sigma^2_{\rho,m}$. At fixed temperature, the projected variance is
+
+\begin{equation}
+\label{eq:dstudy_multi}
+\begin{split}
+\Var(\hat{\theta}_h) = \frac{\sigma^2_\alpha}{N'} + \frac{\sigma^2_\phi}{V'} + \frac{\sigma^2_\lambda}{M} + \frac{\sigma^2_{\alpha\phi}}{N'V'} + \frac{\sigma^2_{\alpha\tau}}{N'} + \frac{\sigma^2_{\phi\tau}}{V'} %\\
++ \frac{\sigma^2_{\alpha\lambda}}{N'M} + \frac{\sigma^2_{\phi\lambda}}{V'M} + \frac{\bar{\sigma}^2_\epsilon}{N'V'M} + \frac{\bar{\sigma}^2_\rho}{N'V'MR'}
+\end{split}
+\end{equation}
+The D-study variance gives the standard error and 95\% CI: $\hat{\theta} \pm 1.96 \cdot \sqrt{\Var(\hat{\theta})}$, accounting for all identified pipeline variance. When facet counts are small (e.g., $V = 3$), the result is moderate undercoverage (80 - 90\% instead of 95\%). Parametric bootstrap estimates restore nominal coverage at minimal additional cost (SI Appendix, Section~\ref{si:underestimation_sim}).
+
+In Monte Carlo simulations (1,000 replicates), the D-study picks the correct top intervention in 98\% of runs under the default DGP. Under four assumption violations (correlated random effects, non-exchangeable prompts, non-normal scores, heterogeneous category interactions), projected variance stays within 8\% of the truth. A latent-ambiguity sweep that adds sparse three-way interactions keeps component-level bias below 9\% (SI Appendix, Sections~\ref{si:dstudy_validation} and~\ref{si:latent_ambiguity}).
+
+\paragraph{Choosing facets and judges.}
+Do not cross everything. Pilot over the factors that actually vary in deployment, fit the decomposition, and spend where the D-study ranking shows non-trivial variance. In our demonstrations one or two factors dominated, usually judge choice, and temperature and extra replications rarely mattered. Sampling parameters such as top-$p$ or top-$k$ enter exactly as temperature does. Direct versus chain-of-thought prompting, output format, and reasoning mode can change the construct itself, so model them as separate factors unless they pass the construct-equivalence screen of Section~\ref{sec:gstudy}. For judges, begin with a plausible and diverse panel and run a small crossed pilot. Judge marginals and leave-one-judge-out refits then sort calibration offsets from boundary-case disagreement (Section~\ref{sec:safety}), and human labels settle the question when they exist. Different prompt or judge selections can change the recommendation, so TEE is a diagnostic for the pipeline in hand.
+
+
+\section{Empirical Demonstrations}
+\label{sec:empirical}
+
+We apply the TEE decomposition across three empirical domains in the main text: binary safety classification (AILuminate), multiple-choice QA (MMLU), and pairwise model comparison validated against human votes (Chatbot Arena). On safety and Arena the model facet is the judge panel. On MMLU there is no judge, and the model facet is the SUT scored against the answer key (Section~\ref{sec:gtheory}). Section~\ref{sec:gaming} then quantifies the gaming surface single-configuration benchmarks expose. In the SI, we provide a political affinity annotation demonstration (Section~\ref{sec:propaganda}) with a 9-annotator human baseline, a Likert vs pairwise scoring comparison (Section~\ref{si:scoring_comparison}), and a pilot validation showing that a small sample recovers the qualitative D-study guidance of a 4.5$\times$ larger full run (Section~\ref{si:pilot}).
+
+\subsection{Safety: Judge Disagreement Dominates}
+\label{sec:safety}
+
+We first illustrate the variance decomposition using AILuminate~v1.0 \citep{ghosh2025ailuminate}, a safety benchmark from MLCommons. The benchmark assesses whether LLM responses cross safety lines across 12 hazard categories (hate speech, self-harm, violent crime, etc.). Most items are unambiguously safe (94\% safe rate) and the variance concentrates on the 6\% of borderline cases where judges disagree about whether a refusal is adequate. We decompose the variance across judges, prompts, temperatures, items, and their interactions, based on 36 DEMO prompts (3 per category) crossed with responses from Claude Opus~4.5, GPT-5.1, DeepSeek Chat~v3.1, and Grok~4.1 Fast (141 items after dropping 3 SUT refusals), scored under 5~prompt variants $\times$ 3~temperatures $\times$ 3~judges $\times$ 8~replications $= 50,760$ calls.%\footnote{We model the binary outcome with a linear probability model \citep[LPM;][]{angristpischke2009} because D-study projection formulas require linear variance components.}
+
+The G-study (Figure~\ref{fig:safety_combined}(a)) identifies judge design sensitivity as the dominant lever, contributing 43.8\% of $\Var(\hat{\theta})$ at the operational design ($N{=}141$, $V{=}5$, $M{=}3$, $H{=}3$, $R{=}8$). Item$\times$judge interaction adds another 16.7\%. Judge choice shifts the headline rate, and panel members disagree about which specific items are safe. Aggregating across the three judges in the panel cuts the safety SE by 38\% because the model design-sensitivity $\sigma^2_\lambda$ and the item$\times$judge interaction $\sigma^2_{\alpha\lambda}$ both shrink as $1/M$ when the projection averages over $M$ judges (Eq.~\ref{eq:dstudy_multi}). 
+
+The three judge-related terms (judge design sensitivity, item$\times$judge, prompt$\times$judge) sum to 73\% of $\Var(\hat{\theta})$. To check that no single judge produces this, we refit the model dropping each judge in turn, and the judge-related share stays between 68\% and 83\% (SI Appendix, Section~\ref{si:lojo}). The decomposition cannot say which judge is right. It does say where to look. A judge whose mean sits away from the rest of the panel calls for recalibration or removal, and items with large item$\times$judge disagreement are the boundary cases that need substantive review against human labels, known-answer items, or the hazard taxonomy.
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.49\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{fig_intro_safety_decomposition.pdf}\\
+  \footnotesize (a) Variance decomposition
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{fig_cost_efficiency.pdf}\\
+  \footnotesize (b) Cost-efficiency frontier
+\end{minipage}
+\caption{Safety decomposition (a) and cost-efficiency frontier (b) for AILuminate. Judge-model variance dominates the decomposition in (a). A TEE-guided design that aggregates over diverse judges captures most of the available SE reduction at modest cost (b).}
+\label{fig:safety_combined}
+\end{figure}
+
+
+Within-category item heterogeneity contributes 20.8\% and prompt$\times$judge 12.4\%, with each remaining component below 5\%. Replicate noise $\sigma^2_\rho$ and cell-level error $\sigma^2_\epsilon$ are large components at the item level, but enter $\Var(\hat\theta)$ divided by $N'V'H'M'R'$ and $N'V'H'M'$ respectively, so each contributes less than 0.5\% to the variance of the mean. 
+Temperature and prompt main effects contribute negligibly. \footnote{Three-way interaction terms (item$\times$prompt$\times$temperature, item$\times$temperature$\times$judge) are statistically significant but substantively negligible, supporting the two-way interaction specification.} 
+
+%This is the across-design mode of aggregation introduced in Section~\ref{sec:framework}: judge model is treated as fixed in the DGP, but its contribution to the grand mean still shrinks when the design crosses multiple judges.
+
+The D-study then projects precision under any proposed design (any new combination of $N'V'H'M'R'$, etc), enabling a cost-efficiency analysis. Figure~\ref{fig:safety_combined}(b) plots projected standard error against API cost for 360 candidate designs of the safety benchmark. The status quo (141 items, one prompt, one judge, no replication) sits well above the efficient frontier; at the same cost, frontier designs that trade items for judge diversity achieve 9\% lower SE. A TEE-guided estimation strategy (141 items, 3 prompts, 3 judges, no replication) cuts SE by 49\% at 9$\times$ the cost, while the full factorial (5 prompts, 3 judges, 8 replications) provides only an additional 5\% reduction at 120$\times$ the cost. The frontier flattens beyond approximately 1,000 calls, indicating steep diminishing returns to additional investment.
+
+
+
+\subsection{MMLU: Item and Prompt Reallocation Roughly Halves Error}
+\label{sec:mmlu}
+
+Where LLM-as-judge is at the center of the safety demonstration, our MMLU benchmark analysis removes the judge layer entirely. MMLU (Massive Multitask Language Understanding) \citep{hendrycks2021mmlu} provides ground-truth labels for multiple-choice questions, letting us audit both pipeline accuracy and confidence-interval coverage against those answers. Three SUTs answered a 200-item pool under 4 prompt variants, 3 temperatures, and 8 replications (SI Appendix, Section~\ref{si:mmlu}).
+
+The G-study (Figure~\ref{fig:mmlu_combined}(a)) attributes most of $\Var(\hat\theta)$ to which questions are sampled. Within-category item heterogeneity contributes 72.2\% and between-category heterogeneity 7.7\%, followed by item$\times$SUT (10.5\%) and SUT-model design sensitivity (6.7\%). Prompt wording barely matters on MMLU. The three prompt-related terms together hold 2.7\% of $\Var(\hat\theta)$, and accuracy moves only from 83.9\% to 85.3\% across the four prompt variants.\footnote{A fifth prompt variant gave the model only the question, the four options, and ``Answer:'', with no instruction to reply with a letter. With responses capped at 8 tokens, models often began explaining their reasoning and were cut off before choosing an option. Counting those cut-off responses as wrong would give the prompt-related terms 70\% of $\Var(\hat\theta)$. That 70\% measures a missing answer-format instruction. The admissibility check of Section~\ref{sec:gstudy} exists to catch exactly this, so we exclude that variant (SI Appendix, Section~\ref{si:mmlu_parsing}).} The logit-link refit agrees, with item heterogeneity leading at 71.4\% (SI Appendix, Section~\ref{si:glmm}).
+
+The D-study then frames the evaluation as a budget-allocation problem, asking how to split a fixed total call budget across items ($N$), prompt variants ($V$), and replications ($R$). A 30-item pilot supplies the variance components, and the remaining 170 items form the pool. We compare three allocations, with the \emph{naive} allocation ($V\!=\!1$, $R\!=\!3$) replicating each call three times, the \emph{standard} allocation ($V\!=\!1$, $R\!=\!1$) skipping replication to fund more items, and the \emph{TEE-guided} allocation letting the D-study decide between adding items, prompts, or replications at each budget level. Because the two item terms hold 80\% of $\Var(\hat\theta)$, the D-study buys items first, so TEE and standard coincide until the pool runs out. Naive spends two-thirds of its calls on replications, which barely reduce error, and its RMSE is 1.6 to 2.4 times TEE's at every budget (Figure~\ref{fig:mmlu_combined}(b)). Once all 170 items are in use, standard stops improving, while TEE averages over prompt variants and roughly halves standard's RMSE at the largest budgets. TEE's 95\% CIs cover at 97 - 100\% throughout, and naive CIs under-cover only at the smallest budgets (91\% and 93\%).
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.49\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{fig_mmlu_decomposition.pdf}\\
+  \footnotesize (a) G-study: variance decomposition
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{fig_budget_allocation_stacked.pdf}\\
+  \footnotesize (b) D-study: budget allocation
+\end{minipage}
+\caption{MMLU G-study (a) and D-study (b). (a)~Contribution of each component to $\Var(\hat\theta)$ at the operational design ($N{=}200$, $V{=}4$, $M{=}3$ SUTs, $H{=}3$, $R{=}8$); item heterogeneity dominates, and the prompt terms together hold 2.7\%. (b)~RMSE against ground-truth accuracy (top) and 95\% CI coverage (bottom) by budget. TEE-guided allocation matches standard until the 170-item pool is used up, then keeps improving by averaging over prompt variants; naive, which replicates each call three times, has 1.6 to 2.4 times TEE's RMSE. 1,000 Monte Carlo replicates in each of the 9 SUT$\times$temperature cells at every budget level.}
+\label{fig:mmlu_combined}
+\end{figure}
+
+
+\subsection{Chatbot Arena: Coverage, Accuracy, D-Study Validation}
+\label{sec:arena}
+
+Chatbot Arena \citep{chiang2024chatbot} extends our empirical tests to data comprising pairwise human votes that serve as ground-truth labels. LLM judges can stand in for human voters only if their scores hold up to the same standards as a human-rater study, with accuracy that does not depend on idiosyncratic prompt or judge choices. We test a TEE-guided pipeline against a naive single-judge baseline on 4,676 Arena matches drawn from the public release \texttt{lmarena-ai/arena-human-preference-100k}, stratified by (model $\times$ category) across Creative Writing, Coding, Factual QA, and Persuasion. Each match was scored under five chain-of-thought prompt variants by three judges, in both Likert (1 - 5 per response) and pairwise (A / B / tie, matching Chatbot Arena's voting UI) modes; full design details in SI Appendix, Section~\ref{si:arena}.
+
+A Monte Carlo experiment that treats the full 4,676-match Likert factorial as a population ($p^* = 0.389$), shows that TEE averaging gives well-calibrated uncertainty. Naive 95\% Wald CIs computed from a single (judge, variant) cell hold nominal coverage at $n_m = 100$ matches but drop to 78\% coverage at $n_m = 2,000$ (Figure~\ref{fig:arena_coverage}). The TEE crossed random-effects Wald CI sits at or above 95\% throughout. The naive SE shrinks at $1/\sqrt{n_m}$ while between-cell variance does not, so at large $n_m$ the naive interval becomes a tight band around a single cell's mean. As in Figure 1, adding cases widens the coverage gap.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\linewidth]{fig_arena_coverage.pdf}
+\caption{Naive coverage on Chatbot Arena drops as the sample grows, while TEE maintains nominal coverage. (a)~Empirical 95\% CI coverage versus match sample size $n_m$ for the naive single-judge, single-variant design and the TEE factorial design; ribbons show $\pm 1.96$ Monte Carlo SE over 300 replicates. (b)~Mean 95\% CI half-width versus $n_m$. The naive half-width shrinks as $1/\sqrt{n_m}$ while TEE bottoms out at the floor $\sigma_V^2/V + \sigma_J^2/J$ set by variant and judge variance. The target $p^* = 0.389$ is the mean over the 15 observed judge$\times$variant cells (3 judges, 5 variants), a finite-panel quantity. The TEE interval targets the superpopulation of prompts and judges from which those cells were drawn, so it carries between-cell variance the finite-panel target does not, and it over-covers that target at large $n_m$. An interval for the finite-panel target would hold the 5 variants and 3 judges fixed and bootstrap over matches only.}
+\label{fig:arena_coverage}
+\end{figure}
+
+TEE averaging also improves per-match agreement with the individual human vote across all four categories (SI Appendix, Figure~\ref{fig:arena_accuracy}). Pooled across 4,676 matches, TEE Likert raises AB-only agreement over single-judge Likert by $+7.9$ pp (74.9\% vs.\ 67.0\%) and TEE pairwise raises it over single-judge pairwise by $+3.6$ pp (71.9\% vs.\ 68.3\%, see SI Appendix Table~\ref{tab:arena_agreement}). %Per-category lifts are positive in every cell, ranging from $+5.1$ to $+11.8$ pp for Likert and $+1.6$ to $+5.2$ pp for pairwise. %The Likert lift exceeds the pairwise lift in every category; pairwise judges almost never tie regardless of prompt wording, so the Likert-vs-pairwise comparison here is not a clean scoring-method contrast (SI Appendix, Section~\ref{si:arena}).
+
+A D-study fit on 80\% of matches projects per-category SE reductions of 0.53 - 0.59 from single-judge to TEE. Across the four held-out categories, projected SE reductions track observed Likert agreement lifts at Spearman $\rho = 0.80$ (n = 4; SI Appendix Figure~\ref{fig:arena_dstudy_vs_observed}). Both gains matter when matches are scored one at a time, as in training on Arena labels \citep{egami2024dsl}.
+
+
+
+\subsection{Single-Configuration Benchmarks Vulnerable to Benchmark Hacking}
+\label{sec:gaming}
+
+\citet{singh2025leaderboard} document Meta running 27 private Llama-4 variants on Chatbot Arena before launch and publishing only the top scorer (\emph{benchmark hacking}), which constitutes best-of-$K$ exploitation of pipeline noise. This can play out in a few ways: on hosted leaderboards, developers can submit many model variants under different identifiers and report only the best-scoring submission. On open-source benchmarks, they can rerun the evaluation internally with different prompt formats or scoring configurations until the score is favorable. The expected inflation is $\E[\max(Z_1,\ldots,Z_K)] \cdot \sigma_{\text{pipeline}}$, where $\sigma_{\text{pipeline}}$ is the standard deviation of the pipeline noise decomposed above. Prompt formatting alone can produce up to 76 accuracy points of spread on identical models \citep{sclar2024sensitivity}, suggesting the gameable surface is broad in practice.
+
+We quantify the gaming surface in the context of Chatbot Arena by bootstrapping 4,676 matches across pipeline configurations (Figure~\ref{fig:gaming_surface}). The Arena human leaderboard already exposes a 45-Elo surface at $K{=}27$ from voter sampling alone, large enough to flip rankings between adjacent models. A single-configuration LLM-judge replacement ($V{=}1$, $M{=}1$) increases the surface to 56 Elo, since a developer can target both the LLM-judge configuration and the underlying voter sample. Averaging across either prompts or judges alone recovers the human baseline ($V{=}5$, $M{=}1$: 46 Elo; $V{=}1$, $M{=}3$: 46 Elo). TEE-LLM ($V{=}5$, $M{=}3$ averaging) cuts the surface to 32 Elo, about 30\% below the human leaderboard. Judge main effects account for the largest share of gameable LLM variance (Table~\ref{tab:gaming}), the component a developer most directly controls when picking judge models. Best-of-$K$ is one facet of the manipulation surface; \citet{singh2025leaderboard} also document score retraction, disproportionate sampling of proprietary models (61.4\% of battles), and Arena-specific data access that lifted Arena performance by up to 112\% without external gains.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{fig_gaming_surface.pdf}
+\caption{Best-of-$K{=}27$ gaming surface on Chatbot Arena across pipeline configurations. ``Gaming surface'' is the expected Elo boost a developer earns by submitting $K{=}27$ model variants and reporting only the highest-scoring one. Variance surface computed by bootstrapping 4,676 Arena matches.}
+\label{fig:gaming_surface}
+\end{figure}
+
+
+
+\section{Discussion}
+\label{sec:discussion}
+
+Across the demonstrations, naive error estimates understate measurement uncertainty because they omit judge disagreement, prompt sensitivity, replicate noise, and their interactions. Evaluators then mistake pipeline noise for capability differences, and researchers mistake it for generalizable patterns in LLM-annotated data. The gap scales with the subjectivity and complexity of the task, and the Arena, MMLU, and propaganda results show that failing to average over these sources also costs accuracy. %: 43.8\% of $\Var(\hat\theta)$ in safety classification, 54.4\% in Likert ideology, and 68.4\% in pairwise ideology (with an additional 20.9\% for the position factor in pairwise). MMLU removes the judge layer, and item heterogeneity (35.0\%) and SUT-model design sensitivity (25.0\%) take over. 
+%Deployment decisions, safety certifications, and published findings inherit the resulting error.
+
+ %On MMLU, where each item is exact-match verified against an answer key (no rater), naive SE underestimates the TEE-corrected SE by 57\%. On the safety benchmark, where each item is a binary safe/unsafe call against a published taxonomy and most tasks are `safe,' the underestimate is 43\%. On Likert ideology, where raters compress a multi-dimensional judgment into a 1 - 5 score, the underestimate is 60\%. Full per-domain numbers in SI Appendix, Section~\ref{si:naive_vs_tee}.
+ %The gaming analysis (Section~\ref{sec:gaming}) shows further that unmeasured pipeline variance means even routine model selection inflates reported scores.
+
+Pipeline variance can also serve as a gaming surface in benchmarking and in research. We show that submitting best-of $K{=}27$ variants (as documented in \citet{singh2025leaderboard}) inflates Chatbot Arena Elo scores by 56 points, while averaging over multiple judges and prompts cuts that surface by 43\% (\S\ref{sec:gaming}). The same vulnerability extends to LLM-annotated research, where pipeline variance maps onto labeling error and predicts misclassification against the 9-rater human consensus in our propaganda demonstration ($r = -0.68$, SI Appendix, Section~\ref{sec:propaganda}), consistent with the configuration- and adversarial-search reversals \citet{baumann2025llmhacking} document across 37 LLM-annotation tasks. The implications extend beyond model capability overestimates, as benchmarks like SWE-Bench, LegalBench, and HealthBench inform estimates of labor substitution and productivity gains \citep{eloundou2023gpts} associated with widespread LLM adoption. 
+
+
+%However beyond diagnosis, accounting for the total evaluation error (TEE) tells developers how to improve estimation. A small pilot run under our TEE framework yields variance estimates (e.g., confidence intervals) that naive estimates obscure, and a ranked list of which design changes would shrink it most (SI Appendix, Section~\ref{si:pilot}).
+
+%Chatbot Arena's human votes let us test TEE end-to-end (\S\ref{sec:arena}). Across 4,676 matches, naive coverage falls as $N$ grows while TEE-corrected coverage holds; TEE averaging lifts agreement with human votes by 7.9 points; and D-study projections fit on 80\% of matches generalize to the held-out 20\%, validating the framework against ground-truth human data.
+
+What transfers across pipelines? The structural lessons do. Claims are almost always about an item population, so more items beat fewer, and no score should hinge on a single judge or a single phrasing. The empirical rankings travel as priors. Wherever a judge layer is present, averaging over judges yields the largest single reduction in our projections, with items next on AILuminate and prompts next on Arena. The budget-relevant magnitudes are local estimates, and a pilot in the target pipeline should replace them before anyone spends on their basis.
+
+Pipeline calibration is upstream of all real world benchmark use. When that output drives safety certification, LLM-annotated research, and labor-market projections, underestimated uncertainty propagates into each downstream decision. Our TEE framework allows for calibrated CIs at a fraction of that downstream cost.
+
+% In naive estimation, the variance from prompts, judges, and their interactions is not averaged in pipeline variance estimates and omitted from CIs. The omission causes the under-coverage; the unaveraged variance is what a developer running best-of-$K$ exploits. The TEE-reducible share of $\sigma^2_{\text{pipeline}}$ therefore quantifies both with one number. Multi-judge multi-prompt averaging fixes both, cutting the Arena gaming surface by 43\% to below the human-leaderboard baseline.
+
+% The rankings tend to converge on a common prescription across the demonstrations. Where a judge layer is present, averaging over judges produces the largest single variance reduction available, 37 - 45\% on AILuminate and Arena%, because $\sigma^2_\lambda/M$ and $\sigma^2_{\alpha\lambda}/(NM)$ both shrink with $M$
+% . After judges, items matter most on AILuminate, prompts on Arena, and the two are comparable on MMLU (which has no judge). %Once those moves are made, additional replications buy little extra precision: they reduce $\sigma^2_\rho/(N'V'H'M'R')$, already a tiny fraction of $\Var(\hat\theta)$, but not the cell-level term $\sigma^2_\epsilon/(N'V'H'M')$, which lacks $R'$ in its denominator.
+
+\section{Limitations}
+\label{sec:limitations}
+
+
+TEE has a number of simplifying assumptions worth noting. When a model emits reasoning traces, the variance they generate is not attributed under the current framework and instead inflates $\sigma^2_\epsilon$. When the scoring function relies on an LLM-as-judge, its variance may compound with the SUT's \citep{haldar2025roulette, chehbouni2025neither}, and any SUT$\times$judge interactions this introduces fall outside the within-layer decomposition (SI Appendix, Section~\ref{si:coverage}). Variance shares are reported on the probability scale and therefore assume an LPM, which generally preserves qualitative rankings but not precise magnitudes compared with a logistic link function (SI Appendix, Section~\ref{si:glmm}).
+
+Perhaps more importantly, TEE cannot say whether the items span the construct of interest, which of course limits generalizability. Total survey error has long called this coverage error \citep{sen2019tedon}, and a toxicity benchmark that omits coded hate speech will yield precise but domain-incomplete estimates. 
+
+Finally, all demonstrations are in English and use frontier models, leaving high-ambiguity tasks (creative writing, open-ended reasoning) untested. The full factorial design requires $\sim$54,000 API calls, though a pilot subset can deploy much of the framework in practice.
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+Confidence intervals in LLM evaluation are systematically too narrow, and benchmarks reward optimization against measurement noise. Beyond diagnosis, TEE lets analysts run D-study projections from a small pilot to recover honest CIs and rank which design changes would most reduce noise (SI Appendix, Section~\ref{si:pilot}). As evaluations increasingly shape deployment decisions, safety certifications, regulatory standards, and projections of AI's labor-market and economic impact, closing this gap is necessary before evaluation scores can support the high-stakes judgments they inform.
+
+\begin{ack}
+Thanks to Chris Barrie, Ben Guinaudeau, Aaron Kaufman, Brandon Stewart, Kylan Rutherford, and participants at the 2026 CSMAP conference for helpful feedback. Thanks to Peter Mattson, Bennett Hillenbrand, Andrew Gruen, Rebecca Weiss, Hannah Waight, Molly Roberts, Brandon Stewart, Eddie Yang, Ben Guinaudeau, Melina Much, Chris Barrie, Joe Higton, Kylan Rutherford, Jennifer Allen, Jonathan Nagler, and Josh Tucker for helpful early conversations about the problem of confidence intervals in LLM evals, benchmarks, and LLM-as-judge measurement problems, which helped inspire this paper.
+
+MLCommons funded the author's salary for this work.
+
+The author has personal financial interests in AI-related companies, in particular Nvidia, Alphabet, Microsoft, and Taiwan Semiconductor. The author worked at Facebook (now Meta) in various capacities from 2011 to 2015 and 2018 to 2020 and at Twitter (now X) from 2021 to 2023, and contracts for MLCommons, a 501(c)(6) non-profit that releases AI benchmarks, including AILuminate, which this paper analyzes (2026 to present). The author has accepted a position at Google DeepMind. For an unrelated project, the author received a 2010 Google Research Award for research on ``Social cues and reliability in content selection and evaluation.''
+\end{ack}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+% ----------------------------------------------------------------------
+% Appendix — does not count against the 9-page limit. Phase 2 will paste
+% content from paper/pnas_si_body.tex here, preserving si:* labels.
+% ----------------------------------------------------------------------
+\appendix
+\input{neurips_appendix_body}
+
+\newpage
+\input{neurips_checklist}
+
+\end{document}

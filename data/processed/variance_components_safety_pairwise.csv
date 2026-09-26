@@ -1,0 +1,11 @@
+component,variance,sd,tle_label,pct_total,tier,scoring
+Residual,0.24728116259698743,0.4972737300491425,replicate noise,98.76,model-side,pairwise_safety
+variant_id:judge_model,0.001592711753407741,0.03990879293348448,prompt x judge,0.64,model-side,pairwise_safety
+category,0.0010122221507925864,0.03181543887474423,between-category,0.4,model-side,pairwise_safety
+true_order (fixed),4.866324563897686e-4,0.02205974742352615,position bias (design sensitivity),0.19,pipeline-side,pairwise_safety
+judge_model (fixed),5.848156557927077e-6,0.002418296209716063,judge model (design sensitivity),0,pipeline-side,pairwise_safety
+item_id:variant_id:judge_model,0,0,cell-level (3-way+),0,model-side,pairwise_safety
+item_id:variant_id,0,0,item x prompt,0,model-side,pairwise_safety
+item_id:judge_model,0,0,item x judge,0,model-side,pairwise_safety
+item_id,0,0,within-category item,0,model-side,pairwise_safety
+variant_id,0,0,prompt,0,model-side,pairwise_safety

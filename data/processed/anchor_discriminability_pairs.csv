@@ -1,0 +1,91 @@
+dimension,cons_anchor,prog_anchor,gt_distance,method,accuracy,d_prime
+economic_left_right,Market Liberal,Libertarian,1,Likert,0,-4.681535136810048
+economic_left_right,Market Liberal,Authoritarian Nationalist,2,Likert,1,3.9562516786663027
+economic_left_right,Market Liberal,Centrist,3,Likert,1,20.375763742424738
+economic_left_right,Market Liberal,Social Democrat,4,Likert,1,46.264449111640324
+economic_left_right,Market Liberal,Green Left,5,Likert,1,77.77919845706317
+economic_left_right,Libertarian,Authoritarian Nationalist,1,Likert,1,7.086710430121874
+economic_left_right,Libertarian,Centrist,2,Likert,1,24.41201351998295
+economic_left_right,Libertarian,Social Democrat,3,Likert,1,58.32097298733741
+economic_left_right,Libertarian,Green Left,4,Likert,1,152.25083306481272
+economic_left_right,Authoritarian Nationalist,Centrist,1,Likert,1,13.92667681270826
+economic_left_right,Authoritarian Nationalist,Social Democrat,2,Likert,1,29.77055229409967
+economic_left_right,Authoritarian Nationalist,Green Left,3,Likert,1,38.390775799188894
+economic_left_right,Centrist,Social Democrat,1,Likert,1,11.521628502879139
+economic_left_right,Centrist,Green Left,2,Likert,1,15.596018940836817
+economic_left_right,Social Democrat,Green Left,1,Likert,1,3.448702215857628
+social_left_right,Authoritarian Nationalist,Market Liberal,1,Likert,1,6.004105559786484
+social_left_right,Authoritarian Nationalist,Centrist,2,Likert,1,16.791711130253212
+social_left_right,Authoritarian Nationalist,Social Democrat,3,Likert,1,26.84215350562017
+social_left_right,Authoritarian Nationalist,Libertarian,4,Likert,1,6.5814442839958245
+social_left_right,Authoritarian Nationalist,Green Left,5,Likert,1,37.32529559971142
+social_left_right,Market Liberal,Centrist,1,Likert,1,8.255158745912855
+social_left_right,Market Liberal,Social Democrat,2,Likert,1,15.280817190002978
+social_left_right,Market Liberal,Libertarian,3,Likert,1,0.959221121085803
+social_left_right,Market Liberal,Green Left,4,Likert,1,20.393631744417547
+social_left_right,Centrist,Social Democrat,1,Likert,1,7.573915792693536
+social_left_right,Centrist,Libertarian,2,Likert,0,-6.525990662327737
+social_left_right,Centrist,Green Left,3,Likert,1,13.207029402969109
+social_left_right,Social Democrat,Libertarian,1,Likert,0,-12.688771386424273
+social_left_right,Social Democrat,Green Left,2,Likert,1,5.189223137381342
+social_left_right,Libertarian,Green Left,1,Likert,1,16.703506593735103
+economic_left_right,Market Liberal,Libertarian,1,Pairwise forced,0.19327731092436976,NA
+economic_left_right,Market Liberal,Authoritarian Nationalist,2,Pairwise forced,0.55,NA
+economic_left_right,Market Liberal,Centrist,3,Pairwise forced,1,NA
+economic_left_right,Market Liberal,Social Democrat,4,Pairwise forced,0.9915966386554622,NA
+economic_left_right,Market Liberal,Green Left,5,Pairwise forced,1,NA
+economic_left_right,Libertarian,Authoritarian Nationalist,1,Pairwise forced,0.6916666666666667,NA
+economic_left_right,Libertarian,Centrist,2,Pairwise forced,0.9666666666666667,NA
+economic_left_right,Libertarian,Social Democrat,3,Pairwise forced,1,NA
+economic_left_right,Libertarian,Green Left,4,Pairwise forced,1,NA
+economic_left_right,Authoritarian Nationalist,Centrist,1,Pairwise forced,0.865546218487395,NA
+economic_left_right,Authoritarian Nationalist,Social Democrat,2,Pairwise forced,0.9666666666666667,NA
+economic_left_right,Authoritarian Nationalist,Green Left,3,Pairwise forced,0.9915254237288136,NA
+economic_left_right,Centrist,Social Democrat,1,Pairwise forced,0.864406779661017,NA
+economic_left_right,Centrist,Green Left,2,Pairwise forced,0.9230769230769231,NA
+economic_left_right,Social Democrat,Green Left,1,Pairwise forced,0.7672413793103449,NA
+social_left_right,Authoritarian Nationalist,Market Liberal,1,Pairwise forced,0.8991596638655462,NA
+social_left_right,Authoritarian Nationalist,Centrist,2,Pairwise forced,0.95,NA
+social_left_right,Authoritarian Nationalist,Social Democrat,3,Pairwise forced,1,NA
+social_left_right,Authoritarian Nationalist,Libertarian,4,Pairwise forced,0.9159663865546218,NA
+social_left_right,Authoritarian Nationalist,Green Left,5,Pairwise forced,0.9916666666666667,NA
+social_left_right,Market Liberal,Centrist,1,Pairwise forced,0.8333333333333334,NA
+social_left_right,Market Liberal,Social Democrat,2,Pairwise forced,0.9166666666666666,NA
+social_left_right,Market Liberal,Libertarian,3,Pairwise forced,0.5798319327731093,NA
+social_left_right,Market Liberal,Green Left,4,Pairwise forced,0.95,NA
+social_left_right,Centrist,Social Democrat,1,Pairwise forced,0.8583333333333333,NA
+social_left_right,Centrist,Libertarian,2,Pairwise forced,0.29411764705882354,NA
+social_left_right,Centrist,Green Left,3,Pairwise forced,0.9166666666666666,NA
+social_left_right,Social Democrat,Libertarian,1,Pairwise forced,0.1,NA
+social_left_right,Social Democrat,Green Left,2,Pairwise forced,0.8151260504201681,NA
+social_left_right,Libertarian,Green Left,1,Pairwise forced,0.9666666666666667,NA
+economic_left_right,Market Liberal,Libertarian,1,Pairwise TIE,0.31666666666666665,NA
+economic_left_right,Market Liberal,Authoritarian Nationalist,2,Pairwise TIE,0.5504201680672269,NA
+economic_left_right,Market Liberal,Centrist,3,Pairwise TIE,0.9833333333333333,NA
+economic_left_right,Market Liberal,Social Democrat,4,Pairwise TIE,0.9364406779661016,NA
+economic_left_right,Market Liberal,Green Left,5,Pairwise TIE,0.95,NA
+economic_left_right,Libertarian,Authoritarian Nationalist,1,Pairwise TIE,0.6666666666666666,NA
+economic_left_right,Libertarian,Centrist,2,Pairwise TIE,0.9621848739495799,NA
+economic_left_right,Libertarian,Social Democrat,3,Pairwise TIE,0.975,NA
+economic_left_right,Libertarian,Green Left,4,Pairwise TIE,0.9747899159663865,NA
+economic_left_right,Authoritarian Nationalist,Centrist,1,Pairwise TIE,0.8697478991596639,NA
+economic_left_right,Authoritarian Nationalist,Social Democrat,2,Pairwise TIE,0.9208333333333333,NA
+economic_left_right,Authoritarian Nationalist,Green Left,3,Pairwise TIE,0.8791666666666667,NA
+economic_left_right,Centrist,Social Democrat,1,Pairwise TIE,0.7310924369747899,NA
+economic_left_right,Centrist,Green Left,2,Pairwise TIE,0.7375,NA
+economic_left_right,Social Democrat,Green Left,1,Pairwise TIE,0.5085470085470085,NA
+social_left_right,Authoritarian Nationalist,Market Liberal,1,Pairwise TIE,0.864406779661017,NA
+social_left_right,Authoritarian Nationalist,Centrist,2,Pairwise TIE,0.9449152542372882,NA
+social_left_right,Authoritarian Nationalist,Social Democrat,3,Pairwise TIE,0.975,NA
+social_left_right,Authoritarian Nationalist,Libertarian,4,Pairwise TIE,0.865546218487395,NA
+social_left_right,Authoritarian Nationalist,Green Left,5,Pairwise TIE,0.9491525423728814,NA
+social_left_right,Market Liberal,Centrist,1,Pairwise TIE,0.8083333333333333,NA
+social_left_right,Market Liberal,Social Democrat,2,Pairwise TIE,0.8916666666666667,NA
+social_left_right,Market Liberal,Libertarian,3,Pairwise TIE,0.5084745762711864,NA
+social_left_right,Market Liberal,Green Left,4,Pairwise TIE,0.8991596638655462,NA
+social_left_right,Centrist,Social Democrat,1,Pairwise TIE,0.7226890756302521,NA
+social_left_right,Centrist,Libertarian,2,Pairwise TIE,0.2875,NA
+social_left_right,Centrist,Green Left,3,Pairwise TIE,0.725,NA
+social_left_right,Social Democrat,Libertarian,1,Pairwise TIE,0.13983050847457626,NA
+social_left_right,Social Democrat,Green Left,2,Pairwise TIE,0.6101694915254238,NA
+social_left_right,Libertarian,Green Left,1,Pairwise TIE,0.9125,NA

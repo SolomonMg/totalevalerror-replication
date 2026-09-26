@@ -1,0 +1,8 @@
+scenario,n_cats_d,n_items_d,n_prompts_d,n_reps_d,fix_temp,fix_judge,total_var,pct_of_baseline,reduction_pct,scoring
+Baseline (avg temp & judge),78,703,3,4,FALSE,FALSE,1.881787028057566e-4,100,0,pairwise_safety
+Baseline (fix temp & judge),78,703,3,4,TRUE,TRUE,5.616563867933933e-4,298.5,-198.5,pairwise_safety
+Double items,78,1406,3,4,FALSE,FALSE,1.8257333770330835e-4,97,3,pairwise_safety
++2 prompt variants,78,703,5,4,FALSE,FALSE,1.1348316600822927e-4,60.3,39.7,pairwise_safety
++5 replications,78,703,3,9,FALSE,FALSE,1.827504420318909e-4,97.1,2.9,pairwise_safety
+Fix judge model,78,703,3,4,FALSE,TRUE,5.616563867933933e-4,298.5,-198.5,pairwise_safety
+Fix temp & judge,78,703,3,4,TRUE,TRUE,5.616563867933933e-4,298.5,-198.5,pairwise_safety
