@@ -60,8 +60,5 @@ Thumbs.db
 # Internal pre-submission review notes (not for distribution)
 PRE_SUBMISSION_REVIEW_*.md
 
-# Pangram detector outputs
-*.pangram.json
-
 # Run logs
 logs/
