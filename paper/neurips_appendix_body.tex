@@ -1106,7 +1106,7 @@ This section follows the GUIDE-LLM reporting checklist \citep{feuerriegel2026gui
 
 \paragraph{Validation and post-processing.} Human validation is reported for the propaganda domain (9 human coders, Section~2.3 of the main text). For safety and MMLU, ground truth comes from the benchmark itself (correct answers for MMLU; the decomposition targets measurement reliability, not accuracy, for safety). Post-processing extracts the scored response (a single integer, letter, or \textsc{safe}/\textsc{unsafe} label) from the API output, using JSON fields for the Likert and pairwise judges and regular expressions otherwise. Responses without a parseable answer are excluded: 1.1\% of safety calls, 0.5\% of Likert calls, 0.4\% of pairwise calls, and 1.3\% of MMLU calls on the four admissible variants (Section~\ref{si:mmlu_parsing}).
 
-\paragraph{Code availability.} Data collection scripts (\texttt{run\_demo.py}, \texttt{run\_safety.py}, \texttt{run\_mmlu.py}), analysis scripts (R), and simulation code are available at \codeurl. The \texttt{totalevalerror} R package implements the variance decomposition, D-study, and budget-allocation methods described in this paper.
+\paragraph{Code and data availability.} Data collection scripts (\texttt{run\_demo.py}, \texttt{run\_safety.py}, \texttt{run\_mmlu.py}), analysis scripts (R), simulation code, and processed data are available at \url{https://github.com/SolomonMg/totalevalerror-replication}. Raw API responses are archived on Harvard Dataverse at \url{https://doi.org/10.7910/DVN/UXNAM7}. The \texttt{totalevalerror} R package (\codeurl) implements the variance decomposition, D-study, and budget-allocation methods described in this paper.
 
 
 

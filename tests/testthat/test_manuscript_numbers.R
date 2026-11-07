@@ -724,6 +724,14 @@ test_that("tier-matched: disagreement 7.2 / 4.3 / 3.6, contrasts overlap zero; s
   expect_equal(sum(r$n_valid[r$tier == "closed_frontier"]), 3212)
 })
 
+# Data availability statements point at the same deposit
+test_that("Dataverse DOI appears in the SI, the checklist, and the public README", {
+  doi <- "https://doi.org/10.7910/DVN/UXNAM7"
+  for (f in c("paper/neurips_appendix_body.tex", "paper/neurips_checklist.tex", "replication/PUBLIC_README.md")) {
+    expect_true(grepl(doi, paste(readLines(f, warn = FALSE), collapse = "\n"), fixed = TRUE), info = f)
+  }
+})
+
 # Naive pairwise run, second-response rates (SI footnote in the scoring comparison; pilot study details)
 test_that("naive pairwise: second-response rate Haiku 91, GPT-4o 70, Gemini 39, overall 67%", {
   path <- "data/raw/pairwise_full.jsonl"; skip_if(!file.exists(path))
