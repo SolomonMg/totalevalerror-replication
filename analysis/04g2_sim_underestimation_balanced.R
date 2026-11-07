@@ -39,6 +39,11 @@
 # Usage:
 #   Rscript analysis/04g2_sim_underestimation_balanced.R            # full run
 #   Rscript analysis/04g2_sim_underestimation_balanced.R --nsim 5   # smoke test
+#   Rscript analysis/04g2_sim_underestimation_balanced.R --nsim 1000 --redraw-design
+#     Redraws the three judge and three temperature levels in every replicate
+#     (N(0, pop_var of the default levels)), so the target is the superpopulation
+#     mean mu. Writes *_v2_redraw*.csv and stops after Experiment 1; Figure 1 and
+#     the default *_v2 outputs are untouched.
 
 library(tidyverse)
 library(lme4)
@@ -53,6 +58,9 @@ if ("--nsim" %in% args) {
   N_SIM <- as.integer(args[idx + 1])
   cat(sprintf("Using N_SIM = %d (from --nsim flag)\n", N_SIM))
 }
+REDRAW_DESIGN <- "--redraw-design" %in% args
+OUT_SUFFIX <- if (REDRAW_DESIGN) "_v2_redraw" else "_v2"
+if (REDRAW_DESIGN) cat("Redrawing judge and temperature levels in every replicate\n")
 if ("--cores" %in% args) {
   idx <- which(args == "--cores")
   N_CORES <- as.integer(args[idx + 1])
@@ -181,8 +189,8 @@ generate_slice <- function(pop, params, v_set, h_set, m_set, n_reps) {
 output_dir <- "data/processed"
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
-csv_path <- file.path(output_dir, "sim_underestimation_v2.csv")
-csv_summary_path <- file.path(output_dir, "sim_underestimation_summary_v2.csv")
+csv_path <- file.path(output_dir, sprintf("sim_underestimation%s.csv", OUT_SUFFIX))
+csv_summary_path <- file.path(output_dir, sprintf("sim_underestimation_summary%s.csv", OUT_SUFFIX))
 
 if (file.exists(csv_path) && file.exists(csv_summary_path)) {
   cat("\nLoading existing simulation results from CSV...\n")
@@ -295,6 +303,12 @@ if (file.exists(csv_path) && file.exists(csv_summary_path)) {
     h_chosen <- sample(H_full, 1)
     m_chosen <- sample(M_full, 1)
     theta_true <- TRUE_PARAMS$mu + mean(TRUE_PARAMS$tau) + mean(TRUE_PARAMS$lambda)
+    if (REDRAW_DESIGN) {
+      # Fresh judge and temperature levels each replicate; the target is mu.
+      TRUE_PARAMS$tau    <- rnorm(H_full, 0, sqrt(pop_var(TRUE_PARAMS$tau)))
+      TRUE_PARAMS$lambda <- rnorm(M_full, 0, sqrt(pop_var(TRUE_PARAMS$lambda)))
+      theta_true <- TRUE_PARAMS$mu
+    }
 
     # --- Scenario A: 1 obs per item at fixed (v_c, h_c, m_c), naive SE ---
     df_A <- generate_slice(pop, TRUE_PARAMS, v_chosen, h_chosen, m_chosen, 1)
@@ -419,7 +433,7 @@ if (file.exists(csv_path) && file.exists(csv_summary_path)) {
 
   for (n_items in N_levels_all) {
     cell_csv <- file.path(output_dir,
-                          sprintf("sim_underestimation_v2_cell_N%d.csv", n_items))
+                          sprintf("sim_underestimation%s_cell_N%d.csv", OUT_SUFFIX, n_items))
 
     if (file.exists(cell_csv)) {
       cat(sprintf("\n  N = %d items: loading cached cell CSV...\n", n_items))
@@ -483,7 +497,12 @@ if (file.exists(csv_path) && file.exists(csv_summary_path)) {
   # Save
   write_csv(exp1_df, csv_path)
   write_csv(exp1_summary, csv_summary_path)
-  cat("\nSaved: sim_underestimation_v2.csv, sim_underestimation_summary_v2.csv\n")
+  cat(sprintf("\nSaved: %s, %s\n", basename(csv_path), basename(csv_summary_path)))
+}
+
+if (REDRAW_DESIGN) {
+  cat("\n--redraw-design: stopping after Experiment 1.\n")
+  quit(save = "no")
 }
 
 

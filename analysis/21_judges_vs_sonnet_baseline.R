@@ -11,7 +11,7 @@ suppressPackageStartupMessages(library(tidyverse))
 sonnet <- read_csv("data/processed/pairwise_baseline_sonnet_per_item.csv",
                    show_col_types = FALSE)
 
-# Existing 3-judge data
+# CoT pairwise judges: run_all.sh copies pairwise_cot_clean.csv over pairwise_clean.csv.
 judges <- read_csv("data/processed/pairwise_clean.csv", show_col_types = FALSE) %>%
   filter(!is.na(outcome), !is.na(true_order)) %>%
   mutate(model_a_wins = ifelse(true_order == "original", outcome, 1 - outcome))
@@ -22,7 +22,7 @@ cat(sprintf("  Non-TIE items: %d\n",
 cat(sprintf("  Mean Sonnet model_a_wins (non-TIE only): %.3f\n",
             mean(sonnet$sonnet_model_a_wins, na.rm = TRUE)))
 
-# Per-item Haiku/GPT-4o/Gemini mean model_a_wins
+# Per-item judge mean model_a_wins
 per_item <- judges %>%
   group_by(item_id, judge_model) %>%
   summarize(judge_model_a_wins = mean(model_a_wins, na.rm = TRUE),

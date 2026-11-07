@@ -284,6 +284,43 @@ test_that("simulation D.7: six scenarios, N = 25 - 400, 1,000 reps; A 42 -> 11%,
   expect_true(all(dup$d[!(dup$scenario == "E" & dup$n_items == 400)] == 1L))
 })
 
+test_that("simulation D.7 redraw: fixed-level SE / SD 1.5 - 1.7; redrawn D - F coverage 91 - 95%, SE / SD 0.94 - 1.07, SE quartiles 80 - 85% / 99%; table matches CSV (SI si:underestimation_redraw; main-text CI sentence)", {
+  cmp <- safe_read("data/processed/sim_underestimation_redraw_comparison.csv"); skip_if(is.null(cmp))
+  expect_true(all(cmp$n_sims == 1000))
+  expect_setequal(unique(cmp$n_items), c(25, 50, 100, 200, 400))
+  fx <- cmp |> filter(design == "fixed", scenario %in% c("D", "E", "F"))
+  rd <- cmp |> filter(design == "redraw", scenario %in% c("D", "E", "F"))
+  expect_near(min(fx$se_over_sd), 1.53, tol = 0.01); expect_near(max(fx$se_over_sd), 1.69, tol = 0.01)
+  expect_gte(min(fx$se_over_sd), 1.5); expect_lte(max(fx$se_over_sd), 1.7)            # D.7 "1.5 - 1.7 times"
+  expect_equal(round(100 * min(fx$coverage)), 99)                                     # "99 - 100%"
+  expect_equal(round(100 * min(rd$coverage)), 91); expect_equal(round(100 * max(rd$coverage)), 95)
+  expect_near(min(rd$se_over_sd), 0.94, tol = 0.01); expect_near(max(rd$se_over_sd), 1.07, tol = 0.01)
+  expect_lt(max(cmp$coverage[cmp$scenario %in% c("A", "B", "C")]), 0.90)             # "A - C well below nominal"
+  expect_lte(max(cmp$coverage_mcse), 0.016)                                          # "MC SE at most 1.6 points"
+  fb <- cmp |> filter(n_fallback > 0)
+  expect_equal(nrow(fb), 2L)
+  expect_equal(fb$n_fallback[fb$design == "redraw" & fb$scenario == "E" & fb$n_items == 400], 6)
+  dg <- cmp |> filter(n_degenerate > 0)
+  expect_true(all(dg$scenario == "E" & dg$n_degenerate == 1))
+  expect_setequal(paste(dg$design, dg$n_items), c("fixed 200", "fixed 400", "redraw 200", "redraw 400"))
+  q <- safe_read("data/processed/sim_underestimation_redraw_se_quartile.csv"); skip_if(is.null(q))
+  rq <- q |> filter(design == "redraw")
+  expect_equal(round(100 * min(rq$coverage[rq$se_quartile == 1])), 80)
+  expect_equal(round(100 * max(rq$coverage[rq$se_quartile == 1])), 85)
+  expect_equal(unique(round(100 * rq$coverage[rq$se_quartile == 4])), 99)
+  # Table rows in the SI must match the CSV to one decimal.
+  tex <- readLines("paper/neurips_appendix_body.tex")
+  rows <- str_match(tex, "^([A-F]) & (Fixed|Redrawn) & (.*) \\\\\\\\$")
+  rows <- rows[!is.na(rows[, 1]), , drop = FALSE]
+  expect_equal(nrow(rows), 12L)
+  for (k in seq_len(nrow(rows))) {
+    want <- cmp |>
+      filter(scenario == rows[k, 2], design == if_else(rows[k, 3] == "Fixed", "fixed", "redraw")) |>
+      arrange(n_items) |> pull(coverage)
+    expect_equal(str_split(rows[k, 4], " & ")[[1]], sprintf("%.1f", 100 * want))
+  }
+})
+
 # ---- Phase 4 headline numbers: cost-efficiency frontier ----------------------
 # These are the headline numbers the prose phase (Phase 6) should cite. The
 # block computes them rather than reading from a CSV so any drift in the
@@ -609,4 +646,167 @@ test_that("arena gaming table: pooled Likert shares item x judge 18.0, judge 8.8
   expect_near(pooled("item x judge"), 18.0, tol = 0.01);  expect_near(pooled("judge"), 8.8, tol = 0.01)
   expect_near(pooled("item x prompt"), 2.5, tol = 0.02); expect_near(pooled("prompt"), 1.2, tol = 0.05)   # 1.16, printed as 1.2
   expect_near(pooled("prompt x judge"), 0.7, tol = 0.05)
+})
+
+# Arena BT-level bootstrap (SI si:arena, fig:arena_bt_bootstrap_se; analysis/38_arena_bt_bootstrap.R)
+test_that("arena BT bootstrap: median TEE / naive SE 1.46, 3.59 single-cell; 1.01, 1.05 TEE; under-report 32 - 72%", {
+  b <- safe_read("data/processed/arena_bt_bootstrap_se.csv"); skip_if(is.null(b))
+  med <- sapply(split(b$se_tee / b$se_naive, b$config), median)
+  expect_equal(round(med[["single_likert"]], 2), 1.46)
+  expect_equal(round(med[["single_pairwise"]], 2), 3.59)
+  expect_equal(round(med[["tee_likert"]], 2), 1.01)
+  expect_equal(round(med[["tee_pairwise"]], 2), 1.05)
+  expect_equal(round(100 * (1 - 1 / med[["single_likert"]])), 32)
+  expect_equal(round(100 * (1 - 1 / med[["single_pairwise"]])), 72)
+})
+
+# Pilot minimums stated in the SI (Quickstart, Identifiability, reporting checklist, pilot guidance)
+test_that("SI pilot minimums: R >= 3 throughout; pilot V >= 2 at 180 calls; Quickstart 540; small-V RMSE 0.156 / 0.105 / 0.049, bias within 2 MC SEs", {
+  si <- paste(readLines("paper/neurips_appendix_body.tex", warn = FALSE), collapse = "\n")
+  n_hits <- function(x) lengths(regmatches(si, gregexpr(x, si, fixed = TRUE)))
+  expect_equal(30 * 2 * 3, 180)
+  expect_equal(30 * 3 * 2 * 3, 540)
+  expect_equal(n_hits("(180 calls)"), 1)
+  expect_equal(n_hits("about 540 API calls"), 1)
+  expect_equal(n_hits("3 or more replications"), 1)
+  expect_equal(n_hits("R \\geq 5"), 0)
+  sk <- safe_read("data/processed/sim_small_k.csv"); skip_if(is.null(sk))
+  nz <- sk[sk$true_sigma2_beta > 0, ]
+  expect_equal(range(round(nz$rel_bias_pct[nz$K == 2], 1)), c(3.8, 5.3))
+  expect_equal(range(round(nz$rel_bias_pct[nz$K >= 3], 1)), c(1.0, 4.5))
+  expect_true(all(abs(nz$bias) < 2 * nz$rmse / sqrt(nz$n_sims)))
+  large <- function(k) round(sk$rmse[sk$K == k & sk$true_sigma2_beta == 0.1], 3)
+  expect_equal(c(large(2), large(3), large(10)), c(0.156, 0.105, 0.049))
+  rmse_cut <- 1 - nz$rmse[nz$K == 3] / nz$rmse[nz$K == 2]   # "about a third"
+  expect_true(all(rmse_cut > 0.3 & rmse_cut < 0.37))
+  expect_equal(n_hits("below 4\\%") + n_hits("$<$4\\%"), 0)
+  ke <- safe_read("data/processed/sim_small_k_knife_edge.csv"); skip_if(is.null(ke))
+  peak <- sapply(split(ke$directional_accuracy_pct, ke$K), max)
+  expect_equal(round(peak[["2"]]), 66)
+  expect_true(all(peak[c("2", "3", "4", "5")] < 90) && all(peak[c("7", "10")] > 90))
+})
+
+# Sonnet sanity check (SI scoring comparison); analysis/21 reads the CoT run from pairwise_clean.csv
+test_that("Sonnet check: directional agreement with CoT judges DeepSeek 100, Gemini 91, GPT-OSS 87 on 23 items", {
+  x <- safe_read("data/processed/judges_vs_sonnet_items.csv"); skip_if(is.null(x))
+  rate <- sapply(split(x$agrees, x$judge_model), function(v) round(100 * mean(v)))
+  expect_equal(nrow(x), 3 * 23)
+  expect_equal(rate[["deepseek/deepseek-chat-v3.1"]], 100)
+  expect_equal(rate[["google/gemini-2.0-flash-001"]], 91)
+  expect_equal(rate[["openai/gpt-oss-120b"]], 87)
+})
+
+# Tier-matched safety analysis, absolute disagreement (SI si:tier_sensitivity; analysis/17b_tier_disagreement.R)
+test_that("tier-matched: disagreement 7.2 / 4.3 / 3.6, contrasts overlap zero; spread 5.5 vs 0.9; Opus 1,080 of 1,080 safe; GPT-5.4 89.2; gap 10.8", {
+  r <- safe_read("data/processed/sensitivity_tier_judge_rates.csv"); skip_if(is.null(r))
+  d <- safe_read("data/processed/sensitivity_tier_disagreement.csv"); skip_if(is.null(d))
+  rnd <- function(level, label) {
+    x <- d[d$level == level & d$label == label, ]
+    round(c(x$estimate, x$ci_lo, x$ci_hi), 1)
+  }
+  opus <- r[r$judge_short == "claude-opus-4-6", ]
+  expect_equal(c(opus$n_valid, opus$n_safe), c(1080, 1080))
+  expect_equal(round(r$safe_pct[r$judge_short == "gpt-5.4"], 1), 89.2)
+  expect_equal(rnd("tier_disagreement", "closed_frontier")[1], 7.2)
+  expect_equal(rnd("tier_disagreement", "original")[1], 4.3)
+  expect_equal(rnd("tier_disagreement", "open_weight")[1], 3.6)
+  expect_equal(rnd("disagreement_contrast", "closed_frontier minus original"), c(3.0, -0.1, 7.3))
+  expect_equal(rnd("disagreement_contrast", "closed_frontier minus open_weight"), c(3.6, -0.6, 9.3))
+  expect_equal(rnd("tier_judge_spread", "closed_frontier")[1], 5.5)
+  expect_equal(rnd("tier_judge_spread", "original")[1], 0.9)
+  expect_equal(rnd("judge_spread_contrast", "closed_frontier minus original"), c(4.6, -0.1, 10.2))
+  expect_equal(rnd("pair", "claude-opus-4-6 vs gpt-5.4")[1], 10.8)
+  expect_equal(max(d$estimate[d$level == "pair"]), d$estimate[d$label == "claude-opus-4-6 vs gpt-5.4"])
+  expect_equal(rnd("items_with_disagreement", "closed_frontier")[1], 3)
+  expect_equal(rnd("focal_item_share", "closed_frontier")[1], 100)
+  expect_equal(rnd("focal_item_share", "original")[1], 98.6)
+  expect_equal(rnd("focal_item_share", "open_weight")[1], 84.7)
+  expect_equal(sum(r$n_valid[r$tier == "closed_frontier"]), 3212)
+})
+
+# Naive pairwise run, second-response rates (SI footnote in the scoring comparison; pilot study details)
+test_that("naive pairwise: second-response rate Haiku 91, GPT-4o 70, Gemini 39, overall 67%", {
+  path <- "data/raw/pairwise_full.jsonl"; skip_if(!file.exists(path))
+  x <- jsonlite::stream_in(file(path), verbose = FALSE)
+  resp <- toupper(gsub("[*\"]", "", trimws(x$response)))
+  a <- grepl("^(RESPONSE )?A\\b", resp); b <- grepl("^(RESPONSE )?B\\b", resp)
+  rate <- function(i) round(100 * sum(b & i) / sum((a | b) & i))
+  expect_equal(rate(x$model == "anthropic/claude-haiku-4.5"), 91)
+  expect_equal(rate(x$model == "openai/gpt-4o"), 70)
+  expect_equal(rate(x$model == "google/gemini-2.0-flash-001"), 39)
+  expect_equal(rate(rep(TRUE, nrow(x))), 67)
+  si <- paste(readLines("paper/neurips_appendix_body.tex", warn = FALSE), collapse = "\n")
+  expect_true(grepl("naive-prompt run we observed a 67\\% B-rate across the three judges", si, fixed = TRUE))
+})
+
+# Naive vs TEE single-configuration SEs (abstract; checklist item 1; SI tab:naive_vs_tee)
+test_that("naive vs TEE: SE underest. 7 / 53 / 70 / 69%; resampled coverage naive 92 / 68 / 46 / 31, TEE 95 / 94 / 95 / 99 (SI tab:naive_vs_tee; abstract 53 - 70%)", {
+  s <- safe_read("data/processed/naive_vs_tee_summary.csv"); skip_if(is.null(s))
+  g <- function(dom, col) s[[col]][s$scoring == dom]
+  expect_equal(g("mmlu", "n_configs"), 36L)
+  expect_true(all(s$n_configs[s$scoring != "mmlu"] == 45L))
+  expect_near(g("mmlu", "underest_pct"), 7, tol = 0.05);  expect_near(g("safety", "underest_pct"), 53, tol = 0.01)
+  expect_near(g("likert", "underest_pct"), 70, tol = 0.01); expect_near(g("pairwise", "underest_pct"), 69, tol = 0.01)
+  expect_near(g("mmlu", "width_ratio"), 0.93);  expect_near(g("safety", "width_ratio"), 0.47)
+  expect_near(g("likert", "width_ratio"), 0.30); expect_near(g("pairwise", "width_ratio"), 0.31, tol = 0.02)
+  # abstract range covers the three judge-scored domains
+  expect_equal(round(range(s$underest_pct[s$scoring != "mmlu"])), c(53, 70))
+  # coverage columns: each configuration's N items redrawn with replacement 1,000 times
+  r <- safe_read("data/processed/naive_vs_tee_subsample.csv"); skip_if(is.null(r))
+  r <- r[r$design == "all items, resampled", ]
+  expect_equal(nrow(r), 4L); expect_true(all(r$n_draws == 1000))
+  cv <- function(dom, col) round(100 * r[[col]][r$scoring == dom])
+  expect_equal(cv("mmlu", "naive_coverage"), 92);     expect_equal(cv("mmlu", "tee_coverage"), 95)
+  expect_equal(cv("safety", "naive_coverage"), 68);   expect_equal(cv("safety", "tee_coverage"), 94)
+  expect_equal(cv("likert", "naive_coverage"), 46);   expect_equal(cv("likert", "tee_coverage"), 95)
+  expect_equal(cv("pairwise", "naive_coverage"), 31); expect_equal(cv("pairwise", "tee_coverage"), 99)
+  expect_equal(r$n_items[r$scoring == "mmlu"], 200L)
+})
+test_that("mmlu budget: TEE and standard use all 170 pool items from B = 200 upward, with >= 99.9% coverage there (main text sec:mmlu)", {
+  b <- safe_read("data/processed/mmlu_budget_allocation_summary.csv"); skip_if(is.null(b))
+  ts <- b[b$researcher %in% c("TEE", "Standard"), ]
+  expect_true(all(ts$mean_N[ts$budget >= 200] > 169.5))   # ~169.6 after dropping unanswered items
+  expect_true(all(ts$mean_N[ts$budget < 200] < 100.5))
+  expect_true(all(ts$coverage[ts$budget >= 200] >= 0.999))
+})
+test_that("ideology Var(theta-hat) shares: Likert judge 54.4, prompt x judge 9.3, prompt 8.1; pairwise judge 68.4, position 20.9; safety prompt x judge 12.4 (SI si:scoring_comparison, si:naive_vs_tee)", {
+  vc <- safe_read("data/processed/variance_components_likert.csv"); skip_if(is.null(vc))
+  N <- 150; V <- 5; M <- 3; H <- 3; R <- 3   # divisors as in analysis/03_figures.R compute_divisor()
+  div <- c("between-category" = N, "within-category item" = N, "prompt" = V, "item x prompt" = N * V,
+           "item x temperature" = N * H, "prompt x temperature" = V * H, "item x judge" = N * M,
+           "prompt x judge" = V * M, "cell-level (3-way+)" = N * V * H * M,
+           "replicate noise" = N * V * H * M * R, "judge model (design sensitivity)" = M,
+           "temperature (design sensitivity)" = H)
+  contrib <- vc$variance / div[vc$tle_label]
+  pct <- setNames(100 * contrib / sum(contrib), vc$tle_label)
+  expect_near(pct[["judge model (design sensitivity)"]], 54.4, tol = 0.005)
+  expect_near(pct[["prompt x judge"]], 9.3, tol = 0.01)
+  expect_near(pct[["prompt"]], 8.1, tol = 0.01)
+  expect_equal(round(pct[["within-category item"]], 1), 26.9)   # pilot table and text, SI si:pilot
+  expect_equal(round(pct[["prompt"]], 1), 8.1)
+  expect_equal(round(pct[["item x judge"]], 1), 0.6)
+  pw <- safe_read("data/processed/glmm_comparison_pairwise.csv"); skip_if(is.null(pw))
+  expect_near(pw$lpm_pct[pw$tle_label == "judge model (design sensitivity)"], 68.4, tol = 0.005)
+  expect_near(pw$lpm_pct[pw$tle_label == "position (design sensitivity)"], 20.9, tol = 0.005)
+  sf <- safe_read("data/processed/glmm_comparison_safety.csv"); skip_if(is.null(sf))
+  expect_near(sf$lpm_pct[sf$tle_label == "prompt x judge"], 12.4, tol = 0.005)   # safety, SI si:naive_vs_tee
+})
+
+# 2026-10-10 fact-check fixes (abstract, sec:dstudy, sec:safety, empirical intro, SI si:pilot)
+test_that("abstract gaming cut 43%; per-category replicate noise 0.001 - 0.033 safety, 1.6 - 1.8x ideology; pilot 8x smaller than full run", {
+  g <- safe_read("data/processed/arena_gaming_surface_grid.csv"); skip_if(is.null(g))
+  s <- function(v, m) g$sigma_logpi[g$V == v & g$M == m]
+  expect_near(1 - s(5, 3) / s(1, 1), 0.43, tol = 0.01)
+  ps <- safe_read("data/processed/per_category_variance_safety.csv"); skip_if(is.null(ps))
+  expect_equal(round(ps$mean_gen_var[ps$category == "spc"], 3), 0.001)
+  expect_equal(round(ps$mean_gen_var[ps$category == "sxc_prn"], 3), 0.033)
+  for (f in c("likert", "pairwise")) {
+    p <- safe_read(sprintf("data/processed/per_category_variance_%s.csv", f)); skip_if(is.null(p))
+    r <- max(p$mean_gen_var) / min(p$mean_gen_var)
+    expect_true(r >= 1.55 && r < 1.85)
+  }
+  lk <- safe_read("data/processed/likert_clean.csv"); skip_if(is.null(lk))
+  expect_equal(nrow(lk), 20250)
+  expect_equal(nrow(lk) / length(unique(paste(lk$item_id, lk$variant_id, lk$temperature, lk$judge_model))), 3)  # R = 3
+  expect_equal(round(nrow(lk) / (30 * 3 * 3 * 3 * 3)), 8)   # pilot N = 30, V = H = M = R = 3 (SI si:pilot)
 })

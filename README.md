@@ -38,7 +38,7 @@ responses requires an OpenRouter key (copy `.env.example` to `.env`).
 
 ## Raw data
 
-Raw API responses (JSONL, several GB) are archived on Harvard Dataverse; the DOI will be added here.
+Raw API responses (JSONL, several GB) are archived on Harvard Dataverse: <https://doi.org/10.7910/DVN/UXNAM7>. The deposit was submitted for curator review on 2026-11-06, and the DOI resolves once it is published.
 Everything the paper reports can be reproduced from `data/processed/` without them.
 
 ## Notes

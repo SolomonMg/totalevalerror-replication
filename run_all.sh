@@ -105,6 +105,7 @@ run analysis/13c_sim_gaming_arena.R                  # Arena gaming surface: pap
 run analysis/16_cost_efficiency_frontier.R
 run analysis/16_pairwise_vs_binary_recovery.R
 run analysis/17_sensitivity_tier_matched.R
+run analysis/17b_tier_disagreement.R
 
 # -------- Stage 5: Figures --------
 run analysis/03_figures.R

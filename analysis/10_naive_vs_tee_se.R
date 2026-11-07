@@ -16,29 +16,33 @@ set.seed(42)
 
 cat("=== Naive vs TEE SE Comparison on Real Data ===\n\n")
 
-# --- Helper: D-study variance at fixed temperature (Case 1/3) ---
-# Under the paper's fixed-category convention, s2_kappa absorbs into s2_delta
-# and both scale with N. Pass facet_label ("judge" or "SUT") to pick the right
-# interaction component. Pass M=1 for single-model deployment.
-dstudy_se <- function(vc, N, V, M, R, facet_label = "judge") {
-  vc_vec <- setNames(vc$variance, vc$tle_label)
-  get_vc <- function(label) if (label %in% names(vc_vec)) vc_vec[[label]] else 0
+# --- Helper: D-study SE at a fixed temperature (paper Eq. eq:dstudy_multi) ---
+# Var(theta_h) = s2_alpha/N + s2_phi/V + s2_lambda/M + s2_aphi/(NV) + s2_atau/N + s2_phitau/V
+#              + s2_alambda/(NM) + s2_philambda/(VM) + s2_eps/(NVM) + s2_rho/(NVMR),
+# with s2_alpha = between-category + within-category item. facet_label is "judge" or "SUT".
+# include_facet_ds = FALSE drops the model design sensitivity s2_lambda, for targets that do
+# not average over the model facet (MMLU: each SUT's own mean). Position (pairwise) is
+# counterbalanced within every configuration, so it does not enter.
+dstudy_se <- function(vc, N, V, M, R, facet_label = "judge", include_facet_ds = TRUE) {
+  get_vc <- function(label) {
+    x <- vc$variance[vc$tle_label == label]
+    if (length(x) != 1) stop(sprintf("variance component '%s' not found", label))
+    x
+  }
+  s2_alpha <- get_vc("between-category") + get_vc("within-category item")
+  s2_phi   <- get_vc("prompt")
+  s2_lam   <- if (include_facet_ds) get_vc(sprintf("%s model (design sensitivity)", facet_label)) else 0
+  s2_aphi  <- get_vc("item x prompt")
+  s2_atau  <- get_vc("item x temperature")
+  s2_ptau  <- get_vc("prompt x temperature")
+  s2_alam  <- get_vc(sprintf("item x %s", facet_label))
+  s2_plam  <- get_vc(sprintf("prompt x %s", facet_label))
+  s2_eps   <- get_vc("cell-level (3-way+)")
+  s2_rho   <- get_vc("replicate noise")
 
-  s2_delta <- get_vc("within-category item")
-  s2_kappa <- get_vc("between-category")
-  s2_rho   <- get_vc("prompt")
-  s2_ar    <- get_vc("item x prompt")
-  s2_at    <- get_vc("item x temperature")
-  s2_rt    <- get_vc("prompt x temperature")
-  s2_al    <- get_vc(sprintf("item x %s", facet_label))
-  s2_rl    <- get_vc(sprintf("prompt x %s", facet_label))
-  s2_eps   <- get_vc("generation")
-
-  # Categories fixed: s2_kappa absorbs into s2_delta, both /N.
-  var_d <- (s2_kappa + s2_delta) / N + s2_rho / V + s2_ar / (N * V) +
-    s2_at / N + s2_rt / V +
-    s2_al / (N * M) + s2_rl / (V * M) +
-    s2_eps / (N * V * M * R)
+  var_d <- s2_alpha / N + s2_phi / V + s2_lam / M + s2_aphi / (N * V) + s2_atau / N +
+    s2_ptau / V + s2_alam / (N * M) + s2_plam / (V * M) + s2_eps / (N * V * M) +
+    s2_rho / (N * V * M * R)
   sqrt(var_d)
 }
 
@@ -79,10 +83,15 @@ for (scoring in c("likert", "pairwise", "safety", "mmlu")) {
                 overall_gm, N, V, M, H, R))
   }
 
-  se_tee_full   <- dstudy_se(vc, N, V = V, M = M, R = R, facet_label = facet_label)
-  se_tee_single <- dstudy_se(vc, N, V = 1, M = 1, R = R, facet_label = facet_label)
+  # MMLU's per-SUT target cannot average over SUTs, so its full design has M = 1.
+  per_sut <- scoring == "mmlu"
+  M_full  <- if (per_sut) 1 else M
+  se_tee_full   <- dstudy_se(vc, N, V = V, M = M_full, R = R, facet_label = facet_label,
+                             include_facet_ds = !per_sut)
+  se_tee_single <- dstudy_se(vc, N, V = 1, M = 1, R = R, facet_label = facet_label,
+                             include_facet_ds = !per_sut)
 
-  cat(sprintf("  TEE SE (full design, V=%d M=%d): %.4f\n", V, M, se_tee_full))
+  cat(sprintf("  TEE SE (full design, V=%d M=%d): %.4f\n", V, M_full, se_tee_full))
   cat(sprintf("  TEE SE (single pipeline, V=1 M=1): %.4f\n", se_tee_single))
 
   configs <- df %>% distinct(variant_id, !!sym(facet_col), temperature)
@@ -170,5 +179,58 @@ summary_df %>%
          naive_coverage, tee_coverage) %>%
   mutate(across(where(is.numeric), ~ round(., 3))) %>%
   print()
+
+# --- Coverage with item sampling in the gap -----------------------------------
+# The check above scores each configuration on the same items that define its target, so
+# item-sampling error cannot move a configuration away from its target. Here each
+# configuration is re-scored on items drawn from the full set and compared with the same
+# full-set target, as in the Arena (37) and MMLU budget (12) studies:
+#   "50 items": 50 items without replacement (Arena-style subsample);
+#   "all items, resampled": N items with replacement, which keeps the original N.
+K_DRAWS <- 1000
+set.seed(42)
+sub_all <- list()
+for (scoring in c("likert", "pairwise", "safety", "mmlu")) {
+  facet_col   <- if (scoring == "mmlu") "sut_model" else "judge_model"
+  facet_label <- if (scoring == "mmlu") "SUT" else "judge"
+  per_sut     <- scoring == "mmlu"
+  df <- read_csv(sprintf("data/processed/%s_clean.csv", scoring), show_col_types = FALSE) %>%
+    filter(!is.na(outcome))
+  vc <- read_csv(sprintf("data/processed/variance_components_%s.csv", scoring), show_col_types = FALSE)
+  cfg_res <- read_csv(sprintf("data/processed/naive_vs_tee_%s.csv", scoring), show_col_types = FALSE)
+  N <- n_distinct(df$item_id)
+  R <- df %>% count(item_id, variant_id, !!sym(facet_col), temperature) %>% pull(n) %>% median()
+  im <- df %>%
+    group_by(variant_id, facet_value = .data[[facet_col]], temperature, item_id) %>%
+    summarise(m = mean(outcome), .groups = "drop")
+
+  for (des in c("50 items", "all items, resampled")) {
+    n_draw  <- if (des == "50 items") 50L else N
+    replace <- des != "50 items"
+    se_tee  <- dstudy_se(vc, n_draw, V = 1, M = 1, R = R, facet_label = facet_label,
+                         include_facet_ds = !per_sut)
+    draws <- pmap_dfr(cfg_res %>% select(variant_id, facet_value, temperature, target_mean),
+                      function(variant_id, facet_value, temperature, target_mean) {
+      m <- im$m[im$variant_id == variant_id & im$facet_value == facet_value &
+                  im$temperature == temperature]
+      x <- matrix(m[replicate(K_DRAWS, sample.int(length(m), n_draw, replace = replace))],
+                  nrow = n_draw)
+      est <- colMeans(x)
+      se_naive <- apply(x, 2, sd) / sqrt(n_draw)
+      tibble(naive_covers = abs(est - target_mean) <= 1.96 * se_naive,
+             tee_covers   = abs(est - target_mean) <= 1.96 * se_tee,
+             width_ratio  = se_naive / se_tee)
+    })
+    sub_all[[paste(scoring, des)]] <- tibble(
+      scoring = scoring, design = des, n_items = n_draw, n_configs = nrow(cfg_res),
+      n_draws = K_DRAWS, se_tee = se_tee,
+      naive_coverage = mean(draws$naive_covers), tee_coverage = mean(draws$tee_covers),
+      width_ratio = mean(draws$width_ratio))
+  }
+}
+sub_df <- bind_rows(sub_all)
+write_csv(sub_df, "data/processed/naive_vs_tee_subsample.csv")
+cat("\n=== Coverage with item sampling in the gap ===\n")
+print(sub_df %>% mutate(across(where(is.double), ~ round(., 3))), width = Inf)
 
 cat("\nResults saved to data/processed/naive_vs_tee_*.csv\n")
