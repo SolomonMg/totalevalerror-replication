@@ -15,6 +15,8 @@
 # Output:
 #   data/processed/arena_agreement_summary.csv  -- accuracy per (config x category)
 #   data/processed/arena_battle_predictions.csv -- per-battle predicted winner per config
+#   data/processed/arena_agreement_matched.csv  -- TEE vs single scored on the same number of called battles
+#   data/processed/arena_battle_margins.csv     -- per-battle single prediction and TEE margin (human-decisive)
 
 suppressPackageStartupMessages({
   library(tidyverse)
@@ -243,7 +245,84 @@ if (nrow(preds_ab) > 0) {
   print(imp %>% mutate(across(where(is.numeric), ~ round(., 3))))
 }
 
+# ---- Matched decisive rate: TEE vs single scored on the same number of battles ----
+# acc_ab above scores each pipeline on the battles where it calls a winner. Averaging 15 cells shrinks TEE's
+# score gaps, so TEE calls a tie more often than the single judge (Likert: 62% vs 49% of human-decisive
+# battles) and is scored on fewer, easier battles. Here, within each category, TEE calls a winner on exactly
+# as many human-decisive battles as the single-judge pipeline does (the battles with TEE's largest margins),
+# so both pipelines are scored on the same number of battles. The single-judge numbers equal acc_ab.
+margin_single_lik <- single_lik %>% transmute(battle_id, m_single = score_a - score_b)
+margin_tee_lik    <- tee_lik    %>% transmute(battle_id, m_tee = score_a - score_b)
+margin_single_pw  <- pw_cell %>% filter(judge_model == BASELINE_JUDGE, variant_id == BASELINE_VARIANT) %>%
+  transmute(battle_id, m_single = a_win_rate - 0.5)
+margin_tee_pw     <- pw_cell %>% group_by(battle_id) %>%
+  summarize(m_tee = mean(a_win_rate) - 0.5, .groups = "drop")
+
+matched_frame <- function(single_cfg, m_single, m_tee) {
+  preds %>% filter(config == single_cfg, winner_n %in% c("a", "b")) %>%
+    select(battle_id, category_llm, winner_n, pred_single = pred_winner) %>%
+    inner_join(m_single, by = "battle_id") %>% inner_join(m_tee, by = "battle_id") %>%
+    filter(!is.na(m_tee))
+}
+# Accuracy of single (its own calls) and TEE (top-k |margin|, k = single's call count) on one data frame
+matched_acc <- function(d) {
+  s_call <- d$pred_single %in% c("a", "b")
+  k <- sum(s_call)
+  t_call <- rank(-abs(d$m_tee), ties.method = "first") <= k
+  c(k = k,
+    single = mean(d$pred_single[s_call] == d$winner_n[s_call]),
+    tee = mean(ifelse(d$m_tee[t_call] > 0, "a", "b") == d$winner_n[t_call]))
+}
+# Within-category matching; Pooled is the union of the category selections
+matched_summary <- function(d) {
+  cats <- split(d, d$category_llm)
+  per <- lapply(cats, function(x) {
+    s_call <- x$pred_single %in% c("a", "b"); k <- sum(s_call)
+    t_call <- rank(-abs(x$m_tee), ties.method = "first") <= k
+    list(k = k, s = x$pred_single[s_call] == x$winner_n[s_call],
+         t = ifelse(x$m_tee[t_call] > 0, "a", "b") == x$winner_n[t_call])
+  })
+  rows <- lapply(names(per), function(n) c(k = per[[n]]$k, single = mean(per[[n]]$s), tee = mean(per[[n]]$t)))
+  pooled <- c(k = sum(sapply(per, `[[`, "k")), single = mean(unlist(lapply(per, `[[`, "s"))),
+              tee = mean(unlist(lapply(per, `[[`, "t"))))
+  out <- rbind(do.call(rbind, rows), pooled)
+  rownames(out) <- c(names(per), "Pooled")
+  out
+}
+matched_boot <- function(d, n_boot = N_BOOT) {
+  idx <- split(seq_len(nrow(d)), d$category_llm)
+  t(replicate(n_boot, {
+    i <- unlist(lapply(idx, function(v) v[sample.int(length(v), length(v), replace = TRUE)]))
+    m <- matched_summary(d[i, ])
+    m[, "tee"] - m[, "single"]
+  }))
+}
+matched <- list()
+margins_out <- list()
+for (p in list(list("likert",   "single_likert",   margin_single_lik, margin_tee_lik),
+               list("pairwise", "single_pairwise", margin_single_pw,  margin_tee_pw))) {
+  d <- matched_frame(p[[2]], p[[3]], p[[4]])
+  margins_out[[p[[1]]]] <- d %>% mutate(scoring = p[[1]], .before = 1)
+  m <- matched_summary(d)
+  b <- matched_boot(d)
+  matched[[p[[1]]]] <- tibble(
+    scoring = p[[1]], category_llm = rownames(m), n_called = m[, "k"],
+    acc_single = m[, "single"], acc_tee_matched = m[, "tee"],
+    improvement = m[, "tee"] - m[, "single"],
+    improvement_lo = apply(b, 2, quantile, 0.025)[rownames(m)],
+    improvement_hi = apply(b, 2, quantile, 0.975)[rownames(m)],
+    n_human_decisive = c(table(d$category_llm)[rownames(m)[-nrow(m)]], nrow(d)),
+    tee_tie_rate_default = c(tapply(!(abs(d$m_tee) >= ifelse(p[[1]] == "likert", LIKERT_TIE_TOL, 0.175)),
+                                    d$category_llm, mean)[rownames(m)[-nrow(m)]],
+                             mean(!(abs(d$m_tee) >= ifelse(p[[1]] == "likert", LIKERT_TIE_TOL, 0.175)))))
+}
+matched <- bind_rows(matched)
+cat("\n=== TEE vs single at the single judge's decisive rate (AB-only, 95% stratified bootstrap CIs) ===\n")
+print(matched %>% mutate(across(where(is.numeric), ~ round(., 4))), n = Inf)
+
 # ---- Write outputs ----
+write_csv(matched,      "data/processed/arena_agreement_matched.csv")
+write_csv(bind_rows(margins_out), "data/processed/arena_battle_margins.csv")  # human-decisive battles; used by 31
 write_csv(preds,        "data/processed/arena_battle_predictions.csv")
 write_csv(summary_full, "data/processed/arena_agreement_summary.csv")
 write_csv(summary_pool, "data/processed/arena_agreement_pooled.csv")
@@ -254,3 +333,5 @@ cat("  data/processed/arena_battle_predictions.csv\n")
 cat("  data/processed/arena_agreement_summary.csv\n")
 cat("  data/processed/arena_agreement_pooled.csv\n")
 cat("  data/processed/arena_agreement_improvement.csv (+ bootstrap CIs)\n")
+cat("  data/processed/arena_agreement_matched.csv (TEE at the single judge's decisive rate)\n")
+cat("  data/processed/arena_battle_margins.csv\n")

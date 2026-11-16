@@ -120,9 +120,9 @@ if (file.exists("data/processed/arena_dstudy_vs_observed.csv")) {
                                                         scale = 100, suffix = " pp")) +
       labs(
         title = "D-study projection predicts observed TEE lift",
-        subtitle = "Dev-fit SE reduction (x) vs. test-set Likert accuracy lift (y)",
+        subtitle = "Dev-fit SE reduction (x) vs. Likert agreement lift on all battles, same number called (y)",
         x = "Projected single->TEE SE reduction (dev)",
-        y = "Observed agreement lift (test)"
+        y = "Observed agreement lift (all battles)"
       ) + theme_tle
 
     ggsave("figures/fig_arena_dstudy_vs_observed.pdf", p3, width = 8, height = 5.5)

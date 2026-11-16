@@ -25,14 +25,19 @@ CONFIG_GROUP <- c(
   tee_pairwise     = "TEE"
 )
 
-df <- read_csv("data/processed/arena_agreement_pooled.csv",
-               show_col_types = FALSE) %>%
+# TEE rows use the matched decisive rate (script 30): TEE calls a winner on as many human-decisive battles as the
+# single-judge pipeline, so both are scored on the same number of battles. Single-judge rows equal acc_ab.
+df <- read_csv("data/processed/arena_agreement_matched.csv", show_col_types = FALSE) %>%
+  filter(category_llm == "Pooled") %>%
+  select(scoring, n_called, single = acc_single, tee = acc_tee_matched) %>%
+  pivot_longer(c(single, tee), names_to = "agg", values_to = "acc_ab") %>%
+  mutate(config = paste0(agg, "_", scoring)) %>%
   mutate(scoring_method = factor(CONFIG_LABEL[config],
                                  levels = c("Pairwise", "Likert")),
          aggregation    = factor(CONFIG_GROUP[config],
                                  levels = c("Single judge", "TEE")))
 
-cat("Pooled accuracies (4,676 battles):\n")
+cat("Pooled AB-only accuracies, matched decisive rate (4,676 battles):\n")
 print(df %>% mutate(across(where(is.numeric), ~ round(., 3))))
 
 p <- ggplot(df, aes(x = acc_ab, y = scoring_method)) +
@@ -45,7 +50,7 @@ p <- ggplot(df, aes(x = acc_ab, y = scoring_method)) +
                      breaks = c(0.65, 0.70, 0.75, 0.80),
                      expand = expansion(mult = c(0.02, 0.10))) +
   labs(
-    x = "Agreement with Arena human vote (AB-only)",
+    x = "Agreement with Arena human vote\n(AB-only; both pipelines call the same number of battles)",
     y = NULL
   ) +
   theme_minimal(base_size = 12) +

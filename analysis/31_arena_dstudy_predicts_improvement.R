@@ -7,7 +7,8 @@
 # in Arena-human agreement (computed in 30).
 #
 # Claim the paper wants to make: TEE's D-study, fit in advance on dev, predicts
-# which task categories benefit most from multi-judge averaging. Verify on test.
+# which task categories benefit most from multi-judge averaging. Observed lifts use all battles (human votes
+# never enter the D-study fit); the test split alone is also reported but is too small per category to rank.
 #
 # Outputs:
 #   data/processed/arena_dstudy_per_category.csv
@@ -118,14 +119,45 @@ cat("\n=== D-study projected SE reduction (dev) ===\n")
 print(proj %>% mutate(across(where(is.numeric), ~ round(., 3))))
 
 # ---- Compare projected vs. observed improvement ----
-observed <- read_csv("data/processed/arena_agreement_improvement.csv",
-                     show_col_types = FALSE)
+# Observed lifts: TEE vs single at the single judge's decisive rate (script 30), so both pipelines are scored
+# on the same number of battles. Within each category, TEE calls a winner on as many human-decisive battles as
+# the single judge (its largest margins). Primary: all battles (the D-study is fit on judge scores only, never
+# on human votes). Also reported: the test split alone, which is too small per category to rank categories.
+observed_all <- read_csv("data/processed/arena_agreement_matched.csv", show_col_types = FALSE) %>%
+  rename(category = category_llm) %>%
+  filter(category %in% TARGET_CATEGORIES) %>%
+  select(category, scoring, acc_single, acc_tee_matched, improvement, improvement_lo, improvement_hi) %>%
+  pivot_wider(names_from = scoring, values_from = c(acc_single, acc_tee_matched, improvement,
+                                                    improvement_lo, improvement_hi)) %>%
+  transmute(category,
+            single_likert = acc_single_likert, single_pairwise = acc_single_pairwise,
+            tee_likert = acc_tee_matched_likert, tee_pairwise = acc_tee_matched_pairwise,
+            improvement_likert, improvement_pairwise,
+            imp_likert_lo = improvement_lo_likert, imp_likert_hi = improvement_hi_likert,
+            imp_pairwise_lo = improvement_lo_pairwise, imp_pairwise_hi = improvement_hi_pairwise)
 
-# If improvement CSV includes all categories (not just 4 targets), filter
-if ("category_llm" %in% names(observed)) {
-  observed <- observed %>% rename(category = category_llm)
+margins <- read_csv("data/processed/arena_battle_margins.csv", show_col_types = FALSE) %>%
+  filter(battle_id %in% test_ids, category_llm %in% TARGET_CATEGORIES)
+matched_lift <- function(x) {
+  s_call <- x$pred_single %in% c("a", "b"); k <- sum(s_call)
+  t_call <- rank(-abs(x$m_tee), ties.method = "first") <= k
+  c(k = k, single = mean(x$pred_single[s_call] == x$winner_n[s_call]),
+    tee = mean(ifelse(x$m_tee[t_call] > 0, "a", "b") == x$winner_n[t_call]))
 }
-observed <- observed %>% filter(category %in% TARGET_CATEGORIES)
+N_BOOT <- 2000
+observed_test <- margins %>% group_by(scoring, category = category_llm) %>%
+  group_modify(function(x, key) {
+    m <- matched_lift(x)
+    b <- replicate(N_BOOT, { y <- matched_lift(x[sample.int(nrow(x), replace = TRUE), ]); y["tee"] - y["single"] })
+    tibble(n_called = m[["k"]], improvement = m[["tee"]] - m[["single"]],
+           lo = quantile(b, 0.025), hi = quantile(b, 0.975))
+  }) %>% ungroup() %>%
+  pivot_wider(id_cols = category, names_from = scoring, values_from = c(n_called, improvement, lo, hi)) %>%
+  transmute(category, n_called_likert_test = n_called_likert, n_called_pairwise_test = n_called_pairwise,
+            improvement_likert_test = improvement_likert, improvement_pairwise_test = improvement_pairwise,
+            imp_likert_lo_test = lo_likert, imp_likert_hi_test = hi_likert,
+            imp_pairwise_lo_test = lo_pairwise, imp_pairwise_hi_test = hi_pairwise)
+observed <- observed_all %>% left_join(observed_test, by = "category")
 
 cmp <- proj %>% left_join(observed, by = "category")
 cat("\n=== Projected SE reduction vs observed accuracy improvement ===\n")
@@ -139,6 +171,9 @@ if (nrow(cmp) >= 3 && all(!is.na(cmp$se_reduction))) {
                                    method = "spearman", use = "complete.obs"))
   cat(sprintf("\nSpearman rho(projected SE reduction, observed Likert improvement): %.3f\n", rho_lik))
   cat(sprintf("Spearman rho(projected SE reduction, observed pairwise improvement): %.3f\n", rho_pw))
+  rho_lik_test <- suppressWarnings(cor(cmp$se_reduction, cmp$improvement_likert_test, method = "spearman"))
+  rho_pw_test  <- suppressWarnings(cor(cmp$se_reduction, cmp$improvement_pairwise_test, method = "spearman"))
+  cat(sprintf("Test split only: Spearman rho Likert %.3f, pairwise %.3f\n", rho_lik_test, rho_pw_test))
 }
 
 write_csv(per_cat_vc, "data/processed/arena_dstudy_per_category.csv")

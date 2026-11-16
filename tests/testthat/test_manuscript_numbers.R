@@ -664,6 +664,27 @@ test_that("arena gaming table: pooled Likert shares item x judge 18.0, judge 8.8
   expect_near(pooled("prompt x judge"), 0.7, tol = 0.05)
 })
 
+# Arena agreement with the human vote, TEE at the single judge's decisive rate (abstract; main text sec:arena;
+# SI tab:arena_agreement Matched, fig:arena_accuracy, fig:arena_dstudy_vs_observed; analysis/30, 31). 2026-11-16.
+test_that("arena agreement (matched): Likert 72.5 vs 67.0 (+5.5, CI 3.5 - 7.7); pairwise 69.6 vs 68.3 (+1.3, CI 0.1 - 2.6); rho 0.80 all battles, -0.74 test split", {
+  m <- safe_read("data/processed/arena_agreement_matched.csv"); skip_if(is.null(m))
+  lk <- m %>% filter(scoring == "likert", category_llm == "Pooled")
+  pw <- m %>% filter(scoring == "pairwise", category_llm == "Pooled")
+  expect_equal(round(100 * c(lk$acc_tee_matched, lk$acc_single, lk$improvement, lk$improvement_lo, lk$improvement_hi), 1),
+               c(72.5, 67.0, 5.5, 3.5, 7.7))
+  expect_equal(round(100 * c(pw$acc_tee_matched, pw$acc_single, pw$improvement, pw$improvement_lo, pw$improvement_hi), 1),
+               c(69.6, 68.3, 1.3, 0.1, 2.6))
+  expect_equal(c(lk$n_called, pw$n_called), c(1363, 2486))
+  expect_equal(round(100 * lk$tee_tie_rate_default), 62)
+  cats <- m %>% filter(category_llm != "Pooled")
+  expect_equal(round(100 * range(cats$improvement[cats$scoring == "likert"]), 1), c(2.7, 8.9))
+  expect_equal(round(100 * range(cats$improvement[cats$scoring == "pairwise"]), 1), c(-0.7, 2.7))
+  d <- safe_read("data/processed/arena_dstudy_vs_observed.csv"); skip_if(is.null(d))
+  expect_equal(round(cor(d$se_reduction, d$improvement_likert, method = "spearman"), 2), 0.80)
+  expect_equal(round(cor(d$se_reduction, d$improvement_likert_test, method = "spearman"), 2), -0.74)
+  expect_equal(range(d$n_called_likert_test), c(63, 77))
+})
+
 # Arena BT-level bootstrap (SI si:arena, fig:arena_bt_bootstrap_se; analysis/38_arena_bt_bootstrap.R)
 test_that("arena BT bootstrap: median TEE / naive SE 1.47, 3.59 single-cell; 1.01, 1.05 TEE; under-report 32 - 72%", {
   b <- safe_read("data/processed/arena_bt_bootstrap_se.csv"); skip_if(is.null(b))

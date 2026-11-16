@@ -1213,73 +1213,73 @@ Two diagnostic checks frame the pairwise pipeline before turning to results. Fir
 
 This calibration ceiling means the Arena demonstration does not isolate a Likert-versus-pairwise scoring-method effect. Roughly one in three Arena battles is a human tie. Pairwise judges who almost never tie convert those cases into forced A/B verdicts that add noise without measurement, while Likert avoids the penalty because two responses can both receive a 3 and aggregate to a near-tie at the battle level. Any agreement gap between the two pipelines in this dataset confounds the scoring-method effect with pairwise miscalibration on ties. A clean format comparison requires a target distribution the pairwise pipeline can reach.
 
-Turning to results, Table~\ref{tab:arena_agreement} reports agreement by configuration and category. The \emph{Overall} column counts a tied prediction as correct when the human label is also tie; the \emph{AB-only} column restricts to battles where both sides are decisive. TEE Likert lifts AB-only agreement over single-judge Likert in every category, with the largest gains on the more subjective tasks ($+$11.8 pp on Persuasion, 61.8\% $\to$ 73.6\%; $+$9.5 pp on Creative Writing, 66.8\% $\to$ 76.3\%) and smaller but still positive gains on the more objective ones ($+$5.2 pp on Coding, $+$5.1 pp on Factual QA). Pooled across categories, TEE Likert agrees with Arena humans 7.9 pp more often than single-judge Likert (74.9\% vs.\ 67.0\%). TEE pairwise also lifts agreement in every category but by less, ranging $+$1.6 pp on Factual QA to $+$5.2 pp on Creative Writing, with a pooled lift of $+$3.6 pp (71.9\% vs.\ 68.3\%). Figure~\ref{fig:arena_accuracy} visualizes the per-pipeline distribution of agreement.
+Turning to results, Table~\ref{tab:arena_agreement} reports agreement by configuration and category. The \emph{Overall} column counts a tied prediction as correct when the human label is also tie; the \emph{AB-only} column restricts to battles where both the human vote and the pipeline's prediction are decisive. AB-only favors TEE. Averaging 15 judge$\times$prompt cells shrinks TEE's score gaps, so TEE Likert predicts a tie on 62\% of human-decisive battles against 49\% for the single judge, and AB-only scores it on fewer, easier battles (1,171 vs.\ 1,363). The \emph{Matched} column removes this difference. Within each category, TEE calls a winner on as many human-decisive battles as the single-judge pipeline (those with its largest averaged score gaps) and treats the rest as ties, so both pipelines are scored on the same number of battles. On this comparison TEE Likert lifts agreement over single-judge Likert in every category, with the largest gains on the more subjective tasks ($+$8.9 pp on Persuasion, 61.8\% $\to$ 70.6\%; $+$7.9 pp on Creative Writing, 66.8\% $\to$ 74.6\%) and smaller gains on the more objective ones ($+$2.8 pp on Coding, $+$2.7 pp on Factual QA; both 95\% CIs include zero). Pooled across categories, TEE Likert agrees with Arena humans 5.5 pp more often than single-judge Likert (72.5\% vs.\ 67.0\%; stratified bootstrap 95\% CI $+$3.5 to $+$7.7 pp). TEE pairwise lifts agreement by less, from $-$0.7 pp on Factual QA to $+$2.7 pp on Coding, with a pooled lift of $+$1.3 pp (69.6\% vs.\ 68.3\%; 95\% CI $+$0.1 to $+$2.6 pp). Figure~\ref{fig:arena_accuracy} shows the pooled agreement.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.9\linewidth]{fig_arena_pipeline_accuracy_dot_pooled.pdf}
-\caption{TEE estimation raises agreement with Arena humans by $+7.9$ pp on Likert and $+3.6$ pp on pairwise across 4,676 matches. Each dot is one pipeline's agreement (AB-only, ties excluded).}
+\caption{TEE estimation raises agreement with Arena humans by $+5.5$ pp on Likert and $+1.3$ pp on pairwise across 4,676 matches. Each dot is one pipeline's agreement on battles where the human vote is decisive. TEE calls a winner on as many of these battles as the matching single-judge pipeline (Table~\ref{tab:arena_agreement}, Matched).}
 \label{fig:arena_accuracy}
 \end{figure}
 
 \begin{table}[ht]
 \centering
 \small
-\caption{Agreement with Chatbot Arena human preferences by scoring pipeline and task category. \emph{Overall} counts tied predictions as correct when the human label is also a tie. \emph{AB-only} restricts to battles where both sides are decisive.}
+\caption{Agreement with Chatbot Arena human preferences by scoring pipeline and task category. \emph{Overall} counts tied predictions as correct when the human label is also a tie. \emph{AB-only} restricts to battles where both the human vote and the pipeline's prediction are decisive, so each pipeline is scored on its own $N_\text{AB}$ battles. \emph{Matched} scores TEE on the single-judge pipeline's $N_\text{AB}$: TEE calls a winner on that many human-decisive battles (its largest averaged score gaps). Single-judge rows are unchanged.}
 \label{tab:arena_agreement}
-\begin{tabular}{llrrrr}
+\begin{tabular}{llrrrrr}
 \toprule
-Category & Pipeline & $N$ & Overall & $N_\text{AB}$ & AB-only \\
+Category & Pipeline & $N$ & Overall & $N_\text{AB}$ & AB-only & Matched \\
 \midrule
-Creative Writing & Single-judge Likert    &    967 & 0.403 &   343 & 0.668 \\
-                 & Single-judge pairwise  & 1,062 & 0.445 &   577 & 0.692 \\
-                 & \textbf{TEE Likert}    & 1,064 & 0.424 &   278 & \textbf{0.763} \\
-                 & TEE pairwise           & 1,064 & 0.461 &   475 & 0.743 \\
+Creative Writing & Single-judge Likert    &    967 & 0.403 &   343 & 0.668 & 0.668 \\
+                 & Single-judge pairwise  & 1,062 & 0.445 &   577 & 0.692 & 0.692 \\
+                 & \textbf{TEE Likert}    & 1,064 & 0.424 &   278 & 0.763 & \textbf{0.746} \\
+                 & TEE pairwise           & 1,064 & 0.461 &   475 & 0.743 & 0.716 \\
 \midrule
-Persuasion       & Single-judge Likert    & 1,280 & 0.362 &   327 & 0.618 \\
-                 & Single-judge pairwise  & 1,426 & 0.393 &   749 & 0.621 \\
-                 & \textbf{TEE Likert}    & 1,428 & 0.391 &   250 & \textbf{0.736} \\
-                 & TEE pairwise           & 1,428 & 0.410 &   595 & 0.652 \\
+Persuasion       & Single-judge Likert    & 1,280 & 0.362 &   327 & 0.618 & 0.618 \\
+                 & Single-judge pairwise  & 1,426 & 0.393 &   749 & 0.621 & 0.621 \\
+                 & \textbf{TEE Likert}    & 1,428 & 0.391 &   250 & 0.736 & \textbf{0.706} \\
+                 & TEE pairwise           & 1,428 & 0.410 &   595 & 0.652 & 0.630 \\
 \midrule
-Coding           & Single-judge Likert    &    939 & 0.446 &   357 & 0.709 \\
-                 & Single-judge pairwise  & 1,078 & 0.421 &   563 & 0.707 \\
-                 & \textbf{TEE Likert}    & 1,078 & 0.449 &   351 & \textbf{0.761} \\
-                 & TEE pairwise           & 1,078 & 0.441 &   482 & 0.749 \\
+Coding           & Single-judge Likert    &    939 & 0.446 &   357 & 0.709 & 0.709 \\
+                 & Single-judge pairwise  & 1,078 & 0.421 &   563 & 0.707 & 0.707 \\
+                 & \textbf{TEE Likert}    & 1,078 & 0.449 &   351 & 0.761 & \textbf{0.737} \\
+                 & TEE pairwise           & 1,078 & 0.441 &   482 & 0.749 & 0.734 \\
 \midrule
-Factual QA       & Single-judge Likert    & 1,006 & 0.424 &   336 & 0.682 \\
-                 & Single-judge pairwise  & 1,105 & 0.474 &   597 & 0.730 \\
-                 & \textbf{TEE Likert}    & 1,106 & 0.410 &   292 & \textbf{0.733} \\
-                 & TEE pairwise           & 1,106 & 0.453 &   493 & 0.746 \\
+Factual QA       & Single-judge Likert    & 1,006 & 0.424 &   336 & 0.682 & 0.682 \\
+                 & Single-judge pairwise  & 1,105 & 0.474 &   597 & 0.730 & 0.730 \\
+                 & \textbf{TEE Likert}    & 1,106 & 0.410 &   292 & 0.733 & \textbf{0.708} \\
+                 & TEE pairwise           & 1,106 & 0.453 &   493 & 0.746 & 0.724 \\
 \midrule
-Pooled           & Single-judge Likert    & 4,192 & 0.405 & 1,363 & 0.670 \\
-                 & Single-judge pairwise  & 4,671 & 0.431 & 2,486 & 0.683 \\
-                 & \textbf{TEE Likert}    & 4,676 & 0.416 & 1,171 & \textbf{0.749} \\
-                 & TEE pairwise           & 4,676 & 0.439 & 2,045 & 0.719 \\
+Pooled           & Single-judge Likert    & 4,192 & 0.405 & 1,363 & 0.670 & 0.670 \\
+                 & Single-judge pairwise  & 4,671 & 0.431 & 2,486 & 0.683 & 0.683 \\
+                 & \textbf{TEE Likert}    & 4,676 & 0.416 & 1,171 & 0.749 & \textbf{0.725} \\
+                 & TEE pairwise           & 4,676 & 0.439 & 2,045 & 0.719 & 0.696 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 Several factors explain why TEE averaging yields a smaller accuracy gain under pairwise scoring than under Likert scoring. First, in terms of aggregation, TEE Likert averages 30 integer scores per response (one per judge$\times$variant cell) into a continuous mean, allowing two responses that a single judge tied at 4 vs.\ 4 to separate into e.g.\ 4.13 vs.\ 3.87 across the 30 cells; by contrast, TEE pairwise aggregates 30 discrete A/B/tie verdicts, which discards continuous degree-of-preference information. Second, because roughly one-third of Arena battles are human ties and our pairwise judges rarely output ties, pairwise scoring forces noisy A/B choices on tied battles that averaging cannot easily undo, whereas Likert scoring allows two responses to receive similar ratings (e.g., 3 and 3). Finally, single-judge pairwise starts from a higher baseline agreement rate than single-judge Likert because forced comparisons avoid scale quantization and anchoring effects, leaving somewhat less room for improvement from averaging.
 
-A D-study fit on the dev split predicts the test-split lifts. For each category, we fit the lmer formula
+A D-study fit on the dev split predicts which categories gain most. For each category, we fit the lmer formula
 \begin{verbatim}
 score ~ (1|battle_response) + (1|variant_id) + (1|judge_model)
        + (1|battle_response:variant_id)
        + (1|battle_response:judge_model)
        + (1|variant_id:judge_model)
 \end{verbatim}
-on the dev split's Likert scores, then use the D-study to project per-response score SE under both a single-judge single-variant design ($V{=}1, M{=}1$) and the TEE pipeline ($V{=}5, M{=}3$). The fractional SE reductions across the four categories range 0.53 to 0.59, and the corresponding observed Likert agreement lifts on the test split range $+5.1$ to $+11.8$ pp. The two correlate at Spearman $\rho = 0.80$ (Figure~\ref{fig:arena_dstudy_vs_observed}). Persuasion has both the largest projected variance-reduction headroom and the largest observed lift.
+on the dev split's Likert scores, then use the D-study to project per-response score SE under both a single-judge single-variant design ($V{=}1, M{=}1$) and the TEE pipeline ($V{=}5, M{=}3$). The fractional SE reductions across the four categories range 0.53 to 0.59, and the corresponding observed Likert agreement lifts (Matched, all battles) range $+2.7$ to $+8.9$ pp. The two correlate at Spearman $\rho = 0.80$ (Figure~\ref{fig:arena_dstudy_vs_observed}). Persuasion has both the largest projected variance-reduction headroom and the largest observed lift. The D-study uses only judge scores, never the human votes, so computing the lifts on all battles does not reuse the outcome. The 20\% test split alone is too small to confirm the ranking: each category has 63 to 77 called battles, every lift's 95\% CI spans roughly 20 pp and includes zero, and the rank correlation there is $-0.74$.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.85\textwidth]{fig_arena_dstudy_vs_observed.pdf}
-\caption{Per-category D-study projection (dev split, x-axis) vs.\ observed Likert agreement lift (test split, y-axis). Spearman $\rho = 0.80$ across the four category points.}
+\caption{Per-category D-study projection (dev split, x-axis) vs.\ observed Likert agreement lift (all battles, Matched, y-axis). Spearman $\rho = 0.80$ across the four category points.}
 \label{fig:arena_dstudy_vs_observed}
 \end{figure}
 
-At the pooled level, AB-only agreement rises from 68.3\% under single-judge pairwise to 71.9\% under TEE pairwise ($+$3.6 pp), smaller than the $+$7.9 pp Likert lift but no longer flat. The simulation in Section~\ref{si:scoring_recovery} confirms the broader pattern that Likert degrades under compression and anchoring pathologies where pairwise BT is invariant, but the present Arena dataset adds a separate calibration headwind that the simulation does not model.
+At the pooled level, matched agreement rises from 68.3\% under single-judge pairwise to 69.6\% under TEE pairwise ($+$1.3 pp), smaller than the $+$5.5 pp Likert lift. The simulation in Section~\ref{si:scoring_recovery} confirms the broader pattern that Likert degrades under compression and anchoring pathologies where pairwise BT is invariant, but the present Arena dataset adds a separate calibration headwind that the simulation does not model.
 
-Three caveats apply. First, the variance decomposition is coarser than the framework's main demonstrations because we did not vary temperature or include replications per cell, so the lmer Residual term pools the within-cell replicate noise ($\sigma^2_\rho$) with cell-level idiosyncrasy ($\sigma^2_\epsilon$). A follow-up run with three replications at temperature 1.0 on the same battles would resolve this at roughly double the API cost, and the agreement-rate headline would not change either way. Second, the LLM task categorizer has a nonzero error rate: we spot-checked 50 battles manually and found the label matched a human assessment in 44 of 50 cases (88\%). Categorical mis-tagging attenuates per-category contrasts but should not flip the subjective-vs-objective pattern. Third, roughly 20\% of Arena battles carry a tie label (including \texttt{tie (bothbad)}). The AB-only metric restricts to battles where both the human winner and the pipeline prediction are decisive. The Overall metric in Table~\ref{tab:arena_agreement} counts predicted-tie-matched-to-human-tie as correct. Both metrics support the conclusion that subjective tasks benefit most from TEE.
+Three caveats apply. First, the variance decomposition is coarser than the framework's main demonstrations because we did not vary temperature or include replications per cell, so the lmer Residual term pools the within-cell replicate noise ($\sigma^2_\rho$) with cell-level idiosyncrasy ($\sigma^2_\epsilon$). A follow-up run with three replications at temperature 1.0 on the same battles would resolve this at roughly double the API cost, and the agreement-rate headline would not change either way. Second, the LLM task categorizer has a nonzero error rate: we spot-checked 50 battles manually and found the label matched a human assessment in 44 of 50 cases (88\%). Categorical mis-tagging attenuates per-category contrasts but should not flip the subjective-vs-objective pattern. Third, roughly 36\% of the sampled battles carry a human tie label (including \texttt{tie (bothbad)}). The AB-only metric restricts to battles where both the human winner and the pipeline prediction are decisive, and the Matched metric also equalizes how many battles each pipeline calls. The Overall metric in Table~\ref{tab:arena_agreement} counts predicted-tie-matched-to-human-tie as correct. All three metrics show the largest TEE gains on the subjective tasks.
 
 \subsection{Variance-coverage diagnostics}
 
