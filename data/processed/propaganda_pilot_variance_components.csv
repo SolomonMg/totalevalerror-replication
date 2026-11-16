@@ -1,0 +1,12 @@
+component,variance,sd,tle_label,pct_total,tier
+question_ID,0.13255844199159805,0.36408576186332536,within-category item,55.65,Signal / Item
+Residual,0.06792006914480828,0.2606147907253314,generation,28.51,Tier 1
+question_ID:judge_model,0.022876807211640888,0.15125080896193874,item x judge,9.6,Signal / Item
+question_type,0.010610000715763433,0.10300485772896069,between-category,4.45,Signal / Item
+question_ID:variant_id,0.003170502521759402,0.05630721553903551,item x prompt,1.33,Tier 1
+judge_model (fixed),9.229360986459958e-4,0.03037986337438001,judge model (design sensitivity),0.39,Tier 2
+variant_id:judge_model,1.260778013428402e-4,0.011228437172769869,prompt x judge,0.05,Tier 1
+temperature (fixed),1.1720130147818063e-5,0.003423467561963756,temperature (design sensitivity),0,Tier 2
+question_ID:temperature,0,0,item x temperature,0,Signal / Item
+variant_id:temperature,0,0,prompt x temperature,0,Tier 1
+variant_id,0,0,prompt,0,Tier 1

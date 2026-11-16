@@ -1,0 +1,125 @@
+model_a,model_b,harness,gap_pts
+Claude Haiku 4.5,Claude Opus 4.1,claude-code,-7.30337078651685
+Claude Haiku 4.5,Claude Opus 4.1,mini-swe-agent,-5.2247191011236
+Claude Haiku 4.5,Claude Opus 4.1,openhands,-22.9213483146067
+Claude Haiku 4.5,Claude Opus 4.1,terminus-2,-9.66292134831461
+Claude Haiku 4.5,Claude Sonnet 4.5,claude-code,-12.5280898876405
+Claude Haiku 4.5,Claude Sonnet 4.5,mini-swe-agent,-12.6966292134831
+Claude Haiku 4.5,Claude Sonnet 4.5,openhands,-28.6516853932584
+Claude Haiku 4.5,Claude Sonnet 4.5,terminus-2,-14.4943820224719
+Claude Haiku 4.5,Gemini 2.5 Flash,mini-swe-agent,12.752808988764
+Claude Haiku 4.5,Gemini 2.5 Flash,openhands,-2.47191011235955
+Claude Haiku 4.5,Gemini 2.5 Flash,terminus-2,11.4606741573034
+Claude Haiku 4.5,Gemini 2.5 Pro,mini-swe-agent,3.76404494382023
+Claude Haiku 4.5,Gemini 2.5 Pro,openhands,-2.47191011235955
+Claude Haiku 4.5,Gemini 2.5 Pro,terminus-2,-4.32584269662921
+Claude Haiku 4.5,GPT-5,mini-swe-agent,-4.10112359550562
+Claude Haiku 4.5,GPT-5,openhands,-29.8876404494382
+Claude Haiku 4.5,GPT-5,terminus-2,-6.85393258426966
+Claude Haiku 4.5,GPT-5 mini,mini-swe-agent,7.58426966292135
+Claude Haiku 4.5,GPT-5 mini,openhands,-15.2808988764045
+Claude Haiku 4.5,GPT-5 mini,terminus-2,4.26966292134832
+Claude Haiku 4.5,GPT-5 nano,mini-swe-agent,22.8651685393258
+Claude Haiku 4.5,GPT-5 nano,openhands,4.04494382022472
+Claude Haiku 4.5,GPT-5 nano,terminus-2,20.4494382022472
+Claude Haiku 4.5,Grok 4,mini-swe-agent,4.43820224719101
+Claude Haiku 4.5,Grok 4,openhands,-13.2584269662921
+Claude Haiku 4.5,Grok 4,terminus-2,5.1685393258427
+Claude Opus 4.1,Claude Sonnet 4.5,claude-code,-5.2247191011236
+Claude Opus 4.1,Claude Sonnet 4.5,mini-swe-agent,-7.47191011235955
+Claude Opus 4.1,Claude Sonnet 4.5,openhands,-5.73033707865169
+Claude Opus 4.1,Claude Sonnet 4.5,terminus-2,-4.83146067415731
+Claude Opus 4.1,Gemini 2.5 Flash,mini-swe-agent,17.9775280898876
+Claude Opus 4.1,Gemini 2.5 Flash,openhands,20.4494382022472
+Claude Opus 4.1,Gemini 2.5 Flash,terminus-2,21.123595505618
+Claude Opus 4.1,Gemini 2.5 Pro,mini-swe-agent,8.98876404494382
+Claude Opus 4.1,Gemini 2.5 Pro,openhands,20.4494382022472
+Claude Opus 4.1,Gemini 2.5 Pro,terminus-2,5.33707865168539
+Claude Opus 4.1,GPT-5,mini-swe-agent,1.12359550561798
+Claude Opus 4.1,GPT-5,openhands,-6.96629213483146
+Claude Opus 4.1,GPT-5,terminus-2,2.80898876404494
+Claude Opus 4.1,GPT-5 mini,mini-swe-agent,12.8089887640449
+Claude Opus 4.1,GPT-5 mini,openhands,7.64044943820225
+Claude Opus 4.1,GPT-5 mini,terminus-2,13.9325842696629
+Claude Opus 4.1,GPT-5 nano,mini-swe-agent,28.0898876404494
+Claude Opus 4.1,GPT-5 nano,openhands,26.9662921348315
+Claude Opus 4.1,GPT-5 nano,terminus-2,30.1123595505618
+Claude Opus 4.1,Grok 4,mini-swe-agent,9.66292134831461
+Claude Opus 4.1,Grok 4,openhands,9.66292134831461
+Claude Opus 4.1,Grok 4,terminus-2,14.8314606741573
+Claude Sonnet 4.5,Gemini 2.5 Flash,mini-swe-agent,25.4494382022472
+Claude Sonnet 4.5,Gemini 2.5 Flash,openhands,26.1797752808989
+Claude Sonnet 4.5,Gemini 2.5 Flash,terminus-2,25.9550561797753
+Claude Sonnet 4.5,Gemini 2.5 Pro,mini-swe-agent,16.4606741573034
+Claude Sonnet 4.5,Gemini 2.5 Pro,openhands,26.1797752808989
+Claude Sonnet 4.5,Gemini 2.5 Pro,terminus-2,10.1685393258427
+Claude Sonnet 4.5,GPT-5,mini-swe-agent,8.59550561797753
+Claude Sonnet 4.5,GPT-5,openhands,-1.23595505617978
+Claude Sonnet 4.5,GPT-5,terminus-2,7.64044943820225
+Claude Sonnet 4.5,GPT-5 mini,mini-swe-agent,20.2808988764045
+Claude Sonnet 4.5,GPT-5 mini,openhands,13.3707865168539
+Claude Sonnet 4.5,GPT-5 mini,terminus-2,18.7640449438202
+Claude Sonnet 4.5,GPT-5 nano,mini-swe-agent,35.561797752809
+Claude Sonnet 4.5,GPT-5 nano,openhands,32.6966292134832
+Claude Sonnet 4.5,GPT-5 nano,terminus-2,34.9438202247191
+Claude Sonnet 4.5,Grok 4,mini-swe-agent,17.1348314606742
+Claude Sonnet 4.5,Grok 4,openhands,15.3932584269663
+Claude Sonnet 4.5,Grok 4,terminus-2,19.6629213483146
+Gemini 2.5 Flash,Gemini 2.5 Pro,gemini-cli,-4.10112359550562
+Gemini 2.5 Flash,Gemini 2.5 Pro,mini-swe-agent,-8.98876404494382
+Gemini 2.5 Flash,Gemini 2.5 Pro,openhands,4.96173400728829e-16
+Gemini 2.5 Flash,Gemini 2.5 Pro,terminus-2,-15.7865168539326
+Gemini 2.5 Flash,GPT-5,mini-swe-agent,-16.8539325842697
+Gemini 2.5 Flash,GPT-5,openhands,-27.4157303370787
+Gemini 2.5 Flash,GPT-5,terminus-2,-18.314606741573
+Gemini 2.5 Flash,GPT-5 mini,mini-swe-agent,-5.1685393258427
+Gemini 2.5 Flash,GPT-5 mini,openhands,-12.8089887640449
+Gemini 2.5 Flash,GPT-5 mini,terminus-2,-7.19101123595506
+Gemini 2.5 Flash,GPT-5 nano,mini-swe-agent,10.1123595505618
+Gemini 2.5 Flash,GPT-5 nano,openhands,6.51685393258427
+Gemini 2.5 Flash,GPT-5 nano,terminus-2,8.98876404494382
+Gemini 2.5 Flash,Grok 4,mini-swe-agent,-8.31460674157303
+Gemini 2.5 Flash,Grok 4,openhands,-10.7865168539326
+Gemini 2.5 Flash,Grok 4,terminus-2,-6.29213483146067
+Gemini 2.5 Pro,GPT-5,mini-swe-agent,-7.86516853932584
+Gemini 2.5 Pro,GPT-5,openhands,-27.4157303370787
+Gemini 2.5 Pro,GPT-5,terminus-2,-2.52808988764045
+Gemini 2.5 Pro,GPT-5 mini,mini-swe-agent,3.82022471910112
+Gemini 2.5 Pro,GPT-5 mini,openhands,-12.8089887640449
+Gemini 2.5 Pro,GPT-5 mini,terminus-2,8.59550561797753
+Gemini 2.5 Pro,GPT-5 nano,mini-swe-agent,19.1011235955056
+Gemini 2.5 Pro,GPT-5 nano,openhands,6.51685393258427
+Gemini 2.5 Pro,GPT-5 nano,terminus-2,24.7752808988764
+Gemini 2.5 Pro,Grok 4,mini-swe-agent,0.674157303370786
+Gemini 2.5 Pro,Grok 4,openhands,-10.7865168539326
+Gemini 2.5 Pro,Grok 4,terminus-2,9.49438202247191
+GPT-5,GPT-5 mini,codex,17.752808988764
+GPT-5,GPT-5 mini,mini-swe-agent,11.685393258427
+GPT-5,GPT-5 mini,openhands,14.6067415730337
+GPT-5,GPT-5 mini,terminus-2,11.123595505618
+GPT-5,GPT-5 nano,codex,38.1460674157303
+GPT-5,GPT-5 nano,mini-swe-agent,26.9662921348315
+GPT-5,GPT-5 nano,openhands,33.9325842696629
+GPT-5,GPT-5 nano,terminus-2,27.3033707865169
+GPT-5,GPT-5-Codex,codex,5.2808988764045
+GPT-5,GPT-5-Codex,mini-swe-agent,-7.41573033707865
+GPT-5,GPT-5-Codex,terminus-2,-8.25842696629214
+GPT-5,Grok 4,mini-swe-agent,8.53932584269663
+GPT-5,Grok 4,openhands,16.6292134831461
+GPT-5,Grok 4,terminus-2,12.0224719101124
+GPT-5 mini,GPT-5 nano,codex,20.3932584269663
+GPT-5 mini,GPT-5 nano,mini-swe-agent,15.2808988764045
+GPT-5 mini,GPT-5 nano,openhands,19.3258426966292
+GPT-5 mini,GPT-5 nano,terminus-2,16.1797752808989
+GPT-5 mini,GPT-5-Codex,codex,-12.4719101123596
+GPT-5 mini,GPT-5-Codex,mini-swe-agent,-19.1011235955056
+GPT-5 mini,GPT-5-Codex,terminus-2,-19.3820224719101
+GPT-5 mini,Grok 4,mini-swe-agent,-3.14606741573034
+GPT-5 mini,Grok 4,openhands,2.02247191011236
+GPT-5 mini,Grok 4,terminus-2,0.898876404494382
+GPT-5 nano,GPT-5-Codex,codex,-32.8651685393258
+GPT-5 nano,GPT-5-Codex,mini-swe-agent,-34.3820224719101
+GPT-5 nano,GPT-5-Codex,terminus-2,-35.561797752809
+GPT-5 nano,Grok 4,mini-swe-agent,-18.4269662921348
+GPT-5 nano,Grok 4,openhands,-17.3033707865169
+GPT-5 nano,Grok 4,terminus-2,-15.2808988764045

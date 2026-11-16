@@ -1,0 +1,17 @@
+component,variance,sd,tle_label,pct_total,outcome
+Residual,0.15099405006738584,0.3885795286262335,residual (+ item x rater),62.27,favorability
+item_id,0.09148483832566823,0.3024646067322063,within-category item,37.73,favorability
+rater,1.93474127296826e-5,0.004398569395801617,rater (judge),0.01,favorability
+category,0,0,between-category (question_type),0,favorability
+Residual,3.5110623788830875,1.87378290601742,residual (+ item x rater),60.61,confidence
+rater,1.0736215931844757,1.0361571276522088,rater (judge),18.53,confidence
+item_id,1.0395640891194073,1.0195901574257213,within-category item,17.95,confidence
+category,0.168607994664104,0.41061903836050273,between-category (question_type),2.91,confidence
+Residual,0.2063891601273391,0.454300737537745,residual (+ item x rater),82.85,refusal
+item_id,0.04059065056546807,0.20147121522805203,within-category item,16.29,refusal
+rater,0.0016356795845970014,0.0404435357578563,rater (judge),0.66,refusal
+category,5.004602943359412e-4,0.022370969901547435,between-category (question_type),0.2,refusal
+Residual,0.18807983242883117,0.43368171788632176,residual (+ item x rater),74.99,vagueness
+item_id,0.0584033103373864,0.24166776851162092,within-category item,23.29,vagueness
+category,0.002448873732619806,0.04948609635665159,between-category (question_type),0.98,vagueness
+rater,0.0018618400965247253,0.043149045140358847,rater (judge),0.74,vagueness

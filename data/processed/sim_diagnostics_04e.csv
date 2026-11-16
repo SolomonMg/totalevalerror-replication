@@ -1,0 +1,3 @@
+transfer_direction,n_sims,convergence_rate
+A_to_A,1000,1
+B_to_B,1000,1

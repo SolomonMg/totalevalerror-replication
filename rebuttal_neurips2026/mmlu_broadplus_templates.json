@@ -1,0 +1,7 @@
+[
+  "Some of the four options below are plausible-looking distractors and only one is correct. Identify the single right option. Reply with ONLY its letter (A, B, C, or D) and nothing else.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+  "A colleague asks you the following and offers four candidate answers. Tell them which one is correct by replying with ONLY the letter (A, B, C, or D), nothing else.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+  "quick one - which of these is actually right? reply with just the letter (A, B, C, or D), nothing else.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+  "Four statements:\nA. {A}\nB. {B}\nC. {C}\nD. {D}\nExactly one of them correctly answers this question: {question}\nReply with ONLY the letter of that statement (A, B, C, or D), nothing else.",
+  "You may be uncertain, but you must commit to exactly one option as your single best answer and not hedge across several. Reply with ONLY the letter (A, B, C, or D), nothing else.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}"
+]

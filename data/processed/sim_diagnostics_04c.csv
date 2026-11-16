@@ -1,0 +1,4 @@
+model_type,n_sims,convergence_rate
+heteroscedastic_glmmTMB,1000,1
+homoscedastic_lmer,1000,1
+stratified_lmer,1000,1

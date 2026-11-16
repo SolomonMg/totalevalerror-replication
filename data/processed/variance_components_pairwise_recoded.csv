@@ -1,0 +1,12 @@
+component,variance,tle_label,pct
+item_id:judge_model,0.13599896855472726,item x judge,54.67816437722023
+Residual,0.07082933747130114,generation,28.4768200681386
+item_id,0.03189244703761384,within-category item,12.822306522219762
+item_id:variant_id,0.00829023172183077,item x prompt,3.333074196287734
+item_id:temperature,0.0010198521036747495,item x temperature,0.41002988153356457
+judge_model (fixed),4.084409120116193e-4,judge model (design sensitivity),0.16421300516236
+variant_id:judge_model,2.2303147222380672e-4,prompt x judge,0.089669441093146
+variant_id,5.6828284021171096e-5,prompt,0.02284771927321315
+temperature (fixed),7.150207554214762e-6,temperature (design sensitivity),0.0028747293316660006
+category,1.4858839755686308e-10,between-category,5.973972385601231e-8
+variant_id:temperature,0,prompt x temperature,0

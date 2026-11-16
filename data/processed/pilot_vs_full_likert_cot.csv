@@ -1,0 +1,12 @@
+tle_label,pilot_pct,full_pct
+within-category item,63,65.42
+generation,15.9,16.5
+item x prompt,5,7.61
+item x judge,8.4,4.89
+judge model (sensitivity),5.5,2.64
+prompt x judge,2.1,2.25
+prompt,0,0.65
+item x temperature,0.1,0.03
+prompt x temperature,0,0
+between-category,0,0
+temperature (design sensitivity),0,0

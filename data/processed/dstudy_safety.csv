@@ -1,0 +1,11 @@
+scenario,n_cats_d,n_items_d,n_prompts_d,n_reps_d,fix_temp,fix_judge,total_var,pct_of_baseline,reduction_pct,scoring
+Baseline (avg temp & judge),12,141,5,8,FALSE,FALSE,3.539691376378236e-4,100,0,safety
+Baseline (fix temp & judge),12,141,5,8,TRUE,TRUE,8.812985101223436e-4,249,-149,safety
++5 replications,12,141,5,13,FALSE,FALSE,3.538783723864213e-4,100,0,safety
++2 prompt variants,12,141,7,8,FALSE,FALSE,3.403730211885123e-4,96.2,3.8,safety
+Fix temperature,12,141,5,8,TRUE,FALSE,3.583376213536888e-4,101.2,-1.2,safety
+Fix judge model,12,141,5,8,FALSE,TRUE,8.727296816190887e-4,246.6,-146.6,safety
+Fix temp & judge,12,141,5,8,TRUE,TRUE,8.812985101223436e-4,249,-149,safety
++5 reps & fix temp & judge,12,141,5,13,TRUE,TRUE,8.804816228597233e-4,248.7,-148.7,safety
+Double items,12,282,5,8,FALSE,FALSE,2.771059936058461e-4,78.3,21.7,safety
+Maximal: 2x items + 5 prompts + 10 reps + fix design,12,282,5,10,TRUE,TRUE,7.408011387244886e-4,209.3,-109.3,safety

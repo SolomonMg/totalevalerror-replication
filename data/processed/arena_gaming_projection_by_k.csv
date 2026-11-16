@@ -1,0 +1,61 @@
+pipeline_key,K,gain_elo,panel,pipeline,group,n_per_model
+1_1,1,-0.115151510388706,sample,"One judge, one prompt",single,
+1_1,2,15.7408317311213,sample,"One judge, one prompt",single,
+1_1,3,23.6839781961031,sample,"One judge, one prompt",single,
+1_1,5,32.4368048353834,sample,"One judge, one prompt",single,
+1_1,10,42.9951280151756,sample,"One judge, one prompt",single,
+1_1,15,48.4510217913925,sample,"One judge, one prompt",single,
+1_1,20,52.1029668853274,sample,"One judge, one prompt",single,
+1_1,27,55.7813616868788,sample,"One judge, one prompt",single,
+1_1,30,56.986364950062,sample,"One judge, one prompt",single,
+1_1,40,60.2785782034529,sample,"One judge, one prompt",single,
+5_3,1,-0.0654673619338326,sample,TEE: 5 prompts × 3 judges,tee,
+5_3,2,8.94917248243013,sample,TEE: 5 prompts × 3 judges,tee,
+5_3,3,13.4651084242257,sample,TEE: 5 prompts × 3 judges,tee,
+5_3,5,18.4413737602473,sample,TEE: 5 prompts × 3 judges,tee,
+5_3,10,24.4441223363843,sample,TEE: 5 prompts × 3 judges,tee,
+5_3,15,27.5459745944609,sample,TEE: 5 prompts × 3 judges,tee,
+5_3,20,29.6222236199411,sample,TEE: 5 prompts × 3 judges,tee,
+5_3,27,31.7135101605674,sample,TEE: 5 prompts × 3 judges,tee,
+5_3,30,32.3985935302598,sample,TEE: 5 prompts × 3 judges,tee,
+5_3,40,34.2703233572985,sample,TEE: 5 prompts × 3 judges,tee,
+human,1,-0.0928525442851441,sample,Human voting,human,
+human,2,12.6926366008161,sample,Human voting,human,
+human,3,19.0976012983129,sample,Human voting,human,
+human,5,26.1554524754319,sample,Human voting,human,
+human,10,34.6691677303964,sample,Human voting,human,
+human,15,39.0685335464517,sample,Human voting,human,
+human,20,42.0132834018107,sample,Human voting,human,
+human,27,44.9793610073614,sample,Human voting,human,
+human,30,45.9510166850054,sample,Human voting,human,
+human,40,48.6056963837321,sample,Human voting,human,
+1_1,1,-0.084731197427549,projected,"One judge, one prompt",single,3464
+1_1,2,11.5824752674219,projected,"One judge, one prompt",single,3464
+1_1,3,17.4272297916867,projected,"One judge, one prompt",single,3464
+1_1,5,23.8677660861607,projected,"One judge, one prompt",single,3464
+1_1,10,31.6368293214666,projected,"One judge, one prompt",single,3464
+1_1,15,35.6514046504039,projected,"One judge, one prompt",single,3464
+1_1,20,38.3385919891044,projected,"One judge, one prompt",single,3464
+1_1,27,41.0452416465394,projected,"One judge, one prompt",single,3464
+1_1,30,41.9319114700525,projected,"One judge, one prompt",single,3464
+1_1,40,44.3543996354706,projected,"One judge, one prompt",single,3464
+5_3,1,-0.0141691245806047,projected,TEE: 5 prompts × 3 judges,tee,3464
+5_3,2,1.93687260416924,projected,TEE: 5 prompts × 3 judges,tee,3464
+5_3,3,2.91425823675365,projected,TEE: 5 prompts × 3 judges,tee,3464
+5_3,5,3.99127312492799,projected,TEE: 5 prompts × 3 judges,tee,3464
+5_3,10,5.29045014824071,projected,TEE: 5 prompts × 3 judges,tee,3464
+5_3,15,5.96178514291694,projected,TEE: 5 prompts × 3 judges,tee,3464
+5_3,20,6.41114846279718,projected,TEE: 5 prompts × 3 judges,tee,3464
+5_3,27,6.8637663574639,projected,TEE: 5 prompts × 3 judges,tee,3464
+5_3,30,7.01203919642575,projected,TEE: 5 prompts × 3 judges,tee,3464
+5_3,40,7.41713835296959,projected,TEE: 5 prompts × 3 judges,tee,3464
+human,1,-0.0207808218392747,projected,Human voting,human,3464
+human,2,2.84066981581265,projected,Human voting,human,3464
+human,3,4.27413005419646,projected,Human voting,human,3464
+human,5,5.85370925699587,projected,Human voting,human,3464
+human,10,7.75911746380187,projected,Human voting,human,3464
+human,15,8.7437155481418,projected,Human voting,human,3464
+human,20,9.40276396277135,projected,Human voting,human,3464
+human,27,10.0665856249234,projected,Human voting,human,3464
+human,30,10.2840465860817,projected,Human voting,human,3464
+human,40,10.8781759799965,projected,Human voting,human,3464

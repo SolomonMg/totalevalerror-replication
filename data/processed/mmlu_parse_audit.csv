@@ -1,0 +1,1009 @@
+row_id,rule,item_id,variant_id,sut_short,temperature,replication,parsed_letter,correct_answer,response_raw,audit_letter,auditor
+60775,R1,mmlu_0050,v_2,gemini-2.0-flash-001,0.7,0,D,D,"D
+",D,"claude (manual read, 2026-09-25)"
+16036,R1,mmlu_0191,v_1,gemini-2.0-flash-001,0.7,6,B,B,"B
+",B,"claude (manual read, 2026-09-25)"
+30093,R1,mmlu_0016,v_0,gemini-2.0-flash-001,0,7,C,B,"C
+",C,"claude (manual read, 2026-09-25)"
+13988,R1,mmlu_0169,v_2,gemini-2.0-flash-001,0.7,1,A,A,"A
+",A,"claude (manual read, 2026-09-25)"
+65600,R1,mmlu_0185,v_4,gemini-2.0-flash-001,1,4,B,B,"b
+",B,"claude (manual read, 2026-09-25)"
+16520,R1,mmlu_0024,v_4,gemini-2.0-flash-001,0.7,0,D,B,"d
+",D,"claude (manual read, 2026-09-25)"
+60232,R1,mmlu_0133,v_0,deepseek-chat-v3.1,0.7,6,C,C,C,C,"claude (manual read, 2026-09-25)"
+24631,R1,mmlu_0130,v_4,gemini-2.0-flash-001,0.7,0,D,D,"d
+",D,"claude (manual read, 2026-09-25)"
+71586,R1,mmlu_0026,v_2,deepseek-chat-v3.1,0,3,D,D,D,D,"claude (manual read, 2026-09-25)"
+51026,R1,mmlu_0078,v_1,gpt-4o,0,2,A,A,A,A,"claude (manual read, 2026-09-25)"
+40717,R1,mmlu_0004,v_2,gemini-2.0-flash-001,0.7,2,B,C,"B
+",B,"claude (manual read, 2026-09-25)"
+20378,R1,mmlu_0125,v_1,gemini-2.0-flash-001,0.7,6,A,A,"A
+",A,"claude (manual read, 2026-09-25)"
+60261,R1,mmlu_0039,v_2,gpt-4o,0.7,7,D,D,D,D,"claude (manual read, 2026-09-25)"
+66314,R1,mmlu_0171,v_0,gemini-2.0-flash-001,0,4,C,C,"C
+",C,"claude (manual read, 2026-09-25)"
+22518,R1,mmlu_0122,v_4,gemini-2.0-flash-001,1,7,A,A,"a
+",A,"claude (manual read, 2026-09-25)"
+28410,R1,mmlu_0082,v_1,gemini-2.0-flash-001,1,6,A,A,"A
+",A,"claude (manual read, 2026-09-25)"
+16728,R1,mmlu_0150,v_0,deepseek-chat-v3.1,0,2,C,C,C,C,"claude (manual read, 2026-09-25)"
+56211,R1,mmlu_0110,v_2,deepseek-chat-v3.1,0,1,B,B,B,B,"claude (manual read, 2026-09-25)"
+44115,R1,mmlu_0146,v_2,deepseek-chat-v3.1,1,3,A,A,A,A,"claude (manual read, 2026-09-25)"
+190,R1,mmlu_0174,v_0,deepseek-chat-v3.1,1,7,C,C,C,C,"claude (manual read, 2026-09-25)"
+18367,R2,mmlu_0190,v_0,gpt-4o,1,6,D,D,D. a grapefruit,D,"claude (manual read, 2026-09-25)"
+36143,R2,mmlu_0085,v_0,gpt-4o,0.7,4,C,C,C. Caliph,C,"claude (manual read, 2026-09-25)"
+33210,R2,mmlu_0117,v_2,gpt-4o,0.7,5,C,C,C) It encourages stability of the regime,C,"claude (manual read, 2026-09-25)"
+63374,R2,mmlu_0061,v_3,deepseek-chat-v3.1,1,6,C,C,C. establish the principles of justice for,C,"claude (manual read, 2026-09-25)"
+14471,R2,mmlu_0023,v_2,gpt-4o,0.7,6,C,C,"C) True, False",C,"claude (manual read, 2026-09-25)"
+53647,R2,mmlu_0012,v_4,gpt-4o,1,5,D,B,"d) False, True",D,"claude (manual read, 2026-09-25)"
+20278,R2,mmlu_0153,v_0,gpt-4o,0.7,1,B,B,"B. No, this was not robbery",B,"claude (manual read, 2026-09-25)"
+19307,R2,mmlu_0120,v_2,gpt-4o,1,3,A,A,A) the Central Intelligence Agency (CIA,A,"claude (manual read, 2026-09-25)"
+70086,R2,mmlu_0090,v_3,gpt-4o,0,7,D,D,D. Reconstructionist Judaism,D,"claude (manual read, 2026-09-25)"
+38335,R2,mmlu_0057,v_0,gpt-4o,0,4,D,D,D. all voluntary behavior.,D,"claude (manual read, 2026-09-25)"
+45,R2,mmlu_0101,v_3,deepseek-chat-v3.1,0,5,B,B,B.ĠTheyĠserveĠAmericanĠinterestsĊĊLiberal,B,"claude (manual read, 2026-09-25)"
+47945,R2,mmlu_0009,v_2,gpt-4o,1,1,A,C,"A) True, True",A,"claude (manual read, 2026-09-25)"
+53773,R2,mmlu_0184,v_0,gpt-4o,0.7,1,D,D,D. Kouroi,D,"claude (manual read, 2026-09-25)"
+3332,R2,mmlu_0067,v_3,deepseek-chat-v3.1,0,1,A,A,"A. one and the same thing
+
+",A,"claude (manual read, 2026-09-25)"
+55940,R2,mmlu_0186,v_2,gpt-4o,0.7,6,D,D,D) Chicken pox,D,"claude (manual read, 2026-09-25)"
+26931,R2,mmlu_0126,v_3,deepseek-chat-v3.1,0,7,C,C,"C.ĠaĠstockĠofĠeconomicĠresources,",C,"claude (manual read, 2026-09-25)"
+28613,R2,mmlu_0118,v_0,gpt-4o,0.7,2,B,B,"B. Increased spending during wars, with",B,"claude (manual read, 2026-09-25)"
+49919,R2,mmlu_0131,v_0,gpt-4o,0,4,C,C,C. a fixed geographical location,C,"claude (manual read, 2026-09-25)"
+49775,R2,mmlu_0083,v_2,gpt-4o,0.7,5,A,A,A) Mishnah,A,"claude (manual read, 2026-09-25)"
+55063,R2,mmlu_0026,v_2,gpt-4o,0,2,D,D,D) 5,D,"claude (manual read, 2026-09-25)"
+32911,R3,mmlu_0158,v_3,gemini-2.0-flash-001,0,7,C,C,The correct answer is **C. not,C,"claude (manual read, 2026-09-25)"
+1896,R3,mmlu_0004,v_3,gpt-4o,0.7,7,C,C,"The answer is C. True, False",C,"claude (manual read, 2026-09-25)"
+1169,R3,mmlu_0077,v_3,gemini-2.0-flash-001,1,1,C,C,The answer is **C. Ojizo,C,"claude (manual read, 2026-09-25)"
+33021,R3,mmlu_0100,v_3,gemini-2.0-flash-001,0,3,A,A,"The answer is A. Peter.
+",A,"claude (manual read, 2026-09-25)"
+34449,R3,mmlu_0057,v_3,gemini-2.0-flash-001,0.7,5,D,D,The correct answer is **D. all,D,"claude (manual read, 2026-09-25)"
+1044,R3,mmlu_0120,v_3,deepseek-chat-v3.1,0.7,0,A,A,The correct answer is A. the Central,A,"claude (manual read, 2026-09-25)"
+32795,R3,mmlu_0147,v_3,deepseek-chat-v3.1,0,7,D,D,The correct answer is **D. a,D,"claude (manual read, 2026-09-25)"
+68658,R3,mmlu_0150,v_3,gemini-2.0-flash-001,0,0,C,C,The correct answer is **C. vertical,C,"claude (manual read, 2026-09-25)"
+17868,R3,mmlu_0151,v_3,deepseek-chat-v3.1,0.7,7,B,B,"Let’s go through the facts step by step.
+
+1. **Farmer’s liability for friends’ conduct**:  
+   The farmer allowed his friends to hunt on his land. Under general principles of premises liability and negligence, a landowner may be liable for harm caused by a licensee’s actions if the landowner knew or should have known that the activity was being conducted in a dangerous manner and failed to take reasonable precautions.  
+   However, the injury here was caused directly by the friend’s careless shooting, not by a condition of the land. The friend is an independent actor.  
+   Usually, a landowner is **not vicariously liable** for the negligent acts of a social guest unless the landowner was also negligent in some independent duty (like allowing hunting without basic safety rules when they knew or should have known of the risk to trespassers who might be present).
+
+2. **Neighbor’s status**:  
+   The neighbor was a trespasser because he entered without the farmer’s knowledge or permission.  
+   Toward trespassers, the landowner’s duty is generally limited to:  
+   - Refraining from willful or wanton injury  
+   - Warning of known, hidden dangerous conditions (but not obvious dangers or risks from unrelated third-party acts)  
+   - Possibly a duty if trespassers are discovered or anticipated (but here the trespass was unknown).
+
+3. **Abnormally dangerous activity**:  
+   Courts are split on whether hunting is “abnormally dangerous.” Many courts say ordinary hunting is not, so strict liability would not apply.
+
+4. **Farmer’s negligence**:  
+   The farmer provided no gun safety instructions. But was that a breach of duty owed to a trespasser? Probably not, because the trespasser was not foreseeable to the farmer at the time.  
+   Also, the risk of being shot while walking unannounced through active hunting grounds is arguably an open and obvious risk, so the duty to a trespasser is minimal.  
+
+Given the traditional rules, the neighbor (trespasser) would likely **not** prevail because the landowner had no knowledge of his presence and did not owe a duty to protect him from the negligent acts of hunting guests in this situation.
+
+Correct choice: **B. No, because the neighbor was trespassing.**",B,"claude (manual read, 2026-09-25)"
+40340,R3,mmlu_0055,v_3,gemini-2.0-flash-001,0.7,2,D,D,The correct answer is **D. silly,D,"claude (manual read, 2026-09-25)"
+26069,R3,mmlu_0094,v_3,gemini-2.0-flash-001,1,7,A,A,The answer is **A. Confucianism,A,"claude (manual read, 2026-09-25)"
+5924,R3,mmlu_0105,v_3,gemini-2.0-flash-001,1,7,D,D,The best answer is **D. Both,D,"claude (manual read, 2026-09-25)"
+57929,R3,mmlu_0092,v_3,gemini-2.0-flash-001,1,5,C,C,The answer is **C. Sarasvati,C,"claude (manual read, 2026-09-25)"
+66759,R3,mmlu_0049,v_4,deepseek-chat-v3.1,0.7,0,C,C,"For circular motion:  
+- Tangential acceleration \( a_t = 10 \ \text{m/s}^2 \) (given, speed increasing)  
+- Centripetal acceleration \( a_c = \frac{v^2}{r} = \frac{10^2}{10} = 10 \ \text{m/s}^2 \)  
+
+The total acceleration vector is the vector sum of \( a_t \) (tangential) and \( a_c \) (radially inward).  
+Since \( a_t \) and \( a_c \) are perpendicular,  
+\[
+a = \sqrt{a_t^2 + a_c^2} = \sqrt{10^2 + 10^2} = 10\sqrt{2}
+\]  
+The angle \( \theta \) between velocity (tangential) and total acceleration is given by:  
+\[
+\tan\theta = \frac{a_c}{a_t} = \frac{10}{10} = 1 \implies \theta = 45^\circ
+\]  
+
+**Answer: c)**",C,"claude (manual read, 2026-09-25)"
+12842,R3,mmlu_0065,v_3,gemini-2.0-flash-001,0.7,2,C,C,The correct answer is **C. the,C,"claude (manual read, 2026-09-25)"
+21222,R3,mmlu_0149,v_3,deepseek-chat-v3.1,0,1,A,A,The correct answer is **A. total,A,"claude (manual read, 2026-09-25)"
+26937,R3,mmlu_0050,v_3,gemini-2.0-flash-001,0,2,D,D,The correct answer is **D. interactions,D,"claude (manual read, 2026-09-25)"
+62539,R3,mmlu_0031,v_3,gemini-2.0-flash-001,1,7,A,A,The correct answer is **A. rate,A,"claude (manual read, 2026-09-25)"
+41236,R3,mmlu_0106,v_3,deepseek-chat-v3.1,1,3,B,B,"TheĠcorrectĠanswerĠisĠB:Ġ""They",B,"claude (manual read, 2026-09-25)"
+64964,R3,mmlu_0193,v_3,gemini-2.0-flash-001,1,1,B,B,"The answer is B. Saturn.
+",B,"claude (manual read, 2026-09-25)"
+59568,R3b,mmlu_0016,v_0,deepseek-chat-v3.1,0,2,B,B,"First, multiply the polynomials \( f(x) = 4x - 5 \) and \( g(x) = 2x^2 - 4x + 2 \) normally:
+
+\[
+(4x - 5)(2x^2 - 4x + 2)
+\]
+\[
+= 4x \cdot 2x^2 + 4x \cdot (-4x) + 4x \cdot 2 + (-5) \cdot 2x^2 + (-5) \cdot (-4x) + (-5) \cdot 2
+\]
+\[
+= 8x^3 - 16x^2 + 8x - 10x^2 + 20x - 10
+\]
+\[
+= 8x^3 + (-16x^2 - 10x^2) + (8x + 20x) - 10
+\]
+\[
+= 8x^3 - 26x^2 + 28x - 10
+\]
+
+Now reduce coefficients modulo 8:
+
+- \( 8x^3 \equiv 0 \pmod{8} \)
+- \( -26 \equiv -26 + 32 = 6 \pmod{8} \) so \( -26x^2 \equiv 6x^2 \)
+- \( 28 \equiv 4 \pmod{8} \) so \( 28x \equiv 4x \)
+- \( -10 \equiv -10 + 16 = 6 \pmod{8} \)
+
+So the result is:
+\[
+0 + 6x^2 + 4x + 6 = 6x^2 + 4x + 6
+\]
+
+This matches option B.
+
+\[
+\boxed{B}
+\]",B,"claude (manual read, 2026-09-25)"
+57960,R3b,mmlu_0003,v_3,deepseek-chat-v3.1,0,6,D,D,"Let's go step by step.
+
+---
+
+**1. Understanding the group operation**
+
+We are told:  
+\[
+a * b = a + b + 1
+\]
+for all integers \( a, b \in \mathbb{Z} \).
+
+We need to find the inverse of \( a \), call it \( a^{-1} \), such that:
+\[
+a * a^{-1} = e
+\]
+where \( e \) is the identity element.
+
+---
+
+**2. Find the identity element \( e \)**
+
+We want \( e \) such that for all \( a \in \mathbb{Z} \):
+\[
+a * e = a
+\]
+That is:
+\[
+a + e + 1 = a
+\]
+\[
+e + 1 = 0
+\]
+\[
+e = -1
+\]
+
+Check: \( a * (-1) = a + (-1) + 1 = a \). Yes.
+
+So the identity element is \( e = -1 \).
+
+---
+
+**3. Find the inverse \( a^{-1} \)**
+
+We need:
+\[
+a * a^{-1} = -1
+\]
+That is:
+\[
+a + a^{-1} + 1 = -1
+\]
+\[
+a + a^{-1} = -2
+\]
+\[
+a^{-1} = -2 - a
+\]
+
+So the inverse of \( a \) is \( -a - 2 \).
+
+---
+
+**4. Match with options**
+
+A. \( 0 \) — not correct (only works if \( a = -2 \)).
+
+B. \( -2 \) — not correct (only works if \( a = 0 \)).
+
+C. \( a - 2 \) — not correct (that would be \( a - 2 \), but we have \( -a - 2 \)).
+
+D. \( (2 + a)^{*-1} \) — this notation is strange; maybe they mean \( -(2 + a) \), which is \( -a - 2 \). Yes, that matches.
+
+So D is correct if interpreted as \( -(2 + a) \).
+
+---
+
+**5. Conclusion**
+
+\[
+\boxed{D}
+\]
+
+The inverse of \( a \) is \( -a - 2 \), which is \( -(a + 2) \).",D,"claude (manual read, 2026-09-25)"
+68742,R3b,mmlu_0005,v_3,deepseek-chat-v3.1,1,3,C,C,"We are told:
+
+- \( f: A \to B \)
+- \( g: B \to A \)  
+- For all \( a \in A \), \( g(f(a)) = a \).
+
+---
+
+## Step 1 — Interpret the given property
+The given property says \( g \circ f = \text{id}_A \) (the identity on \(A\)).
+
+---
+
+## Step 2 — Statement 1: \( f \) is injective
+If \( g \circ f = \text{id}_A \), then \( f \) must be injective.  
+Proof:  
+Suppose \( f(a_1) = f(a_2) \).  
+Apply \( g \) to both sides:  
+\( g(f(a_1)) = g(f(a_2)) \implies a_1 = a_2 \).  
+So \( f \) is injective.
+
+Statement 1 is **True**.
+
+---
+
+## Step 3 — Statement 2: \( f \) is surjective
+The property only involves \( g \) acting on elements of the form \( f(a) \).  
+We don't know what happens to elements in \( B \setminus f(A) \).  
+For \( f \) to be surjective, we'd need \( f(A) = B \), but \( g \) can still be defined as any function on elements outside \( f(A) \) without violating \( g(f(a)) = a \).
+
+Counterexample:  
+Let \( A = \{1\} \), \( B = \{1, 2\} \),  
+\( f(1) = 1 \),  
+Define \( g \) by \( g(1) = 1 \), \( g(2) = \text{(anything in A, say 1)} \).  
+Then \( g(f(1)) = g(1) = 1 \) — condition satisfied.  
+But \( f \) is **not** surjective, since 2 is not in the image of \( f \).
+
+So \( f \) does not have to be surjective.
+
+Statement 2 is **False**.
+
+---
+
+## Step 4 — Choose the correct option:
+- Statement 1: True.  
+- Statement 2: False.  
+That is **C. True, False**.
+
+---
+
+\[
+\boxed{C}
+\]",C,"claude (manual read, 2026-09-25)"
+40079,R3b,mmlu_0005,v_3,deepseek-chat-v3.1,1,0,C,C,"Let’s go step-by-step.  
+
+We have:  
+- \( f: A \to B \)  
+- \( g: B \to A \)  
+- For all \( a \in A \), \( g(f(a)) = a \).  
+
+---
+
+**Statement 1: \( f \) must necessarily be injective.**
+
+Suppose \( f(a_1) = f(a_2) \).  
+Apply \( g \) to both sides:  
+\( g(f(a_1)) = g(f(a_2)) \)  
+But given \( g(f(a_1)) = a_1 \) and \( g(f(a_2)) = a_2 \), we get \( a_1 = a_2 \).  
+So \( f \) is injective.  
+
+Statement 1 is **true**.
+
+---
+
+**Statement 2: \( f \) must necessarily be surjective.**
+
+Surjective means \( f(A) = B \), i.e., every element of \( B \) is \( f(a) \) for some \( a \in A \).
+
+The condition only tells us \( g \circ f = \text{id}_A \).  
+It says nothing about whether \( g \) can have values outside \( f(A) \).  
+
+Counterexample:  
+Let \( A = \{1\} \), \( B = \{1,2\} \).  
+Define \( f(1) = 1 \).  
+Define \( g: B \to A \) by \( g(1) = 1 \), \( g(2) = 1 \) (for example).  
+Check: \( g(f(1)) = g(1) = 1 \), condition satisfied.  
+But \( f \) is not surjective, because element \( 2 \in B \) is not \( f(a) \) for any \( a \in A \).  
+
+So \( f \) need **not** be surjective.
+
+Statement 2 is **false**.
+
+---
+
+**Conclusion:**  
+Statement 1: True, Statement 2: False → Option **C**.
+
+\[
+\boxed{C}
+\]",C,"claude (manual read, 2026-09-25)"
+32706,R3b,mmlu_0151,v_3,deepseek-chat-v3.1,0.7,0,B,B,"Let's reason through the answer choices.
+
+**Step 1 – Identify legal context**  
+The farmer is a landowner/occupier. The friend is a licensee (hunting with permission), and the neighbor was a trespasser at the time of the accident (entered without knowledge or permission).
+
+**Step 2 – Landowner’s duty to trespassers**  
+Under traditional common law rules, a landowner generally only owes a trespasser a duty to avoid willful or wanton injury. The landowner has no general duty to make the premises safe for trespassers.
+
+**Step 3 – Application to facts**  
+The neighbor was injured by the *friend’s* negligence (careless shooting), not by a dangerous condition on the land. The farmer did not know the neighbor would be there, so no duty to warn or protect. The friend, not the farmer, was the direct negligent actor. Landowner liability for a licensee’s actions toward a trespasser generally does not attach unless the landowner was somehow negligent in allowing the licensee to engage in dangerous activity knowing that trespassers might be present. Here, the landowner did not know of the trespasser’s presence.
+
+**Step 4 – Evaluate answer choices**  
+- **A** says “No, because the farmer is not responsible for his friends' conduct.” This is too broad—a landowner can be liable for a licensee's conduct in some cases if negligent in permitting the activity. But not likely here because the victim was an unforeseeable trespasser.  
+- **B** says “No, because the neighbor was trespassing.” This is more precise—because the neighbor was an undiscovered trespasser, the farmer owed no duty to protect him from the friend’s accidental shooting. This fits traditional rules.  
+- **C** says “Yes, because the careless friend was permitted to hunt without safety training.” This might suggest negligence, but the duty is owed only to foreseeable plaintiffs. A trespasser is generally not a foreseeable plaintiff unless presence was known or trespass was frequent enough to be anticipated. Not the case here.  
+- **D** says “Yes, because the use of firearms is an abnormally dangerous activity.” But under traditional rules, hunting is not typically considered “abnormally dangerous” in this context so as to impose strict liability on the landowner for others’ actions toward a trespasser.
+
+**Step 5 – Best answer**  
+The key is the neighbor’s status as an unforeseeable trespasser. Under traditional rules, the landowner owes no duty to protect an unknown trespasser from a licensee’s accidental harm. The farmer is not liable.
+
+**Final answer:**  
+\[
+\boxed{B}
+\]",B,"claude (manual read, 2026-09-25)"
+19261,R3b,mmlu_0037,v_3,deepseek-chat-v3.1,0.7,7,A,A,"For an electron in an atomic orbital, the magnetic quantum number \( m_l \) can take values from \(-l\) to \(+l\) in integer steps.  
+
+Given \( l = 2 \):  
+
+\[
+m_l = -2, -1, 0, +1, +2
+\]
+
+That’s **5** possible values.  
+
+\[
+\boxed{A}
+\]",A,"claude (manual read, 2026-09-25)"
+38674,R3b,mmlu_0028,v_3,deepseek-chat-v3.1,1,4,D,D,"Let's go step by step.
+
+---
+
+**Step 1: First polarizer — unpolarized light**  
+When unpolarized light passes through an ideal linear polarizer, the transmitted intensity is given by  
+\[
+I_1 = \frac{I_0}{2}
+\]  
+where \(I_0\) = incident intensity.  
+The transmitted light is now **linearly polarized** along the transmission axis of the first polarizer.
+
+---
+
+**Step 2: Second polarizer — Malus’s Law**  
+The second polarizer’s transmission axis is at \(\theta = 45^\circ\) relative to the first.  
+From Malus’s Law:  
+\[
+I_2 = I_1 \cos^2(45^\circ) = \frac{I_0}{2} \times \left( \frac{\sqrt{2}}{2} \right)^2
+\]  
+\[
+\cos^2 45^\circ = \left( \frac{1}{\sqrt{2}} \right)^2 = \frac{1}{2}
+\]  
+So  
+\[
+I_2 = \frac{I_0}{2} \times \frac{1}{2} = \frac{I_0}{4}
+\]
+
+---
+
+**Step 3: Percentage**  
+\[
+\frac{I_2}{I_0} = \frac{1}{4} = 25\%
+\]
+
+---
+
+**Final answer:**  
+\[
+\boxed{D}
+\]",D,"claude (manual read, 2026-09-25)"
+8648,R3b,mmlu_0024,v_3,deepseek-chat-v3.1,1,0,B,B,"Alright, let's go step by step.
+
+---
+
+## **Statement 1**
+> Some abelian group of order 45 has a subgroup of order 10.
+
+Order of the group \( |G| = 45 = 3^2 \times 5 \).
+
+In an abelian group, by the fundamental theorem of finite abelian groups, \( G \) is isomorphic to one of:
+\[
+\mathbb{Z}_9 \times \mathbb{Z}_5 \quad \text{or} \quad \mathbb{Z}_3 \times \mathbb{Z}_3 \times \mathbb{Z}_5.
+\]
+But \( \mathbb{Z}_9 \times \mathbb{Z}_5 \cong \mathbb{Z}_{45} \) (cyclic) and the other is noncyclic.
+
+Lagrange's theorem says: the order of a subgroup must divide the order of the group.
+
+Now, does 10 divide 45?  
+\( 10 \nmid 45 \) because \(45/10 = 4.5\), i.e., \( \gcd(10, 45) = 5 \neq 10\).
+
+Hence **no subgroup of order 10** exists in a group of order 45.
+
+So Statement 1 is **False**.
+
+---
+
+## **Statement 2**
+> A subgroup \( H \) of a group \( G \) is a normal subgroup if and only if the number of left cosets of \( H \) is equal to the number of right cosets of \( H \).
+
+For any subgroup \( H \), the number of left cosets equals the number of right cosets **always** (both equal to \(|G : H|\), the index).  
+So that condition is **automatically satisfied** for every subgroup, whether normal or not.
+
+In symbols:  
+\[
+\text{Number of left cosets} = |G:H| = \text{Number of right cosets}
+\]
+for any \( H \leq G \).
+
+Therefore, that condition doesn't characterize normality.  
+
+Normality is about \( gH = Hg \) for each \( g \), not just about the cardinality of the set of cosets.
+
+So the “if and only if” in Statement 2 is **false** because the given condition is trivial: always true.
+
+So Statement 2 is **False**.
+
+---
+
+## **Final Answer**
+Both Statement 1 and Statement 2 are false.
+
+\[
+\boxed{B}
+\]",B,"claude (manual read, 2026-09-25)"
+7599,R3b,mmlu_0046,v_3,deepseek-chat-v3.1,1,5,B,B,"The ground state of helium is the para state (spins antiparallel, total spin \( S = 0 \)).  
+In excited states where the two electrons are in different orbitals (e.g., 1s2s), both para (\( S=0 \)) and ortho (\( S=1 \)) configurations are possible.  
+
+The ortho state (triplet) generally has **lower energy** than the corresponding para state (singlet) for the same electron configuration (e.g., 1s2s\(^3\)S vs 1s2s\(^1\)S). This **exchange energy** effect arises because the symmetric spin wavefunction (ortho, \( S=1 \)) forces the spatial wavefunction to be antisymmetric, which keeps electrons farther apart on average, reducing Coulomb repulsion.  
+
+The restriction on symmetric vs. antisymmetric total wavefunctions comes from the **Pauli exclusion principle**.  
+
+Thus, the energy difference originates from the Pauli principle combined with Coulomb interactions.  
+
+\[
+\boxed{B}
+\]",B,"claude (manual read, 2026-09-25)"
+2176,R3b,mmlu_0023,v_4,deepseek-chat-v3.1,1,0,C,C,"Let’s break it down.
+
+**Statement 1**:  
+Group order 42 = 2 × 3 × 7.  
+By Sylow theorems: number of Sylow 7-subgroups, \( n_7 \), satisfies \( n_7 \equiv 1 \pmod{7} \) and \( n_7 \mid 6 \), so \( n_7 = 1 \) is the only possibility.  
+Thus there’s exactly one Sylow 7-subgroup ⇒ it is normal.  
+Statement 1 is **True**.
+
+**Statement 2**:  
+A normal subgroup of order 8 would have to be a subgroup of a group of order 42, but 8 does not divide 42.  
+By Lagrange’s theorem, order of a subgroup must divide the group’s order (42), so there is no subgroup of order 8 at all, let alone a normal one.  
+Statement 2 is **False**.
+
+**Answer**: True, False → option **c)**.
+
+**Final answer**:  
+\[
+\boxed{c}
+\]",C,"claude (manual read, 2026-09-25)"
+50165,R3b,mmlu_0017,v_3,deepseek-chat-v3.1,0,7,C,C,"Let’s check each statement.
+
+---
+
+**Statement 1:** \( S_n \) is non-Abelian for all \( n \geq 3 \).  
+- For \( n \geq 3 \), we can take two permutations like \( (1\ 2) \) and \( (1\ 3) \).  
+- \( (1\ 2)(1\ 3) = (1\ 3\ 2) \)  
+- \( (1\ 3)(1\ 2) = (1\ 2\ 3) \)  
+- These are not equal, so \( S_n \) is non-Abelian.  
+- **True**.
+
+---
+
+**Statement 2:** If \( a \) is an \( m \)-cycle and \( b \) is an \( n \)-cycle, then \( |ab| = \mathrm{lcm}(m, n) \).  
+- This is **not always true**; it depends on whether \( a \) and \( b \) are **disjoint cycles**.  
+- Counterexample: In \( S_3 \), take \( a = (1\ 2\ 3) \) (3-cycle), \( b = (1\ 2) \) (2-cycle).  
+- \( ab = (1\ 2\ 3)(1\ 2) = (1\ 3) \), which has order 2.  
+- But \( \mathrm{lcm}(3, 2) = 6 \neq 2 \).  
+- So the statement is **False**.
+
+---
+
+**Conclusion:** Statement 1 is **True**, Statement 2 is **False**.  
+
+\[
+\boxed{C}
+\]",C,"claude (manual read, 2026-09-25)"
+8138,R3b,mmlu_0042,v_3,deepseek-chat-v3.1,1,2,C,C,"Under ideal conditions, the electric and magnetic fields inside a superconductor vanish (\( \mathbf{E} = 0 \), \( \mathbf{B} = 0 \)).
+
+Consider the boundary conditions for magnetic fields at the interface between two media:  
+- The normal component of \( \mathbf{B} \) is continuous: \( B_{n1} = B_{n2} \).  
+- The tangential component of \( \mathbf{H} \) is continuous if there is no surface current, but for a superconductor, surface currents can exist.
+
+Since inside the superconductor \( \mathbf{B} = 0 \), the normal component just outside must also be zero (by continuity of \( B_n \)), so \( \mathbf{B} \) outside must be parallel to the surface—i.e., tangential to it.
+
+Thus, the correct answer is:  
+
+\[
+\boxed{C}
+\]",C,"claude (manual read, 2026-09-25)"
+33489,R3b,mmlu_0029,v_3,deepseek-chat-v3.1,1,4,A,A,"Let's break this down.  
+
+---
+
+**Step 1: Understanding the problem**  
+We have:  
+- Mass \( m = 0.30 \ \text{kg} \)  
+- Initial displacement (amplitude) \( A = 0.030 \ \text{m} \)  
+- Speed through equilibrium \( v_{\text{eq}} = 0.040 \ \text{m/s} \)  
+- No friction → total mechanical energy \( E \) is constant.  
+- In SHM: at equilibrium position, all energy is kinetic. At amplitude, all energy is potential.
+
+---
+
+**Step 2: Total energy from equilibrium point information**  
+At \( x = 0 \),  
+\[
+E = \frac{1}{2} m v_{\text{eq}}^2
+\]
+\[
+E = \frac{1}{2} (0.30)(0.040)^2
+\]
+\[
+E = 0.15 \times 0.0016
+\]
+\[
+E = 0.00024 \ \text{J}
+\]
+
+---
+
+**Step 3: Convert to millijoules**  
+\[
+0.00024 \ \text{J} = 0.24 \ \text{mJ}
+\]
+
+---
+
+**Step 4: Verify with amplitude data**  
+We can check using spring constant \( k \).
+
+At \( x = A \), \( E = \frac12 k A^2 \).  
+
+Also, \( v_{\text{eq}} = A \omega \) with \( \omega = \sqrt{k/m} \) → \( v_{\text{eq}}^2 = A^2 \frac{k}{m} \) →  
+\[
+k = \frac{m v_{\text{eq}}^2}{A^2} = \frac{0.30 \times 0.0016}{0.0009}
+\]
+\[
+k = \frac{0.00048}{0.0009} = \frac{48}{90} \times 10 = \frac{480}{900} = 0.533\ \text{N/m}
+\]
+
+Now \( E = \frac12 k A^2 = 0.5 \times 0.533 \times (0.0009) \)  
+\[
+E \approx 0.00024 \ \text{J}
+\]
+Same result.
+
+---
+
+**Step 5: Match to choice**  
+That is \( 0.24 \ \text{mJ} \) → **A**.
+
+---
+
+\[
+\boxed{A}
+\]",A,"claude (manual read, 2026-09-25)"
+40195,R3b,mmlu_0033,v_1,deepseek-chat-v3.1,1,4,B,B,"The length contraction formula is:
+
+\[
+L = L_0 \sqrt{1 - \frac{v^2}{c^2}}
+\]
+
+Given:  
+\( L_0 = 1.00 \ \text{m} \)  
+\( L = 0.80 \ \text{m} \)
+
+\[
+0.80 = 1.00 \sqrt{1 - \frac{v^2}{c^2}}  
+\]
+\[
+0.80 = \sqrt{1 - \frac{v^2}{c^2}}  
+\]
+\[
+(0.80)^2 = 1 - \frac{v^2}{c^2}  
+\]
+\[
+0.64 = 1 - \frac{v^2}{c^2}  
+\]
+\[
+\frac{v^2}{c^2} = 0.36  
+\]
+\[
+\frac{v}{c} = 0.6
+\]
+
+Thus, the correct answer is:
+
+\[
+\boxed{B}
+\]",B,"claude (manual read, 2026-09-25)"
+32900,R3b,mmlu_0020,v_2,deepseek-chat-v3.1,0.7,2,B,B,"Let’s go step-by-step.  
+
+We are given:  
+
+\[
+(ab)^{-1} = a^{-1} b^{-1} \quad \forall a,b \in G
+\]
+
+---
+
+**Step 1: Recall that in any group, \((ab)^{-1} = b^{-1} a^{-1}\).**  
+So the given condition says:  
+
+\[
+b^{-1} a^{-1} = a^{-1} b^{-1} \quad \forall a,b \in G.
+\]
+
+---
+
+**Step 2: Let \(x = a^{-1}\), \(y = b^{-1}\).**  
+Then \(x, y\) are arbitrary elements of \(G\) (since \(a\) and \(b\) are arbitrary).  
+
+The equation becomes:  
+
+\[
+y x = x y \quad \forall x, y \in G.
+\]
+
+---
+
+**Step 3: This means the group is commutative (abelian).**  
+Thus \(G\) is an **abelian group**.
+
+---
+
+**Step 4: Check options.**  
+A) commutative semi group — but \(G\) is already a group, not just a semigroup, so the most precise is “abelian group”.  
+B) abelian group — correct.  
+C) non-abelian group — contradicts the result.  
+D) None of these — incorrect since B is correct.
+
+---
+
+\[
+\boxed{B}
+\]",B,"claude (manual read, 2026-09-25)"
+69000,R3b,mmlu_0022,v_3,deepseek-chat-v3.1,0,6,A,A,"We are working in the ring \( \mathbb{Z}_{24} \), so we compute:
+
+\[
+(12)(16) = 12 \times 16 = 192
+\]
+
+Now reduce modulo 24:
+
+\[
+192 \div 24 = 8 \text{ remainder } 0
+\]
+
+So:
+
+\[
+192 \equiv 0 \pmod{24}
+\]
+
+Thus the product is \( 0 \) in \( \mathbb{Z}_{24} \).
+
+\[
+\boxed{A}
+\]",A,"claude (manual read, 2026-09-25)"
+53140,R3b,mmlu_0038,v_3,deepseek-chat-v3.1,0.7,3,B,B,"We are given:  
+Initial state: \( n = 4, \, l = 1 \) (4P state)  
+
+Allowed dipole transitions require:  
+\[
+\Delta l = \pm 1
+\]
+
+Thus, from \( l = 1 \), possible final \( l \) values:  
+\[
+l_f = 0 \quad \text{or} \quad l_f = 2
+\]
+
+Now check each final state:  
+
+- **A. \( n = 3, \, l = 2 \)** → \( \Delta l = +1 \) → **Allowed**  
+- **B. \( n = 3, \, l = 1 \)** → \( \Delta l = 0 \) → **Forbidden**  
+- **C. \( n = 3, \, l = 0 \)** → \( \Delta l = -1 \) → **Allowed**  
+- **D. \( n = 2, \, l = 0 \)** → \( \Delta l = -1 \) → **Allowed**
+
+The **NOT allowed** transition is **B**.
+
+\[
+\boxed{B}
+\]",B,"claude (manual read, 2026-09-25)"
+13545,R3b,mmlu_0017,v_3,deepseek-chat-v3.1,1,2,C,C,"Let's analyze both statements.
+
+---
+
+**Statement 1:** \( S_n \) is non-Abelian for all \( n \ge 3 \).
+
+This is true.  
+For \( n \ge 3 \), we can take two permutations, e.g., \( (1\ 2) \) and \( (2\ 3) \):  
+\[
+(1\ 2)(2\ 3) = (1\ 2\ 3)
+\]
+\[
+(2\ 3)(1\ 2) = (1\ 3\ 2)
+\]
+These are different, so \( S_n \) is non-Abelian for \( n \ge 3 \).
+
+Thus, **Statement 1 is true**.
+
+---
+
+**Statement 2:** If \( a \) is an \( m \)-cycle and \( b \) is an \( n \)-cycle, then \( |ab| = \mathrm{lcm}(m,n) \).
+
+This is false in general.  
+Counterexample:  
+- Let \( a = (1\ 2) \) and \( b = (1\ 3) \) (both 2-cycles). Then \( m = n = 2 \), \(\mathrm{lcm}(2,2) = 2\).  
+But \( ab = (1\ 2)(1\ 3) = (1\ 3\ 2) \) (a 3-cycle), whose order is 3, not 2.
+
+It’s not generally true unless \( a \) and \( b \) are disjoint cycles — but the statement does **not** require disjointness.
+
+Thus, **Statement 2 is false**.
+
+---
+
+So: True, False → **Option C**.
+
+\[
+\boxed{C}
+\]",C,"claude (manual read, 2026-09-25)"
+64827,R3b,mmlu_0005,v_4,deepseek-chat-v3.1,0,5,C,C,"Let’s break this down.
+
+We have:  
+- \( f: A \to B \)  
+- \( g: B \to A \)  
+- For all \( a \in A \), \( g(f(a)) = a \).
+
+---
+
+**Step 1: Interpret the condition**  
+The condition \( g(f(a)) = a \) for all \( a \in A \) means \( g \) is a **left inverse** of \( f \).  
+A function with a left inverse is **injective** (one-to-one).  
+Proof: If \( f(a_1) = f(a_2) \), then applying \( g \) gives \( g(f(a_1)) = g(f(a_2)) \Rightarrow a_1 = a_2 \).  
+So **Statement 1** is **True**.
+
+---
+
+**Step 2: Does \( f \) have to be surjective?**  
+No. A function with a left inverse need not be surjective.  
+Example:  
+Let \( A = \{1\} \), \( B = \{1,2\} \),  
+\( f(1) = 1 \),  
+Define \( g: B \to A \) by \( g(1) = 1, g(2) = 1 \).  
+Then \( g(f(1)) = g(1) = 1 \), condition holds.  
+But \( f \) is not surjective onto \( B \) since \( 2 \notin f(A) \).  
+So **Statement 2** is **False**.
+
+---
+
+**Step 3: Match to options**  
+Statement 1: True  
+Statement 2: False  
+That’s **True, False** → option **c**.
+
+---
+
+**Final answer:**  
+\[
+\boxed{c}
+\]",C,"claude (manual read, 2026-09-25)"
+51557,R3b,mmlu_0020,v_3,deepseek-chat-v3.1,1,5,B,B,"We are given:  
+\[
+(ab)^{-1} = a^{-1}b^{-1}, \quad \forall a,b \in G
+\]
+where \((G, \cdot)\) is a group.  
+
+---
+
+**Step 1: Recall the usual inverse property**  
+In any group:  
+\[
+(ab)^{-1} = b^{-1} a^{-1}.
+\]
+But here it is given:  
+\[
+(ab)^{-1} = a^{-1} b^{-1}.
+\]
+So:
+\[
+b^{-1} a^{-1} = a^{-1} b^{-1}, \quad \forall a,b \in G.
+\]
+
+---
+
+**Step 2: Substitute \( x = a^{-1}, y = b^{-1} \)**  
+Let \( x = a^{-1} \), \( y = b^{-1} \). Then \( a = x^{-1} \), \( b = y^{-1} \).  
+The equation  
+\[
+b^{-1} a^{-1} = a^{-1} b^{-1}
+\]
+becomes:  
+\[
+(y^{-1})^{-1} (x^{-1})^{-1} = x^{-1} y^{-1}.
+\]
+But \((y^{-1})^{-1} = y\) and \((x^{-1})^{-1} = x\).  
+So:  
+\[
+y x = x^{-1} y^{-1}, \quad \forall x,y \in G.
+\]
+
+---
+
+**Step 3: Rewrite for clarity**  
+We now have:  
+\[
+yx = x^{-1} y^{-1}.
+\]
+Take the inverse of both sides:  
+\[
+(yx)^{-1} = (x^{-1} y^{-1})^{-1}.
+\]
+Left side: \((yx)^{-1} = x^{-1} y^{-1}\).  
+Right side: \((x^{-1} y^{-1})^{-1} = (y^{-1})^{-1} (x^{-1})^{-1} = y x\).  
+So:  
+\[
+x^{-1} y^{-1} = y x.
+\]
+But that’s the same as \( yx = x^{-1} y^{-1} \), which is what we started with — so no progress yet.
+
+---
+
+**Step 4: Compare with \( xy \) inversion**  
+We also know \( (xy)^{-1} = y^{-1} x^{-1} \) is the usual rule. But maybe try a different approach: Let's write \( yx = x^{-1} y^{-1} \).  
+
+We want to check whether \( xy = yx \) for all \( x, y \).  
+
+Take inverses of \( yx = x^{-1} y^{-1} \): already done — it was symmetric.  
+
+But now, **apply the given property to \( a^{-1}, b^{-1} \)**.
+
+If \((ab)^{-1} = a^{-1} b^{-1}\) for all \( a, b \), let \( a = x, b = y \), then \((xy)^{-1} = x^{-1} y^{-1}\).  
+But \((xy)^{-1} = y^{-1} x^{-1}\) in general. Setting equal: \( y^{-1} x^{-1} = x^{-1} y^{-1} \).  
+
+So:  
+\[
+y^{-1} x^{-1} = x^{-1} y^{-1} \quad \forall x, y.
+\]
+This says: \( x^{-1} \) and \( y^{-1} \) commute for all \( x, y \). But then all inverses commute, hence all elements commute because \( a = (a^{-1})^{-1} \).
+
+---
+
+**Step 5: Check it directly**  
+Let \( u, v \) be arbitrary in \( G \). Then \( u = a^{-1} \), \( v = b^{-1} \) for \( a = u^{-1} \), \( b = v^{-1} \).  
+
+From \( (ab)^{-1} = a^{-1} b^{-1} \), we got \( b^{-1} a^{-1} = a^{-1} b^{-1} \), i.e.,  
+\[
+v u = u v.
+\]
+Since \( u, v \) are arbitrary, this means \( G \) is abelian.
+
+---
+
+**Step 6: Verify**  
+If \( G \) is abelian: \((ab)^{-1} = b^{-1} a^{-1} = a^{-1} b^{-1}\), works.  
+
+So the condition \((ab)^{-1} = a^{-1} b^{-1} \forall a,b\) is equivalent to \( G \) being abelian.
+
+---
+
+**Step 7: Match to options**  
+""Commutative semi group"" — a group is already a semigroup, but ""commutative semigroup"" means abelian group if it’s a group, but they might distinguish.  
+""Abelian group"" is the correct algebraic term.  
+""Non-abelian group"" is the opposite. ""None of these"" would be wrong.  
+
+Correct: **B. abelian group**.
+
+---
+
+\[
+\boxed{B}
+\]",B,"claude (manual read, 2026-09-25)"
+28563,R3c,mmlu_0139,v_3,gemini-2.0-flash-001,0.7,3,A,C,The best answer here is **A.,A,"claude (manual read, 2026-09-25)"
+59459,R3c,mmlu_0068,v_3,gemini-2.0-flash-001,1,5,C,C,The best answer here is **C.,C,"claude (manual read, 2026-09-25)"
+7070,R3c,mmlu_0144,v_3,gemini-2.0-flash-001,1,4,B,B,The best answer here is **B.,B,"claude (manual read, 2026-09-25)"
+47781,R3c,mmlu_0184,v_3,gpt-4o,0.7,7,D,D,The term you are looking for is D,D,"claude (manual read, 2026-09-25)"
+40820,R3c,mmlu_0144,v_3,gemini-2.0-flash-001,1,3,B,B,The best answer here is **B.,B,"claude (manual read, 2026-09-25)"
+46257,R3c,mmlu_0173,v_3,gpt-4o,0.7,0,B,D,"The man's strongest argument is:
+
+B.",B,"claude (manual read, 2026-09-25)"
+1978,R3c,mmlu_0184,v_3,gpt-4o,1,0,D,D,The term you are looking for is D,D,"claude (manual read, 2026-09-25)"
+64082,R3c,mmlu_0135,v_3,deepseek-chat-v3.1,1,4,C,C,The most likely result is **C.,C,"claude (manual read, 2026-09-25)"
+58511,R3c,mmlu_0151,v_3,gemini-2.0-flash-001,1,4,B,B,The best answer here is **B.,B,"claude (manual read, 2026-09-25)"
+43593,R3c,mmlu_0102,v_3,gemini-2.0-flash-001,0.7,6,B,B,The best answer here is **B.,B,"claude (manual read, 2026-09-25)"
+65059,R3c,mmlu_0169,v_3,gemini-2.0-flash-001,1,6,A,A,The most likely outcome is **A.,A,"claude (manual read, 2026-09-25)"
+10889,R3c,mmlu_0155,v_3,deepseek-chat-v3.1,0,6,A,B,The most accurate statement is **A.,A,"claude (manual read, 2026-09-25)"
+38247,R3c,mmlu_0133,v_3,gemini-2.0-flash-001,1,2,C,C,The best answer here is **C.,C,"claude (manual read, 2026-09-25)"
+39219,R3c,mmlu_0184,v_3,gpt-4o,1,4,D,D,The term you are looking for is D,D,"claude (manual read, 2026-09-25)"
+6456,R4,mmlu_0116,v_3,deepseek-chat-v3.1,0,7,C,C,"The main organizational change proposed by the 9/11 Commission was the **creation of the National Intelligence Director** (option C).
+
+This position, now known as the Director of National Intelligence (DNI), was established to oversee and coordinate the entire U.S. intelligence community, addressing the lack of central authority and information sharing that was identified as a key failure leading to the 9/11 attacks.",C,"claude (manual read, 2026-09-25)"
+42956,R4,mmlu_0006,v_4,deepseek-chat-v3.1,1,2,D,D,"d)False,True",D,"claude (manual read, 2026-09-25)"
+35055,R4,mmlu_0004,v_4,deepseek-chat-v3.1,0,5,D,C,"d)False,True",D,"claude (manual read, 2026-09-25)"
+50989,R4,mmlu_0004,v_4,deepseek-chat-v3.1,0,7,D,C,"d)False,True",D,"claude (manual read, 2026-09-25)"
+26678,R4,mmlu_0033,v_4,deepseek-chat-v3.1,1,4,B,B,b)0.60c,B,"claude (manual read, 2026-09-25)"
+13123,R4,mmlu_0004,v_4,deepseek-chat-v3.1,0,4,D,C,"d)False,True",D,"claude (manual read, 2026-09-25)"
+49042,R4,mmlu_0001,v_4,deepseek-chat-v3.1,0.7,1,D,C,"d)False,True",D,"claude (manual read, 2026-09-25)"
+32511,R4,mmlu_0099,v_4,deepseek-chat-v3.1,1,3,B,B,) Izanagi,B,"claude (manual read, 2026-09-25)"
+14902,R4,mmlu_0007,v_4,deepseek-chat-v3.1,0.7,5,D,D,"d)False,True",D,"claude (manual read, 2026-09-25)"
+37831,R4,mmlu_0002,v_4,deepseek-chat-v3.1,0,6,D,C,"d)False,True",D,"claude (manual read, 2026-09-25)"
+68557,R4,mmlu_0033,v_2,deepseek-chat-v3.1,1,0,B,B,B)0.60c,B,"claude (manual read, 2026-09-25)"
+14607,R4,mmlu_0004,v_4,deepseek-chat-v3.1,0.7,2,D,C,"d)False,True",D,"claude (manual read, 2026-09-25)"
+22336,R4,mmlu_0182,v_4,deepseek-chat-v3.1,1,7,C,A,c)Relocation,C,"claude (manual read, 2026-09-25)"
+71252,R4,mmlu_0012,v_4,deepseek-chat-v3.1,0,6,D,B,"d)False,True",D,"claude (manual read, 2026-09-25)"
+41177,R4,mmlu_0012,v_4,deepseek-chat-v3.1,0,4,D,B,"d)False,True",D,"claude (manual read, 2026-09-25)"
+28062,R4,mmlu_0004,v_4,deepseek-chat-v3.1,1,6,D,C,"d)False,True",D,"claude (manual read, 2026-09-25)"
+61101,R4,mmlu_0188,v_3,deepseek-chat-v3.1,0,5,A,A,ApHlevelmeasures**acidity**.ĊĊ,A,"claude (manual read, 2026-09-25)"
+48292,R4,mmlu_0012,v_4,deepseek-chat-v3.1,0.7,1,D,B,"d)False,True",D,"claude (manual read, 2026-09-25)"
+35466,R4,mmlu_0021,v_4,deepseek-chat-v3.1,0.7,7,D,A,"d)False,True",D,"claude (manual read, 2026-09-25)"
+15939,R4,mmlu_0033,v_2,deepseek-chat-v3.1,0,0,B,B,B)0.60c,B,"claude (manual read, 2026-09-25)"
+44759,none,mmlu_0083,v_3,deepseek-chat-v3.1,0,0,NA,A,"TheĠOralĠTorah,ĠinĠitsĠwrittenĠform",NA,"claude (manual read, 2026-09-25)"
+37981,none,mmlu_0076,v_3,deepseek-chat-v3.1,0,5,NA,D,TheĠkeyĠtoĠliberationĠinĠSikhismĠis,NA,"claude (manual read, 2026-09-25)"
+55300,none,mmlu_0036,v_3,deepseek-chat-v3.1,1,7,NA,A,"The negative muon, \(\mu^",NA,"claude (manual read, 2026-09-25)"
+50327,none,mmlu_0093,v_3,deepseek-chat-v3.1,0,2,NA,A,"TheĠtermĠ""Arhats""Ġrefers",NA,"claude (manual read, 2026-09-25)"
+58073,none,mmlu_0002,v_3,gemini-2.0-flash-001,0,5,NA,C,"Let's analyze each statement.
+
+",NA,"claude (manual read, 2026-09-25)"
+70942,none,mmlu_0075,v_3,deepseek-chat-v3.1,1,0,NA,A,"According to Parfit, the obligation to",NA,"claude (manual read, 2026-09-25)"
+40463,none,mmlu_0021,v_3,deepseek-chat-v3.1,1,4,NA,A,Let'sĠanalyzeĠeachĠstatement:ĊĊ**Statement,NA,"claude (manual read, 2026-09-25)"
+28273,none,mmlu_0040,v_3,gpt-4o,0,3,NA,D,When an organ pipe is open at both,NA,"claude (manual read, 2026-09-25)"
+19897,none,mmlu_0144,v_3,deepseek-chat-v3.1,0.7,3,NA,B,TheĠgroupĠorĠorganizationĠthatĠcanĠbeĠidentified,NA,"claude (manual read, 2026-09-25)"
+53642,none,mmlu_0173,v_3,gpt-4o,1,6,NA,D,"The man’s strongest argument would be:
+
+",NA,"claude (manual read, 2026-09-25)"
+69376,none,mmlu_0035,v_3,deepseek-chat-v3.1,0,1,NA,A,TheĠeigenvaluesĠofĠaĠHermitianĠoperatorĠare,NA,"claude (manual read, 2026-09-25)"
+51974,none,mmlu_0036,v_3,gpt-4o,0,2,NA,A,"The negative muon, \(\mu",NA,"claude (manual read, 2026-09-25)"
+15855,none,mmlu_0049,v_3,gemini-2.0-flash-001,1,0,NA,C,Here's how to solve this problem,NA,"claude (manual read, 2026-09-25)"
+25323,none,mmlu_0098,v_3,deepseek-chat-v3.1,0,6,NA,C,"The term ""Qur'an"" literally",NA,"claude (manual read, 2026-09-25)"
+17341,none,mmlu_0180,v_3,gpt-4o,1,1,NA,B,Fans of the TV show 'Mystery,NA,"claude (manual read, 2026-09-25)"
+39877,none,mmlu_0041,v_4,deepseek-chat-v3.1,0,7,NA,A,The emission spectrum wavelengths for hydrogen-like atoms,NA,"claude (manual read, 2026-09-25)"
+32642,none,mmlu_0048,v_3,gpt-4o,0,6,NA,D,To determine the height from which the object,NA,"claude (manual read, 2026-09-25)"
+58680,none,mmlu_0026,v_3,gpt-4o,1,5,NA,D,The quantum number \( m_l \),NA,"claude (manual read, 2026-09-25)"
+49923,none,mmlu_0019,v_2,deepseek-chat-v3.1,0.7,6,NA,A,Let'sĠanalyzeĠtheĠproblemĠstepĠbyĠstep,NA,"claude (manual read, 2026-09-25)"
+58083,none,mmlu_0023,v_3,gemini-2.0-flash-001,0.7,2,NA,C,Let $G$ be a group of,NA,"claude (manual read, 2026-09-25)"
+65,none,mmlu_0113,v_3,deepseek-chat-v3.1,0.7,7,NA,D,"According to International Institutionalists, international institutions",NA,"claude (manual read, 2026-09-25)"
+8111,none,mmlu_0033,v_3,gpt-4o,0,3,NA,B,"To solve this problem, we need to",NA,"claude (manual read, 2026-09-25)"
+66078,none,mmlu_0020,v_3,gpt-4o,1,2,NA,B,To determine the nature of the group \(,NA,"claude (manual read, 2026-09-25)"
+40818,none,mmlu_0039,v_3,deepseek-chat-v3.1,0.7,4,NA,D,Let'sĠanalyzeĠeachĠoptionĠbasedĠonĠEinstein,NA,"claude (manual read, 2026-09-25)"
+9262,none,mmlu_0101,v_3,deepseek-chat-v3.1,0,0,NA,B,Liberal Internationalists argue that international institutions are,NA,"claude (manual read, 2026-09-25)"
+8880,none,mmlu_0199,v_3,deepseek-chat-v3.1,1,5,NA,B,"To maximize utility, a consumer should allocate",NA,"claude (manual read, 2026-09-25)"
+29106,none,mmlu_0089,v_3,deepseek-chat-v3.1,0,3,NA,C,TheĠfirstĠsignificantĠanchoriteĠhermitĠwas,NA,"claude (manual read, 2026-09-25)"
+64500,none,mmlu_0016,v_3,deepseek-chat-v3.1,0,2,NA,B,Let'sĠfindĠtheĠproductĠ\(Ġf(x,NA,"claude (manual read, 2026-09-25)"
+8484,none,mmlu_0074,v_3,deepseek-chat-v3.1,1,4,NA,A,"Martha Nussbaum, in her",NA,"claude (manual read, 2026-09-25)"
+8100,none,mmlu_0015,v_3,deepseek-chat-v3.1,0,4,NA,D,"Let's analyze both statements:
+
+**Statement",NA,"claude (manual read, 2026-09-25)"
+71208,none,mmlu_0180,v_3,gpt-4o,1,2,NA,B,Fans of the TV show 'Mystery,NA,"claude (manual read, 2026-09-25)"
+56916,none,mmlu_0185,v_3,deepseek-chat-v3.1,0,5,NA,B,AĠfiscalĠpolicyĠtoĠcombatĠaĠrecessionĠwould,NA,"claude (manual read, 2026-09-25)"
+23414,none,mmlu_0022,v_4,deepseek-chat-v3.1,0,1,NA,A,In \( \mathbb{Z}_{24},NA,"claude (manual read, 2026-09-25)"
+40761,none,mmlu_0091,v_3,deepseek-chat-v3.1,0.7,6,NA,C,The largest network of Confucian shrines,NA,"claude (manual read, 2026-09-25)"
+51072,none,mmlu_0036,v_3,deepseek-chat-v3.1,1,6,NA,A,The negative muon (μ⁻),NA,"claude (manual read, 2026-09-25)"
+64445,none,mmlu_0054,v_3,deepseek-chat-v3.1,0,2,NA,D,BasedĠonĠMarthaĠNussbaum'sĠwork,NA,"claude (manual read, 2026-09-25)"
+37683,none,mmlu_0015,v_3,deepseek-chat-v3.1,0.7,6,NA,D,"Let's analyze both statements:
+
+**Statement",NA,"claude (manual read, 2026-09-25)"
+14862,none,mmlu_0023,v_4,deepseek-chat-v3.1,1,7,NA,C,"Let's analyze each statement:
+
+**Statement",NA,"claude (manual read, 2026-09-25)"
+24265,none,mmlu_0115,v_3,deepseek-chat-v3.1,1,0,NA,B,Paul Kennedy argued in his book *The,NA,"claude (manual read, 2026-09-25)"
+53362,none,mmlu_0005,v_3,gemini-2.0-flash-001,0.7,4,NA,C,Let $A$ and $B$,NA,"claude (manual read, 2026-09-25)"

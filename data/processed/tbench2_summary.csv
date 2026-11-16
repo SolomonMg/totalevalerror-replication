@@ -1,0 +1,24 @@
+stat,value,lo,hi,note
+n_trials,22198,,,"paper design, 50 cells"
+sd_mh_pts_matched,3.47871370372827,1.99100367121665,6.93762857062714,"model x harness SD (REML), chi-square 95% CI on 9 df; 24 cells"
+sd_mh_pts_all,3.94831695962359,2.92247174592304,5.60053977567287,"model x harness SD (REML), chi-square 95% CI on 28 df; 50 cells"
+sd_pair_gap_pts_matched,4.91964409942566,2.81570439456921,9.81128841528797,"SD of a two-model gap across harnesses, sqrt(2) x sd_mh"
+sd_pair_gap_pts_all,5.58376339284738,4.13299917873654,7.92035930736655,"SD of a two-model gap across harnesses, sqrt(2) x sd_mh"
+sd_v_pairs_mean_pts_open,6.42946615818584,,,moment cross-check: sqrt(mean s2_v) over 36 pairs run under all three open harnesses
+sd_resid_trial_pts,28.335098783744,,,"trial-to-trial SD, all six harnesses"
+n_sig_adjacent_trial,4,4,8,"of 16 adjacent pairs, leaderboard (trials only)"
+top_ties_trial,1,0,3,"models tied with #1, leaderboard (trials only)"
+mean_ties_trial,1.88235294117647,1.76470588235294,3.29411764705882,leaderboard (trials only)
+mean_rank_width_trial,2.88235294117647,2.76470588235294,4.29411764705882,leaderboard (trials only)
+n_sig_adjacent_paired,2,1,6,"of 16 adjacent pairs, paired over tasks"
+top_ties_paired,2,0,4,"models tied with #1, paired over tasks"
+mean_ties_paired,4,3.05882352941176,4.94117647058824,paired over tasks
+mean_rank_width_paired,5,4.05882352941176,5.94117647058824,paired over tasks
+n_sig_adjacent_tee_matched,0,0,1,"of 16 adjacent pairs, plus harness, settings matched (primary)"
+top_ties_tee_matched,4,2,8,"models tied with #1, plus harness, settings matched (primary)"
+mean_ties_tee_matched,8.23529411764706,6.70588235294118,9.41176470588235,"plus harness, settings matched (primary)"
+mean_rank_width_tee_matched,9.23529411764706,7.70588235294118,10.4117647058824,"plus harness, settings matched (primary)"
+n_sig_adjacent_tee_all,0,0,0.0249999999998636,"of 16 adjacent pairs, plus harness, all 50 cells"
+top_ties_tee_all,4,2,9,"models tied with #1, plus harness, all 50 cells"
+mean_ties_tee_all,8.70588235294118,7.29411764705882,10.1205882352941,"plus harness, all 50 cells"
+mean_rank_width_tee_all,9.70588235294118,8.29411764705882,11.1205882352941,"plus harness, all 50 cells"

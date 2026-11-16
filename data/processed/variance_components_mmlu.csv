@@ -1,0 +1,13 @@
+component,variance,sd,tle_label,pct_total,tier,scoring
+item_id,0.06857743393185885,0.26187293470662226,within-category item,50.75,model-side,mmlu
+item_id:sut_model,0.029845196848680314,0.17275762457466332,item x SUT,22.09,model-side,mmlu
+Residual,0.017704455162117504,0.1330580894275786,replicate noise,13.1,model-side,mmlu
+item_id:variant_id:sut_model:temperature,0.008221761773381957,0.09067393105728877,cell-level (3-way+),6.08,model-side,mmlu
+category,0.007290187430349986,0.08538259442269241,between-category,5.4,model-side,mmlu
+item_id:variant_id,0.003307762424464563,0.05751315001340618,item x prompt,2.45,model-side,mmlu
+sut_model (fixed),9.534147869411234e-5,0.009764296118723169,SUT model (design sensitivity),0.07,pipeline-side,mmlu
+variant_id:sut_model,7.691049225376375e-5,0.008769862727190417,prompt x SUT,0.06,model-side,mmlu
+variant_id,8.455790011917158e-6,0.002907884112532196,prompt,0.01,model-side,mmlu
+temperature (fixed),2.4868610928165964e-7,4.986843784215219e-4,temperature (design sensitivity),0,pipeline-side,mmlu
+item_id:temperature,0,0,item x temperature,0,model-side,mmlu
+variant_id:temperature,0,0,prompt x temperature,0,model-side,mmlu

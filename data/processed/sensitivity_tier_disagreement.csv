@@ -1,0 +1,26 @@
+level,label,estimate,ci_lo,ci_hi
+tier_disagreement,original,4.259259259259258,0.06172839506172856,9.444444444444446
+tier_disagreement,closed_frontier,7.222222222222219,0,15.555555555555557
+tier_disagreement,open_weight,3.641975308641977,0.6172839506172839,8.703703703703704
+disagreement_contrast,closed_frontier minus original,2.962962962962961,-0.06172839506172853,7.283950617283951
+disagreement_contrast,closed_frontier minus open_weight,3.580246913580242,-0.6172839506172839,9.320987654320987
+tier_judge_spread,original,0.8751510418986289,0.053458358258291996,5.2821078187299255
+tier_judge_spread,closed_frontier,5.464532103584998,0,12.018504251546629
+tier_judge_spread,open_weight,1.2457059302846085,0.4751482814302607,5.650424556441618
+judge_spread_contrast,closed_frontier minus original,4.589381061686368,-0.0534583582583002,10.176925672911159
+judge_spread_contrast,closed_frontier minus open_weight,4.218826173300389,-0.4811252243246854,9.746476853188769
+pair,claude-haiku-4.5 vs gemini-2.0-flash-001,6.111111111111112,NA,NA
+pair,claude-haiku-4.5 vs gpt-4o,0.37037037037037085,NA,NA
+pair,gemini-2.0-flash-001 vs gpt-4o,6.296296296296297,NA,NA
+pair,claude-opus-4-6 vs gemini-3.1-pro-preview,4.166666666666667,NA,NA
+pair,claude-opus-4-6 vs gpt-5.4,10.833333333333334,NA,NA
+pair,gemini-3.1-pro-preview vs gpt-5.4,6.666666666666667,NA,NA
+pair,deepseek-v3.2 vs gemma-4-31b-it,5.277777777777779,NA,NA
+pair,deepseek-v3.2 vs gpt-oss-120b,5.000000000000001,NA,NA
+pair,gemma-4-31b-it vs gpt-oss-120b,0.6481481481481483,NA,NA
+items_with_disagreement,original,4,NA,NA
+items_with_disagreement,closed_frontier,3,NA,NA
+items_with_disagreement,open_weight,8,NA,NA
+focal_item_share,original,98.55072463768116,NA,NA
+focal_item_share,closed_frontier,100,NA,NA
+focal_item_share,open_weight,84.7457627118644,NA,NA

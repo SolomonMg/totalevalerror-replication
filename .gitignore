@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+venv/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Environment / secrets
+.env
+*.env
+
+# Data (large files — track selectively)
+data/raw/
+data/processed/*.jsonl
+# Large simulation caches kept on disk but untracked (>10 MB; the scripts recompute them).
+# The cleaned inputs (pairwise_*clean, mmlu_clean_v5, arena_*_clean, arena_battles_scored_input) are tracked
+# since 2026-11-15: the public package cannot rebuild them without the raw JSONL.
+data/processed/sim_scoring_exp4.csv
+data/processed/mmlu_budget_allocation.csv
+data/processed/archive/pre_reparse/mmlu_budget_allocation.csv
+
+# arXiv upload staging (regenerable from paper/ + figures/)
+arxiv_submission/
+*.tar.gz
+
+# OS
+.DS_Store
+Thumbs.db
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+
+# Editor
+*.swp
+*.swo
+
+# Internal pre-submission review notes (not for distribution)
+PRE_SUBMISSION_REVIEW_*.md
+
+# Run logs
+logs/

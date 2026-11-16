@@ -1,0 +1,9 @@
+scoring,scenario,total_var,ratio_to_actual_full,pct_diff_from_actual
+likert,Pilot design (pilot VCs),0.037426952577902524,4.0391190808657145,303.9
+likert,Pilot design (full VCs),0.03497798243228335,3.7748260684156145,277.5
+likert,Full design projected (pilot VCs),0.008559747995035479,0.9237685430622743,-7.6
+likert,Full design actual (full VCs),0.00926611764312745,1,0
+pairwise,Pilot design (pilot VCs),0.0049537472587248225,5.737320179187737,473.7
+pairwise,Pilot design (full VCs),0.003092852738403313,3.582073428563483,258.2
+pairwise,Full design projected (pilot VCs),0.0026967540597062395,3.123320726104595,212.3
+pairwise,Full design actual (full VCs),8.634252759144689e-4,1,0

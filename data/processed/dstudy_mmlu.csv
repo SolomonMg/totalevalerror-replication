@@ -1,0 +1,11 @@
+scenario,n_cats_d,n_items_d,n_prompts_d,n_reps_d,fix_temp,fix_sut,total_var,pct_of_baseline,reduction_pct,scoring
+Baseline (avg temp & SUT),4,200,4,8,FALSE,FALSE,4.7505062841866164e-4,100,0,mmlu
+Baseline (fix temp & SUT),4,200,4,8,TRUE,TRUE,6.626740527906488e-4,139.5,-39.5,mmlu
+Double items,4,400,4,8,FALSE,FALSE,2.5771858593862633e-4,54.3,45.7,mmlu
+Double replications,4,200,4,16,FALSE,FALSE,4.74896943912046e-4,100,0,mmlu
+Double prompt variants,4,200,8,8,FALSE,FALSE,4.6799705912265214e-4,98.5,1.5,mmlu
+Fix temperature,4,200,4,8,TRUE,FALSE,4.781149798994735e-4,100.6,-0.6,mmlu
+Fix SUT model,4,200,4,8,FALSE,TRUE,6.538125798272556e-4,137.6,-37.6,mmlu
+Fix temp & SUT,4,200,4,8,TRUE,TRUE,6.626740527906488e-4,139.5,-39.5,mmlu
++5 reps & fix temp & SUT,4,200,4,13,TRUE,TRUE,6.616100831294639e-4,139.3,-39.3,mmlu
+Maximal: 2x items + 5 prompts + 10 reps + fix design,4,400,5,10,TRUE,TRUE,3.8359545164078215e-4,80.7,19.3,mmlu

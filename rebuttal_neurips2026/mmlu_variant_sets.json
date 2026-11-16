@@ -1,0 +1,107 @@
+{
+  "embedder": "all-mpnet-base-v2",
+  "equiv_judge": "openai/gpt-4o",
+  "sets": {
+    "narrow": {
+      "mean_pairwise_cosine": 0.9063,
+      "min_pairwise_cosine": 0.8479,
+      "equiv": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "structural": [
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "templates": [
+        "Answer the following multiple-choice question. Reply with only the letter (A, B, C, or D).\n\nQuestion: {question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+        "Select the correct answer from the four options below by providing only its letter designation (A, B, C, or D).\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+        "Select the correct answer to this multiple-choice question by providing only the corresponding letter (A, B, C, or D).\n\nQuestion: {question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+        "Select the correct answer from the four options below by providing only its letter designation (A, B, C, or D).\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+        "Select the correct answer from the four options below. Provide only the corresponding letter (A, B, C, or D).\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}"
+      ]
+    },
+    "broad_wording": {
+      "mean_pairwise_cosine": 0.8247,
+      "min_pairwise_cosine": 0.6769,
+      "templates": [
+        "Answer the following multiple-choice question. Reply with only the letter (A, B, C, or D).\n\nQuestion: {question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+        "Presented below is a four-option selection task. Furnish your response as merely the corresponding letter.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+        "Presented below is a four-option selection exercise. Furnish your response by designating solely the corresponding letter.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+        "Presented below is a four-option selection task. Furnish your response using solely the corresponding letter.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+        "Presented below is a query with four potential responses. Select the corresponding letter marking your chosen answer\u2014nothing beyond that singular letter should be submitted.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}"
+      ],
+      "selection": [
+        {
+          "template": "Presented below is a query with four potential responses. Select the corresponding letter marking your chosen answer\u2014nothing beyond that singular letter should be submitted.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+          "cos_to_seed": 0.7405,
+          "equiv": 5,
+          "structural": []
+        },
+        {
+          "template": "Presented below is a four-option selection exercise. Furnish your response by designating solely the corresponding letter.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+          "cos_to_seed": 0.6946,
+          "equiv": 5,
+          "structural": []
+        },
+        {
+          "template": "Presented below is a query with four potential responses. Your response should consist exclusively of the corresponding letter.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+          "cos_to_seed": 0.7443,
+          "equiv": 5,
+          "structural": []
+        },
+        {
+          "template": "Select the correct option from the four choices presented below by indicating its corresponding letter.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}\n\nYour response should consist solely of the letter designating your chosen answer.",
+          "cos_to_seed": 0.7973,
+          "equiv": 5,
+          "structural": []
+        },
+        {
+          "template": "Presented herein is a four-option selection task. Furnish your response by designating solely the corresponding alphabetic character.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+          "cos_to_seed": 0.704,
+          "equiv": 5,
+          "structural": [
+            "no letter-only instruction"
+          ]
+        },
+        {
+          "template": "Presented below is a four-option selection task. Furnish your response using solely the corresponding letter.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+          "cos_to_seed": 0.7263,
+          "equiv": 5,
+          "structural": []
+        },
+        {
+          "template": "Presented below is a four-option selection task. Furnish your response as merely the corresponding letter.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+          "cos_to_seed": 0.6769,
+          "equiv": 5,
+          "structural": []
+        },
+        {
+          "template": "Presented below is a four-option selection task. Furnish your response as merely the corresponding alphabetic character.\n\n{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+          "cos_to_seed": 0.7109,
+          "equiv": 5,
+          "structural": [
+            "no letter-only instruction"
+          ]
+        }
+      ]
+    },
+    "broad_construct": {
+      "mean_pairwise_cosine": 0.7076,
+      "min_pairwise_cosine": 0.5115,
+      "templates": [
+        "Answer the following multiple-choice question. Reply with only the letter (A, B, C, or D).\n\nQuestion: {question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}",
+        "You are taking a test. Select the correct answer for the question below. Respond with just the letter.\n\nQ: {question}\n(A) {A}\n(B) {B}\n(C) {C}\n(D) {D}",
+        "As a knowledgeable expert, identify the correct answer to this question. Output only the letter of the correct choice.\n\n{question}\nOptions:\nA) {A}\nB) {B}\nC) {C}\nD) {D}",
+        "{question}\nA. {A}\nB. {B}\nC. {C}\nD. {D}\n\nAnswer:",
+        "Read the following question carefully and select the best answer from the options provided. State only the letter.\n\nQuestion: {question}\nChoices:\na) {A}\nb) {B}\nc) {C}\nd) {D}"
+      ]
+    }
+  }
+}

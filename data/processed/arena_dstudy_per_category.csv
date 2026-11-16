@@ -1,0 +1,29 @@
+component,variance,tle_label,category
+br:variant_id,0.03552441855380318,item x prompt,creative_writing
+br:judge_model,0.2999167793397059,item x judge,creative_writing
+br,0.505143612368742,item_response,creative_writing
+variant_id:judge_model,0.013755379087120176,prompt x judge,creative_writing
+variant_id,0.008689951954540141,prompt,creative_writing
+judge_model,0.15642306262258143,judge,creative_writing
+Residual,0.38442297117234214,residual,creative_writing
+br:variant_id,0.0479669962262199,item x prompt,persuasion
+br:judge_model,0.1392819927007023,item x judge,persuasion
+br,0.2968618980483568,item_response,persuasion
+variant_id:judge_model,0.014246077858509067,prompt x judge,persuasion
+variant_id,0.011422809997834507,prompt,persuasion
+judge_model,0.05083079402252595,judge,persuasion
+Residual,0.29623460183408273,residual,persuasion
+br:variant_id,0.027641563197749366,item x prompt,coding
+br:judge_model,0.24111029744369933,item x judge,coding
+br,0.9632019997307442,item_response,coding
+variant_id:judge_model,0.0076042023884375165,prompt x judge,coding
+variant_id,0.02891610255025787,prompt,coding
+judge_model,0.11844354986157692,judge,coding
+Residual,0.39515457123173964,residual,coding
+br:variant_id,0.035813512485207095,item x prompt,factual_qa
+br:judge_model,0.36693290864719325,item x judge,factual_qa
+br,0.7700142275805464,item_response,factual_qa
+variant_id:judge_model,0.0059972523529464895,prompt x judge,factual_qa
+variant_id,0.01826632939542951,prompt,factual_qa
+judge_model,0.1849496362433395,judge,factual_qa
+Residual,0.38088414240224655,residual,factual_qa

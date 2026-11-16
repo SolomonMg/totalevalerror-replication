@@ -1,0 +1,5 @@
+gamma,gamma_label,mean_tau,sd_tau,n_sims
+0,None (0),1,0,1000
+0.5,Mild (0.5),1,0,1000
+1,Moderate (1),1,0,1000
+2,Strong (2),1,0,1000
